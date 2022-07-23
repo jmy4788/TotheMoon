@@ -5,6 +5,8 @@ import time
 
 
 class BitcoinChart(QChartView):
+    default_font = QFont("SF Pro Medium", 10)
+    default_color = QColor("#F5EAE7")
     def __init__(self, df):
         super().__init__()
         self.init_candle = df
@@ -61,15 +63,21 @@ class BitcoinChart(QChartView):
         self.chart.legend().hide()
         # data feeding
         self.chart.addSeries(self.series)
-        # axis
+        # axis X setting
         self.axis_x = QDateTimeAxis()
         self.axis_x.setFormat("hh:mm:ss")
+        self.axis_x.setLabelsColor(self.default_color)
+        self.axis_x.setLabelsFont(self.default_font)
         self.chart.addAxis(self.axis_x, Qt.AlignBottom)
         self.series.attachAxis(self.axis_x)
+        # axis Y setting
         self.axis_y = QValueAxis()
         self.axis_y.setLabelFormat("%i")
+        self.axis_y.setLabelsColor(self.default_color)
+        self.axis_y.setLabelsFont(self.default_font)
         self.chart.addAxis(self.axis_y, Qt.AlignLeft)
         self.series.attachAxis(self.axis_y)
+
         # margin
         self.chart.layout().setContentsMargins(0, 0, 0, 0)
         # setchart
