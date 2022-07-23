@@ -1,0 +1,12 @@
+order_list = list()
+test_object1 = object()
+test_object2 = object()
+
+order_list.append(test_object1)
+order_list.append(test_object2)
+print(order_list)
+test_object3 = order_list.pop()
+test_object4 = order_list.pop()
+print(order_list)
+print(test_object3)
+print(test_object4)
