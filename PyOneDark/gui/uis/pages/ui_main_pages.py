@@ -23,7 +23,7 @@ class Ui_MainPages(object):
     def setupUi(self, MainPages):
         if not MainPages.objectName():
             MainPages.setObjectName(u"MainPages")
-        MainPages.resize(860, 600)
+        MainPages.resize(800, 600)
         self.main_pages_layout = QVBoxLayout(MainPages)
         self.main_pages_layout.setSpacing(0)
         self.main_pages_layout.setObjectName(u"main_pages_layout")
@@ -160,39 +160,46 @@ class Ui_MainPages(object):
         # 여기서 부터 내가 Designer로 추가한 Page Code
         self.page_chart = QWidget()
         self.page_chart.setObjectName(u"page_chart")
+        sizePolicy = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.page_chart.sizePolicy().hasHeightForWidth())
+        self.page_chart.setSizePolicy(sizePolicy)
         self.verticalLayoutWidget = QWidget(self.page_chart)
         self.verticalLayoutWidget.setObjectName(u"verticalLayoutWidget")
-        self.verticalLayoutWidget.setGeometry(QRect(180, 110, 621, 371))
+        self.verticalLayoutWidget.setGeometry(QRect(180, 110, 871, 481))
         self.page_chart_vlayout = QVBoxLayout(self.verticalLayoutWidget)
-        self.page_chart_vlayout.setObjectName(u"page_chart_vlaout")
+        self.page_chart_vlayout.setObjectName(u"page_chart_vlayout")
         self.page_chart_vlayout.setContentsMargins(0, 0, 0, 0)
         self.page_chart_hlayout = QHBoxLayout()
         self.page_chart_hlayout.setObjectName(u"page_chart_hlayout")
         self.PB1 = QPushButton(self.verticalLayoutWidget)
         self.PB1.setObjectName(u"PB1")
-
+        sizePolicy1 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.PB1.sizePolicy().hasHeightForWidth())
+        self.PB1.setSizePolicy(sizePolicy1)
         self.page_chart_hlayout.addWidget(self.PB1)
 
         self.PB3 = QPushButton(self.verticalLayoutWidget)
         self.PB3.setObjectName(u"PB3")
+        sizePolicy1.setHeightForWidth(self.PB3.sizePolicy().hasHeightForWidth())
+        self.PB3.setSizePolicy(sizePolicy1)
 
         self.page_chart_hlayout.addWidget(self.PB3)
 
         self.PB2 = QPushButton(self.verticalLayoutWidget)
         self.PB2.setObjectName(u"PB2")
+        sizePolicy1.setHeightForWidth(self.PB2.sizePolicy().hasHeightForWidth())
+        self.PB2.setSizePolicy(sizePolicy1)
 
         self.page_chart_hlayout.addWidget(self.PB2)
 
 
         self.page_chart_vlayout.addLayout(self.page_chart_hlayout)
 
-        self.widget = QWidget(self.verticalLayoutWidget)
-        self.widget.setObjectName(u"widget")
-
-        self.page_chart_vlayout.addWidget(self.widget)
-
         self.pages.addWidget(self.page_chart)
-
 
         #이 아래에는 Qt Desginer에서 기본적으로 갖고 있던 Code
         self.main_pages_layout.addWidget(self.pages)

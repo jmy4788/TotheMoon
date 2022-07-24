@@ -543,7 +543,14 @@ class SetupMainWindow:
         request_client = RequestClient(api_key=g_api_key, secret_key=g_secret_key)
         self.init_candlesticks = request_client.get_candlestick_data(symbol='BTCUSDT', interval='5m', limit= 50)
         self.chart = BitcoinChart(self.init_candlesticks)
-
+        
+        """ Chart의 size policy 부분
+        sizePolicy1 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.chart.sizePolicy().hasHeightForWidth())
+        self.chart.setSizePolicy(sizePolicy1)
+        """
 
         # ADD WIDGETS
         self.ui.load_pages.row_1_layout.addWidget(self.circular_progress_1)
