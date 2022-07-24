@@ -117,7 +117,7 @@ class MainWindow(QMainWindow):
             # Select Menu
             self.ui.left_menu.select_only_one(btn.objectName())
             # Load Page 3 
-            MainFunctions.set_page(self, self.ui.load_pages.page_3)
+            MainFunctions.set_page(self, self.ui.load_pages.page_chart)
 
 
         # BOTTOM INFORMATION

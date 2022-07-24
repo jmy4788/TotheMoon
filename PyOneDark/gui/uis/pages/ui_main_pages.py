@@ -155,17 +155,52 @@ class Ui_MainPages(object):
 
         self.pages.addWidget(self.page_3)
 
+        
+
+        # 여기서 부터 내가 Designer로 추가한 Page Code
+        self.page_chart = QWidget()
+        self.page_chart.setObjectName(u"page_chart")
+        self.verticalLayoutWidget = QWidget(self.page_chart)
+        self.verticalLayoutWidget.setObjectName(u"verticalLayoutWidget")
+        self.verticalLayoutWidget.setGeometry(QRect(180, 110, 621, 371))
+        self.page_chart_vlayout = QVBoxLayout(self.verticalLayoutWidget)
+        self.page_chart_vlayout.setObjectName(u"page_chart_vlaout")
+        self.page_chart_vlayout.setContentsMargins(0, 0, 0, 0)
+        self.page_chart_hlayout = QHBoxLayout()
+        self.page_chart_hlayout.setObjectName(u"page_chart_hlayout")
+        self.PB1 = QPushButton(self.verticalLayoutWidget)
+        self.PB1.setObjectName(u"PB1")
+
+        self.page_chart_hlayout.addWidget(self.PB1)
+
+        self.PB3 = QPushButton(self.verticalLayoutWidget)
+        self.PB3.setObjectName(u"PB3")
+
+        self.page_chart_hlayout.addWidget(self.PB3)
+
+        self.PB2 = QPushButton(self.verticalLayoutWidget)
+        self.PB2.setObjectName(u"PB2")
+
+        self.page_chart_hlayout.addWidget(self.PB2)
+
+
+        self.page_chart_vlayout.addLayout(self.page_chart_hlayout)
+
+        self.widget = QWidget(self.verticalLayoutWidget)
+        self.widget.setObjectName(u"widget")
+
+        self.page_chart_vlayout.addWidget(self.widget)
+
+        self.pages.addWidget(self.page_chart)
+
+
+        #이 아래에는 Qt Desginer에서 기본적으로 갖고 있던 Code
         self.main_pages_layout.addWidget(self.pages)
-
-
         self.retranslateUi(MainPages)
-
         self.pages.setCurrentIndex(0)
-
-
         QMetaObject.connectSlotsByName(MainPages)
+    
     # setupUi
-
     def retranslateUi(self, MainPages):
         MainPages.setWindowTitle(QCoreApplication.translate("MainPages", u"Form", None))
         self.label.setText(QCoreApplication.translate("MainPages", u"Welcome To PyOneDark GUI", None))

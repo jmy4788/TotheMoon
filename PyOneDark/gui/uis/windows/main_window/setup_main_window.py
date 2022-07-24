@@ -563,7 +563,8 @@ class SetupMainWindow:
         self.ui.load_pages.row_5_layout.addWidget(self.table_widget)
 
         # 페이지 3에 BitcoinChart 추가
-        self.ui.load_pages.page_3_layout.addWidget(self.chart)
+        self.ui.load_pages.page_chart_vlayout.addWidget(self.chart)
+        # self.ui.load_pages.page_3_layout.addWidget(self.chart)
         # RIGHT COLUMN
         # ///////////////////////////////////////////////////////////////
 
