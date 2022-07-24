@@ -31,13 +31,15 @@ class BitcoinChart(QChartView):
         # initial OHLC feeding
 
         self.elems = []
-        min = 99999
-        max = 0
+        highs = []
+        lows = []
         for ohlc in self.init_candle[:-1]:
             open = float(ohlc.open)
             high = float(ohlc.high)
             low = float(ohlc.low)
             close = float(ohlc.close)
+            highs.append(high)
+            lows.append(low)
             # 이미 내 코드에서는 opentime이 timestamp 형식으로 되어 있음
             # timestamp 형식이란?
             ts = float(ohlc.openTime)
@@ -50,13 +52,9 @@ class BitcoinChart(QChartView):
             else:
                 elem.setPen(__binance_green)
             self.series.append(elem)
-            if low < min:
-                min = low
-            if max > high:
-                max = high
-    
-        self.ay_min = min
-        self.ay_max = max
+        # initial chart에서의 Y min / max
+        self.ay_min = min(lows)
+        self.ay_max = max(highs)
         # chart object legend : 범례
         self.chart = QChart()
         self.chart.setBackgroundVisible(False)
@@ -77,13 +75,15 @@ class BitcoinChart(QChartView):
         self.axis_y.setLabelsFont(self.default_font)
         self.chart.addAxis(self.axis_y, Qt.AlignLeft)
         self.series.attachAxis(self.axis_y)
-
+        
+        
         # margin
         self.chart.layout().setContentsMargins(0, 0, 0, 0)
         # setchart
         self.setChart(self.chart)
         self.setRenderHint(QPainter.Antialiasing)
-        
+        print("Axis를 업데이트 하겠습니다.")
+        self.__update_Axis()
         
     @Slot(object)
     def update_chart(self, new_price):
@@ -95,10 +95,7 @@ class BitcoinChart(QChartView):
         # new_price를 database에 저장
         self.init_candle.append(new_price)
         del self.init_candle[0]
-        #Axis 업데이트
-        print("Axis를 업데이트 하겠습니다.")
-        self.__update_Axis()
-
+        
         print("new Price를 추가하고 기존 price 를 지우겠습니다.")
         # Thread의 Emit에서 받은 새로운 QCandlestick set을 series에 추가
         ohlc = new_price        
@@ -114,20 +111,32 @@ class BitcoinChart(QChartView):
         else:
                 elem.setPen(__binance_green)
         self.series.append(elem)
+        # 여기서 axis 업데이트 전 기존 min / max값과의 비교
+        if low < self.ay_min:
+            self.ay_min = low
+        if high > self.ay_max:
+            self.ay_max = high
         
         # 맨 뒤에 new_price를 추가 할 때 맨 앞에서는 legacy data를 지워야 함
         r_elem = self.elems.pop(0)
         print("Series에서 지워질 elem은 :", r_elem)
         print(self.series.remove(r_elem))
+        
+        # Axis 업데이트
+        print("Axis를 업데이트 하겠습니다.")
+        self.__update_Axis()
+
 
 
     def __update_Axis(self):
         __ts_start = self.init_candle[0].openTime
         __ts_last = self.init_candle[-1].openTime
-        __margine = 60000*1
+        __margine = 60000*5
         __dt_start = QDateTime.fromMSecsSinceEpoch(__ts_start-__margine)
         __dt_last = QDateTime.fromMSecsSinceEpoch(__ts_last+__margine)
         self.axis_x.setRange(__dt_start, __dt_last)
-        self.axis_y.setRange(self.ay_min, self.ay_max)
+        # Y range setting 하기 전 margine 설정
+        __y_margine = 0.1 * (self.ay_max - self.ay_min)
+        self.axis_y.setRange(self.ay_min-__y_margine, self.ay_max+__y_margine)
         # self.series.attachAxis(self.axis_x)
         # self.series.attachAxis(self.axis_y)

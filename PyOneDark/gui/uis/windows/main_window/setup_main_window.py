@@ -541,7 +541,7 @@ class SetupMainWindow:
         # 차트 앱
         # get data from binance
         request_client = RequestClient(api_key=g_api_key, secret_key=g_secret_key)
-        self.init_candlesticks = request_client.get_candlestick_data(symbol='BTCUSDT', interval='1m', limit= 20)
+        self.init_candlesticks = request_client.get_candlestick_data(symbol='BTCUSDT', interval='5m', limit= 50)
         self.chart = BitcoinChart(self.init_candlesticks)
 
 

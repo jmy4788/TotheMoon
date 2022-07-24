@@ -226,7 +226,7 @@ class Worker(QThread):
         __last_candle_opentime = self.init_candle[-1].openTime
         request_client = RequestClient(api_key=g_api_key, secret_key=g_secret_key)
         while True:
-            new_price = request_client.get_candlestick_data(symbol='BTCUSDT', interval='1m', limit= 2)
+            new_price = request_client.get_candlestick_data(symbol='BTCUSDT', interval='5m', limit= 2)
             if __last_candle_opentime == new_price[-1].openTime:
                 print("새로운 Candlestick이 없습니다.")
                 __last_candle_opentime = new_price[-1].openTime
