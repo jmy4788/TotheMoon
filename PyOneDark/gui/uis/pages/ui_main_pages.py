@@ -158,48 +158,60 @@ class Ui_MainPages(object):
         
 
         # 여기서 부터 내가 Designer로 추가한 Page Code
+
+
         self.page_chart = QWidget()
         self.page_chart.setObjectName(u"page_chart")
-        sizePolicy = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        self.verticalLayout_7 = QVBoxLayout(self.page_chart)
+        self.verticalLayout_7.setObjectName(u"verticalLayout_7")
+        self.chrat_v_layout = QVBoxLayout()
+        self.chrat_v_layout.setObjectName(u"chrat_v_layout")
+        self.chart_h_layout = QHBoxLayout()
+        self.chart_h_layout.setObjectName(u"chart_h_layout")
+        self.BTC = QPushButton(self.page_chart)
+        self.BTC.setObjectName(u"BTC")
+        sizePolicy = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.page_chart.sizePolicy().hasHeightForWidth())
-        self.page_chart.setSizePolicy(sizePolicy)
-        self.verticalLayoutWidget = QWidget(self.page_chart)
-        self.verticalLayoutWidget.setObjectName(u"verticalLayoutWidget")
-        self.verticalLayoutWidget.setGeometry(QRect(180, 110, 871, 481))
-        self.page_chart_vlayout = QVBoxLayout(self.verticalLayoutWidget)
-        self.page_chart_vlayout.setObjectName(u"page_chart_vlayout")
-        self.page_chart_vlayout.setContentsMargins(0, 0, 0, 0)
-        self.page_chart_hlayout = QHBoxLayout()
-        self.page_chart_hlayout.setObjectName(u"page_chart_hlayout")
-        self.PB1 = QPushButton(self.verticalLayoutWidget)
-        self.PB1.setObjectName(u"PB1")
-        sizePolicy1 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
-        sizePolicy1.setHorizontalStretch(0)
-        sizePolicy1.setVerticalStretch(0)
-        sizePolicy1.setHeightForWidth(self.PB1.sizePolicy().hasHeightForWidth())
-        self.PB1.setSizePolicy(sizePolicy1)
-        self.page_chart_hlayout.addWidget(self.PB1)
+        sizePolicy.setHeightForWidth(self.BTC.sizePolicy().hasHeightForWidth())
+        self.BTC.setSizePolicy(sizePolicy)
+        self.BTC.setMinimumSize(QSize(100, 24))
+        font1 = QFont()
+        font1.setFamilies([u"SF Pro Regular"])
+        self.BTC.setFont(font1)
 
-        self.PB3 = QPushButton(self.verticalLayoutWidget)
-        self.PB3.setObjectName(u"PB3")
-        sizePolicy1.setHeightForWidth(self.PB3.sizePolicy().hasHeightForWidth())
-        self.PB3.setSizePolicy(sizePolicy1)
+        self.chart_h_layout.addWidget(self.BTC)
 
-        self.page_chart_hlayout.addWidget(self.PB3)
+        self.ETH = QPushButton(self.page_chart)
+        self.ETH.setObjectName(u"ETH")
+        sizePolicy.setHeightForWidth(self.ETH.sizePolicy().hasHeightForWidth())
+        self.ETH.setSizePolicy(sizePolicy)
+        self.ETH.setMinimumSize(QSize(100, 24))
+        self.ETH.setFont(font1)
 
-        self.PB2 = QPushButton(self.verticalLayoutWidget)
-        self.PB2.setObjectName(u"PB2")
-        sizePolicy1.setHeightForWidth(self.PB2.sizePolicy().hasHeightForWidth())
-        self.PB2.setSizePolicy(sizePolicy1)
+        self.chart_h_layout.addWidget(self.ETH)
 
-        self.page_chart_hlayout.addWidget(self.PB2)
+        self.SOL = QPushButton(self.page_chart)
+        self.SOL.setObjectName(u"SOL")
+        sizePolicy.setHeightForWidth(self.SOL.sizePolicy().hasHeightForWidth())
+        self.SOL.setSizePolicy(sizePolicy)
+        self.SOL.setMinimumSize(QSize(100, 24))
+        self.SOL.setFont(font1)
+
+        self.chart_h_layout.addWidget(self.SOL)
+
+        self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        self.chart_h_layout.addItem(self.horizontalSpacer)
 
 
-        self.page_chart_vlayout.addLayout(self.page_chart_hlayout)
+        self.chrat_v_layout.addLayout(self.chart_h_layout)
+
+
+        self.verticalLayout_7.addLayout(self.chrat_v_layout)
 
         self.pages.addWidget(self.page_chart)
+
 
         #이 아래에는 Qt Desginer에서 기본적으로 갖고 있던 Code
         self.main_pages_layout.addWidget(self.pages)
@@ -215,4 +227,7 @@ class Ui_MainPages(object):
         self.description_label.setText(QCoreApplication.translate("MainPages", u"Here will be all the custom widgets, they will be added over time on this page.\n"
 "I will try to always record a new tutorial when adding a new Widget and updating the project on Patreon before launching on GitHub and GitHub after the public release.", None))
         self.empty_page_label.setText(QCoreApplication.translate("MainPages", u"Empty Page", None))
+        self.BTC.setText(QCoreApplication.translate("MainPages", u"BTC", None))
+        self.ETH.setText(QCoreApplication.translate("MainPages", u"ETH", None))
+        self.SOL.setText(QCoreApplication.translate("MainPages", u"SOL", None))
     # retranslateUi

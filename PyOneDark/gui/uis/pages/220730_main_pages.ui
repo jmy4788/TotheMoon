@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QHBoxLayout" name="horizontalLayout">
+  <layout class="QVBoxLayout" name="verticalLayout_2">
    <property name="spacing">
     <number>0</number>
    </property>
@@ -271,7 +271,7 @@ I will try to always record a new tutorial when adding a new Widget and updating
 	font-size: 16pt;
 }</string>
       </property>
-      <layout class="QVBoxLayout" name="page_3_layout">
+      <layout class="QVBoxLayout" name="verticalLayout_4">
        <item>
         <widget class="QLabel" name="empty_page_label">
          <property name="font">
@@ -290,57 +290,110 @@ I will try to always record a new tutorial when adding a new Widget and updating
       </layout>
      </widget>
      <widget class="QWidget" name="page_chart">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <widget class="QWidget" name="ticker_layout" native="true">
-       <property name="geometry">
-        <rect>
-         <x>50</x>
-         <y>30</y>
-         <width>1031</width>
-         <height>621</height>
-        </rect>
-       </property>
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <layout class="QVBoxLayout" name="verticalLayout_2">
-        <item>
-         <widget class="QWidget" name="distribution_layout" native="true">
-          <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <layout class="QVBoxLayout" name="verticalLayout_7">
+       <item>
+        <layout class="QVBoxLayout" name="chrat_v_layout">
+         <item>
+          <layout class="QHBoxLayout" name="chart_h_layout">
            <item>
-            <widget class="QPushButton" name="PB2">
+            <widget class="QPushButton" name="BTC">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>100</width>
+               <height>24</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <family>SF Pro Regular</family>
+              </font>
+             </property>
              <property name="text">
-              <string>PushButton</string>
+              <string>BTC</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="PB1">
+            <widget class="QPushButton" name="ETH">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>100</width>
+               <height>24</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <family>SF Pro Regular</family>
+              </font>
+             </property>
+             <property name="autoFillBackground">
+              <bool>false</bool>
+             </property>
              <property name="text">
-              <string>PushButton</string>
+              <string>ETH</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="PB3">
+            <widget class="QPushButton" name="SOL">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>100</width>
+               <height>24</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <family>SF Pro Regular</family>
+              </font>
+             </property>
+             <property name="autoFillBackground">
+              <bool>false</bool>
+             </property>
              <property name="text">
-              <string>PushButton</string>
+              <string>SOL</string>
              </property>
             </widget>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Expanding</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
            </item>
           </layout>
-         </widget>
-        </item>
-       </layout>
-      </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
      </widget>
     </widget>
    </item>

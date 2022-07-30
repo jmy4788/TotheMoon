@@ -537,20 +537,6 @@ class SetupMainWindow:
             self.pass_text.setText("12345" + str(x))
             self.table_widget.setItem(row_number, 2, self.pass_text) # Add pass
             self.table_widget.setRowHeight(row_number, 22)
-        # Page 3
-        # 차트 앱
-        # get data from binance
-        request_client = RequestClient(api_key=g_api_key, secret_key=g_secret_key)
-        self.init_candlesticks = request_client.get_candlestick_data(symbol='BTCUSDT', interval='5m', limit= 50)
-        self.chart = BitcoinChart(self.init_candlesticks)
-        
-        """ Chart의 size policy 부분
-        sizePolicy1 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        sizePolicy1.setHorizontalStretch(0)
-        sizePolicy1.setVerticalStretch(0)
-        sizePolicy1.setHeightForWidth(self.chart.sizePolicy().hasHeightForWidth())
-        self.chart.setSizePolicy(sizePolicy1)
-        """
 
         # ADD WIDGETS
         self.ui.load_pages.row_1_layout.addWidget(self.circular_progress_1)
@@ -570,7 +556,22 @@ class SetupMainWindow:
         self.ui.load_pages.row_5_layout.addWidget(self.table_widget)
 
         # 페이지 3에 BitcoinChart 추가
-        self.ui.load_pages.page_chart_vlayout.addWidget(self.chart)
+        # Page 3
+        # 차트 앱
+        # get data from binance
+        request_client = RequestClient(api_key=g_api_key, secret_key=g_secret_key)
+        self.init_candlesticks = request_client.get_candlestick_data(symbol='BTCUSDT', interval='5m', limit= 50)
+        self.chart = BitcoinChart(self.init_candlesticks)
+        
+        # Chart의 size policy 부분
+        """
+        sizePolicy1 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.chart.sizePolicy().hasHeightForWidth())
+        self.chart.setSizePolicy(sizePolicy1)
+        """
+        self.ui.load_pages.chrat_v_layout.addWidget(self.chart)
         # self.ui.load_pages.page_3_layout.addWidget(self.chart)
         # RIGHT COLUMN
         # ///////////////////////////////////////////////////////////////
