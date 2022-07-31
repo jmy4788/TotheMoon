@@ -7,9 +7,11 @@ import time
 class BitcoinChart(QChartView):
     default_font = QFont("SF Pro Medium", 10)
     default_color = QColor("#F5EAE7")
-    def __init__(self, df):
+    def __init__(self, ticker, dist):
         super().__init__()
-        self.init_candle = df
+        self.ticker = ticker
+        self.dist = dist
+        # self.init_candle = df
         self.setBackgroundBrush(QColor("#2c313c"))
         self.initial_chart()
         self.show()
@@ -33,6 +35,8 @@ class BitcoinChart(QChartView):
         self.elems = []
         highs = []
         lows = []
+        request_client = RequestClient(api_key=g_api_key, secret_key=g_secret_key)
+        self.init_candle = request_client.get_candlestick_data(symbol=self.ticker, interval=self.dist, limit= 50)
         for ohlc in self.init_candle[:-1]:
             open = float(ohlc.open)
             high = float(ohlc.high)

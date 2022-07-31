@@ -579,9 +579,11 @@ class SetupMainWindow:
         self.ui.load_pages.row_5_layout.addWidget(self.table_widget)
 
         ''' chart_page의 chart_v_loayout에 차트 추가'''
-        request_client = RequestClient(api_key=g_api_key, secret_key=g_secret_key)
-        self.init_candlesticks = request_client.get_candlestick_data(symbol='BTCUSDT', interval='5m', limit= 50)
-        self.chart = BitcoinChart(self.init_candlesticks)
+        '''if Button BTC button clicked:
+        self.chart = BitcoinChart('BTCUSDT', 5m)
+        self.ui.load_pages.chart_v_layout.addWidget(self.chart)
+        '''
+        self.chart = BitcoinChart('BTCUSDT', '5m')
         self.ui.load_pages.chrat_v_layout.addWidget(self.chart)
 
         # self.ui.load_pages.page_3_layout.addWidget(self.chart)

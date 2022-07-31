@@ -252,9 +252,9 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
     app.setWindowIcon(QIcon("icon.ico"))
     window = MainWindow()
-    thread1 = Worker(window.init_candlesticks)
-    thread1.price.connect(window.chart.update_chart)
-    thread1.start()
+    #thread1 = Worker(window.init_candlesticks)
+    #thread1.price.connect(window.chart.update_chart)
+    #thread1.start()
 
     # EXEC APP
     # ///////////////////////////////////////////////////////////////
