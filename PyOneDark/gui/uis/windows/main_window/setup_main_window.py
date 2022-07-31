@@ -153,6 +153,29 @@ class SetupMainWindow:
             "is_active" : False
         }
     ]
+    add_coin_ticker = [
+        {
+            "btn_icon" : "icon_search.svg",
+            "btn_id" : "load_BTC_chart",
+            "btn_tooltip" : "load BTC chart",
+            "is_active" : False
+        },
+        {
+            "btn_icon" : "icon_settings.svg",
+            "btn_id" : "load_ETH_chart",
+            "btn_tooltip" : "load ETH chart",
+            "is_active" : False
+        },
+        {
+            "btn_icon" : "icon_settings.svg",
+            "btn_id" : "load_SOL_chart",
+            "btn_tooltip" : "load SOL chart",
+            "is_active" : False
+        }
+    ]
+
+
+
 
     # SETUP CUSTOM BTNs OF CUSTOM WIDGETS
     # Get sender() function when btn is clicked
@@ -555,23 +578,12 @@ class SetupMainWindow:
         self.ui.load_pages.row_4_layout.addWidget(self.line_edit)
         self.ui.load_pages.row_5_layout.addWidget(self.table_widget)
 
-        # 페이지 3에 BitcoinChart 추가
-        # Page 3
-        # 차트 앱
-        # get data from binance
+        ''' chart_page의 chart_v_loayout에 차트 추가'''
         request_client = RequestClient(api_key=g_api_key, secret_key=g_secret_key)
         self.init_candlesticks = request_client.get_candlestick_data(symbol='BTCUSDT', interval='5m', limit= 50)
         self.chart = BitcoinChart(self.init_candlesticks)
-        
-        # Chart의 size policy 부분
-        """
-        sizePolicy1 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-        sizePolicy1.setHorizontalStretch(0)
-        sizePolicy1.setVerticalStretch(0)
-        sizePolicy1.setHeightForWidth(self.chart.sizePolicy().hasHeightForWidth())
-        self.chart.setSizePolicy(sizePolicy1)
-        """
         self.ui.load_pages.chrat_v_layout.addWidget(self.chart)
+
         # self.ui.load_pages.page_3_layout.addWidget(self.chart)
         # RIGHT COLUMN
         # ///////////////////////////////////////////////////////////////

@@ -112,15 +112,18 @@ class MainWindow(QMainWindow):
             # Load Page 3 
             MainFunctions.set_page(self, self.ui.load_pages.page_3)
         
-        """내가 추가한 BTN은 여기에 표시"""
+        '''내가 추가한 Button Start from here'''
+        
         # 차트 페이지 추가
         if btn.objectName() == "btn_chart":
             # Select Menu
             self.ui.left_menu.select_only_one(btn.objectName())
             # Load Page 3 
             MainFunctions.set_page(self, self.ui.load_pages.page_chart)
-
         
+        
+        '''내가 추가한 Button End in here'''
+
         # BOTTOM INFORMATION
         if btn.objectName() == "btn_info":
             # CHECK IF LEFT COLUMN IS VISIBLE
