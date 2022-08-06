@@ -144,3 +144,6 @@ class BitcoinChart(QChartView):
         self.axis_y.setRange(self.ay_min-__y_margine, self.ay_max+__y_margine)
         # self.series.attachAxis(self.axis_x)
         # self.series.attachAxis(self.axis_y)
+
+    def __del__(self):
+        print("Bitcoinchart 객체가 죽었습니다.")

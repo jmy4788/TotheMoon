@@ -121,8 +121,30 @@ class MainWindow(QMainWindow):
             # Load Page 3 
             MainFunctions.set_page(self, self.ui.load_pages.page_chart)
         
-        
-        '''내가 추가한 Button End in here'''
+        if btn.objectName() == "BTC":
+            __chart_widget  = self.ui.load_pages.chart_v_layout.itemAt(1).widget()
+            print("__chart_widget__은?", __chart_widget)
+            if __chart_widget != None:
+                self.ui.load_pages.chart_v_layout.removeWidget(__chart_widget)
+                del __chart_widget
+                __BTC_5m = BitcoinChart('BTCUSDT', '5m')
+                self.ui.load_pages.chart_v_layout.addWidget(__BTC_5m)
+        if btn.objectName() == "ETH":
+            __chart_widget  = self.ui.load_pages.chart_v_layout.itemAt(1).widget()
+            if __chart_widget != None:
+                self.ui.load_pages.chart_v_layout.removeWidget(__chart_widget)
+                del __chart_widget
+                __ETH_5m = BitcoinChart('ETHUSDT', '5m')
+                self.ui.load_pages.chart_v_layout.addWidget(__ETH_5m)
+        if btn.objectName() == "SOL":
+            __chart_widget  = self.ui.load_pages.chart_v_layout.itemAt(1).widget()
+            if __chart_widget != None:
+                self.ui.load_pages.chart_v_layout.removeWidget(__chart_widget)
+                del __chart_widget
+                __SOL__5m = BitcoinChart('SOLUSDT', '5m')
+                self.ui.load_pages.chart_v_layout.addWidget(__SOL__5m)
+
+        '''내가 추가한 Button Ends here'''
 
         # BOTTOM INFORMATION
         if btn.objectName() == "btn_info":

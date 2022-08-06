@@ -16,6 +16,7 @@
 
 # IMPORT PACKAGES AND MODULES
 # ///////////////////////////////////////////////////////////////
+from requests import delete
 from gui.widgets.py_table_widget.py_table_widget import PyTableWidget
 from . functions_main_window import *
 import sys
@@ -187,6 +188,8 @@ class SetupMainWindow:
             return self.ui.left_menu.sender()
         elif self.ui.left_column.sender() != None:
             return self.ui.left_column.sender()
+        else:
+            return self.sender()
 
     # SETUP MAIN WINDOW WITH CUSTOM PARAMETERS
     # ///////////////////////////////////////////////////////////////
@@ -577,15 +580,22 @@ class SetupMainWindow:
         self.ui.load_pages.row_3_layout.addWidget(self.toggle_button)
         self.ui.load_pages.row_4_layout.addWidget(self.line_edit)
         self.ui.load_pages.row_5_layout.addWidget(self.table_widget)
+ 
+        """Ticker Push Button 추가"""
+        self.ui.load_pages.BTC.clicked.connect(self.btn_clicked)
+        self.ui.load_pages.BTC.released.connect(self.btn_released)
+        self.ui.load_pages.ETH.clicked.connect(self.btn_clicked)
+        self.ui.load_pages.ETH.released.connect(self.btn_released)
+        self.ui.load_pages.SOL.clicked.connect(self.btn_clicked)
+        self.ui.load_pages.SOL.released.connect(self.btn_released)
 
-        ''' chart_page의 chart_v_loayout에 차트 추가'''
-        '''if Button BTC button clicked:
-        self.chart = BitcoinChart('BTCUSDT', 5m)
-        self.ui.load_pages.chart_v_layout.addWidget(self.chart)
-        '''
-        self.chart = BitcoinChart('BTCUSDT', '5m')
-        self.ui.load_pages.chrat_v_layout.addWidget(self.chart)
 
+        __init__chart = BitcoinChart('BTCUSDT', '5m')
+        self.ui.load_pages.chart_v_layout.addWidget(__init__chart)
+        # self.chart라는 객체를 Memory에서 지우기
+        # del self.chart
+
+        #self.ui.load_pages.chrat_v_layout.removeWidget(self.chart)
         # self.ui.load_pages.page_3_layout.addWidget(self.chart)
         # RIGHT COLUMN
         # ///////////////////////////////////////////////////////////////
