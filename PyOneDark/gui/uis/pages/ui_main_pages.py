@@ -164,8 +164,8 @@ class Ui_MainPages(object):
         self.page_chart.setObjectName(u"page_chart")
         self.verticalLayout_7 = QVBoxLayout(self.page_chart)
         self.verticalLayout_7.setObjectName(u"verticalLayout_7")
-        self.chrat_v_layout = QVBoxLayout()
-        self.chrat_v_layout.setObjectName(u"chrat_v_layout")
+        self.chart_v_layout = QVBoxLayout()
+        self.chart_v_layout.setObjectName(u"chart_v_layout")
         self.chart_h_layout = QHBoxLayout()
         self.chart_h_layout.setObjectName(u"chart_h_layout")
         self.BTC = QPushButton(self.page_chart)
@@ -179,7 +179,6 @@ class Ui_MainPages(object):
         font1 = QFont()
         font1.setFamilies([u"SF Pro Regular"])
         self.BTC.setFont(font1)
-
         self.chart_h_layout.addWidget(self.BTC)
 
         self.ETH = QPushButton(self.page_chart)
@@ -188,7 +187,6 @@ class Ui_MainPages(object):
         self.ETH.setSizePolicy(sizePolicy)
         self.ETH.setMinimumSize(QSize(100, 24))
         self.ETH.setFont(font1)
-
         self.chart_h_layout.addWidget(self.ETH)
 
         self.SOL = QPushButton(self.page_chart)
@@ -196,8 +194,7 @@ class Ui_MainPages(object):
         sizePolicy.setHeightForWidth(self.SOL.sizePolicy().hasHeightForWidth())
         self.SOL.setSizePolicy(sizePolicy)
         self.SOL.setMinimumSize(QSize(100, 24))
-        self.SOL.setFont(font1)
-
+        self.SOL.setFont(font1)   
         self.chart_h_layout.addWidget(self.SOL)
 
         self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
@@ -205,10 +202,9 @@ class Ui_MainPages(object):
         self.chart_h_layout.addItem(self.horizontalSpacer)
 
 
-        self.chrat_v_layout.addLayout(self.chart_h_layout)
+        self.chart_v_layout.addLayout(self.chart_h_layout)
 
-
-        self.verticalLayout_7.addLayout(self.chrat_v_layout)
+        self.verticalLayout_7.addLayout(self.chart_v_layout)
 
         self.pages.addWidget(self.page_chart)
 
