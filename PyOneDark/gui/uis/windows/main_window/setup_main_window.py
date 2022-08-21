@@ -580,8 +580,54 @@ class SetupMainWindow:
         self.ui.load_pages.row_3_layout.addWidget(self.toggle_button)
         self.ui.load_pages.row_4_layout.addWidget(self.line_edit)
         self.ui.load_pages.row_5_layout.addWidget(self.table_widget)
- 
+
         """Ticker Push Button 추가"""
+        self.__btn_5m = PyIconButton(
+            icon_path = Functions.set_svg_icon("icon_5m.svg"),
+            parent = self,
+            app_parent = self.ui.load_pages.page_chart,
+            tooltip_text = "BTN actived! (is_actived = True)",
+            width = 30,
+            height = 30,
+            radius = 8,
+            dark_one = self.themes["app_color"]["dark_one"],
+            icon_color = self.themes["app_color"]["icon_color"],
+            icon_color_hover = self.themes["app_color"]["icon_hover"],
+            icon_color_pressed = self.themes["app_color"]["white"],
+            icon_color_active = self.themes["app_color"]["icon_active"],
+            bg_color = self.themes["app_color"]["dark_one"],
+            bg_color_hover = self.themes["app_color"]["dark_three"],
+            bg_color_pressed = self.themes["app_color"]["context_color"],
+            is_active = False
+        )
+        self.__btn_5m.setObjectName(u"__btn_5m")
+        self.__btn_5m.clicked.connect(self.btn_clicked)
+        self.ui.load_pages.chart_h_layout.addWidget(self.__btn_5m)
+        
+        self.__btn_1h = PyIconButton(
+            icon_path = Functions.set_svg_icon("icon_5m.svg"),
+            parent = self,
+            app_parent = self.ui.load_pages.page_chart,
+            tooltip_text = "BTN actived! (is_actived = True)",
+            width = 30,
+            height = 30,
+            radius = 8,
+            dark_one = self.themes["app_color"]["dark_one"],
+            icon_color = self.themes["app_color"]["icon_color"],
+            icon_color_hover = self.themes["app_color"]["icon_hover"],
+            icon_color_pressed = self.themes["app_color"]["white"],
+            icon_color_active = self.themes["app_color"]["icon_active"],
+            bg_color = self.themes["app_color"]["dark_one"],
+            bg_color_hover = self.themes["app_color"]["dark_three"],
+            bg_color_pressed = self.themes["app_color"]["context_color"],
+            is_active = False
+        )
+        self.__btn_1h.setObjectName(u"__btn_1h")
+        self.__btn_1h.clicked.connect(self.btn_clicked)
+        self.ui.load_pages.chart_h_layout.addWidget(self.__btn_1h)
+        
+        self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.ui.load_pages.chart_h_layout.addItem(self.horizontalSpacer)
         self.ui.load_pages.BTC.clicked.connect(self.btn_clicked)
         self.ui.load_pages.BTC.released.connect(self.btn_released)
         self.ui.load_pages.ETH.clicked.connect(self.btn_clicked)

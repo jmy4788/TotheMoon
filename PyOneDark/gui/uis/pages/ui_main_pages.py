@@ -197,9 +197,9 @@ class Ui_MainPages(object):
         self.SOL.setFont(font1)   
         self.chart_h_layout.addWidget(self.SOL)
 
-        self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        #self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
-        self.chart_h_layout.addItem(self.horizontalSpacer)
+        #self.chart_h_layout.addItem(self.horizontalSpacer)
 
 
         self.chart_v_layout.addLayout(self.chart_h_layout)
