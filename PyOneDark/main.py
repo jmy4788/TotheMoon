@@ -73,6 +73,46 @@ class MainWindow(QMainWindow):
     # Run function when btn is clicked
     # Check funtion by object name / btn_id
     # ///////////////////////////////////////////////////////////////
+
+    # 테스트용 
+    def combobox_event(self, sel_text):
+        print(sel_text)
+        btn = SetupMainWindow.setup_btns(self)
+        self.ticker = "BTCUSDT"
+        self.dist = "5m"
+        # 차트 페이지 추가
+        if sel_text == "BTC":
+            self.ticker = "BTCUSDT"
+            __chart_widget  = self.ui.load_pages.chart_v_layout.itemAt(1).widget()
+            print("__chart_widget__은?", __chart_widget)
+            if __chart_widget != None:
+                self.ui.load_pages.chart_v_layout.removeWidget(__chart_widget)
+                # 파이썬에서는 memory 누수에 대해서 크게 신경쓰지 않기로 하자
+                #del __chart_widget
+                __BTC_5m = BitcoinChart(self.ticker, self.dist)
+                self.ui.load_pages.chart_v_layout.addWidget(__BTC_5m)
+    
+        if sel_text == "ETH":
+            self.ticker = "ETHUSDT"
+            __chart_widget  = self.ui.load_pages.chart_v_layout.itemAt(1).widget()
+            if __chart_widget != None:
+                self.ui.load_pages.chart_v_layout.removeWidget(__chart_widget)
+                # 파이썬에서는 memory 누수에 대해서 크게 신경쓰지 않기로 하자
+                #del __chart_widget
+                __ETH_5m = BitcoinChart(self.ticker, self.dist)
+                self.ui.load_pages.chart_v_layout.addWidget(__ETH_5m)
+
+        if sel_text == "SOL":
+            self.ticker = "SOLUSDT"
+            __chart_widget  = self.ui.load_pages.chart_v_layout.itemAt(1).widget()
+            if __chart_widget != None:
+                self.ui.load_pages.chart_v_layout.removeWidget(__chart_widget)
+                # 파이썬에서는 memory 누수에 대해서 크게 신경쓰지 않기로 하자
+                #del __chart_widget
+                __SOL__5m = BitcoinChart(self.ticker, self.dist)
+                self.ui.load_pages.chart_v_layout.addWidget(__SOL__5m)
+    
+        
     def btn_clicked(self):
         # GET BT CLICKED
         btn = SetupMainWindow.setup_btns(self)
@@ -145,7 +185,7 @@ class MainWindow(QMainWindow):
                 self.ui.load_pages.chart_v_layout.addWidget(__ETH_5m)
 
         if btn.objectName() == "SOL":
-            self.tikcer = "SOLUSDT"
+            self.ticker = "SOLUSDT"
             __chart_widget  = self.ui.load_pages.chart_v_layout.itemAt(1).widget()
             if __chart_widget != None:
                 self.ui.load_pages.chart_v_layout.removeWidget(__chart_widget)

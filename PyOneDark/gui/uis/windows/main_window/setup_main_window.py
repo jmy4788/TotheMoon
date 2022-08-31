@@ -580,7 +580,13 @@ class SetupMainWindow:
         self.ui.load_pages.row_3_layout.addWidget(self.toggle_button)
         self.ui.load_pages.row_4_layout.addWidget(self.line_edit)
         self.ui.load_pages.row_5_layout.addWidget(self.table_widget)
-
+        """Combo box 추가"""
+        self.__comobo = QComboBox()
+        self.__comobo.addItem("BTC")
+        self.__comobo.addItem("ETH")
+        self.__comobo.addItem("SOL")
+        self.ui.load_pages.chart_h_layout.addWidget(self.__comobo)
+        self.__comobo.currentTextChanged.connect(self.combobox_event)
         """Ticker Push Button 추가"""
         self.__btn_5m = PyIconButton(
             icon_path = Functions.set_svg_icon("icon_5m.svg"),
@@ -628,13 +634,6 @@ class SetupMainWindow:
         
         self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
         self.ui.load_pages.chart_h_layout.addItem(self.horizontalSpacer)
-        self.ui.load_pages.BTC.clicked.connect(self.btn_clicked)
-        self.ui.load_pages.BTC.released.connect(self.btn_released)
-        self.ui.load_pages.ETH.clicked.connect(self.btn_clicked)
-        self.ui.load_pages.ETH.released.connect(self.btn_released)
-        self.ui.load_pages.SOL.clicked.connect(self.btn_clicked)
-        self.ui.load_pages.SOL.released.connect(self.btn_released)
-
 
         __init__chart = BitcoinChart('BTCUSDT', '5m')
         self.ui.load_pages.chart_v_layout.addWidget(__init__chart)
@@ -647,6 +646,7 @@ class SetupMainWindow:
         # ///////////////////////////////////////////////////////////////
 
         # BTN 1
+
         self.right_btn_1 = PyPushButton(
             text="Show Menu 2",
             radius=8,

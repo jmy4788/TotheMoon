@@ -168,35 +168,7 @@ class Ui_MainPages(object):
         self.chart_v_layout.setObjectName(u"chart_v_layout")
         self.chart_h_layout = QHBoxLayout()
         self.chart_h_layout.setObjectName(u"chart_h_layout")
-        self.BTC = QPushButton(self.page_chart)
-        self.BTC.setObjectName(u"BTC")
-        sizePolicy = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.BTC.sizePolicy().hasHeightForWidth())
-        self.BTC.setSizePolicy(sizePolicy)
-        self.BTC.setMinimumSize(QSize(100, 24))
-        font1 = QFont()
-        font1.setFamilies([u"SF Pro Regular"])
-        self.BTC.setFont(font1)
-        self.chart_h_layout.addWidget(self.BTC)
-
-        self.ETH = QPushButton(self.page_chart)
-        self.ETH.setObjectName(u"ETH")
-        sizePolicy.setHeightForWidth(self.ETH.sizePolicy().hasHeightForWidth())
-        self.ETH.setSizePolicy(sizePolicy)
-        self.ETH.setMinimumSize(QSize(100, 24))
-        self.ETH.setFont(font1)
-        self.chart_h_layout.addWidget(self.ETH)
-
-        self.SOL = QPushButton(self.page_chart)
-        self.SOL.setObjectName(u"SOL")
-        sizePolicy.setHeightForWidth(self.SOL.sizePolicy().hasHeightForWidth())
-        self.SOL.setSizePolicy(sizePolicy)
-        self.SOL.setMinimumSize(QSize(100, 24))
-        self.SOL.setFont(font1)   
-        self.chart_h_layout.addWidget(self.SOL)
-
+        
         #self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
 
         #self.chart_h_layout.addItem(self.horizontalSpacer)
@@ -223,7 +195,4 @@ class Ui_MainPages(object):
         self.description_label.setText(QCoreApplication.translate("MainPages", u"Here will be all the custom widgets, they will be added over time on this page.\n"
 "I will try to always record a new tutorial when adding a new Widget and updating the project on Patreon before launching on GitHub and GitHub after the public release.", None))
         self.empty_page_label.setText(QCoreApplication.translate("MainPages", u"Empty Page", None))
-        self.BTC.setText(QCoreApplication.translate("MainPages", u"BTC", None))
-        self.ETH.setText(QCoreApplication.translate("MainPages", u"ETH", None))
-        self.SOL.setText(QCoreApplication.translate("MainPages", u"SOL", None))
     # retranslateUi
