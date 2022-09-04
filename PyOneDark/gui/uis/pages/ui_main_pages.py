@@ -139,21 +139,22 @@ class Ui_MainPages(object):
         self.page_2_layout.addWidget(self.scroll_area)
 
         self.pages.addWidget(self.page_2)
-        self.page_3 = QWidget()
-        self.page_3.setObjectName(u"page_3")
-        self.page_3.setStyleSheet(u"QFrame {\n"
+        
+        self.page_order = QWidget()
+        self.page_order.setObjectName(u"page_order")
+        self.page_order.setStyleSheet(u"QFrame {\n"
 "	font-size: 16pt;\n"
 "}")
-        self.page_3_layout = QVBoxLayout(self.page_3)
-        self.page_3_layout.setObjectName(u"page_3_layout")
-        self.empty_page_label = QLabel(self.page_3)
+        self.verticalLayout_4 = QVBoxLayout(self.page_order)
+        self.verticalLayout_4.setObjectName(u"verticalLayout_4")
+        self.empty_page_label = QLabel(self.page_order)
         self.empty_page_label.setObjectName(u"empty_page_label")
         self.empty_page_label.setFont(font)
         self.empty_page_label.setAlignment(Qt.AlignCenter)
 
-        self.page_3_layout.addWidget(self.empty_page_label)
+        self.verticalLayout_4.addWidget(self.empty_page_label)
 
-        self.pages.addWidget(self.page_3)
+        self.pages.addWidget(self.page_order)
 
         
 
