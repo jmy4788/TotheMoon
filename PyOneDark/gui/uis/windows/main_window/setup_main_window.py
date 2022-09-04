@@ -135,6 +135,14 @@ class SetupMainWindow:
             "show_top" : False,
             "is_active" : False
         },
+        {
+            "btn_icon" : "icon_order.svg",
+            "btn_id" : "btn_order",
+            "btn_text" : "Order",
+            "btn_tooltip" : "Open order",
+            "show_top" : True,
+            "is_active" : False
+        }
         # 왼쪽 메뉴에 차트 아이콘 추가
     ]
 
