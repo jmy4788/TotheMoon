@@ -23,7 +23,7 @@ class Ui_MainPages(object):
     def setupUi(self, MainPages):
         if not MainPages.objectName():
             MainPages.setObjectName(u"MainPages")
-        MainPages.resize(860, 600)
+        MainPages.resize(800, 600)
         self.main_pages_layout = QVBoxLayout(MainPages)
         self.main_pages_layout.setSpacing(0)
         self.main_pages_layout.setObjectName(u"main_pages_layout")
@@ -155,17 +155,39 @@ class Ui_MainPages(object):
 
         self.pages.addWidget(self.page_3)
 
+        
+
+        # 여기서 부터 내가 Designer로 추가한 Page Code
+
+
+        self.page_chart = QWidget()
+        self.page_chart.setObjectName(u"page_chart")
+        self.verticalLayout_7 = QVBoxLayout(self.page_chart)
+        self.verticalLayout_7.setObjectName(u"verticalLayout_7")
+        self.chart_v_layout = QVBoxLayout()
+        self.chart_v_layout.setObjectName(u"chart_v_layout")
+        self.chart_h_layout = QHBoxLayout()
+        self.chart_h_layout.setObjectName(u"chart_h_layout")
+        
+        #self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+
+        #self.chart_h_layout.addItem(self.horizontalSpacer)
+
+
+        self.chart_v_layout.addLayout(self.chart_h_layout)
+
+        self.verticalLayout_7.addLayout(self.chart_v_layout)
+
+        self.pages.addWidget(self.page_chart)
+
+
+        #이 아래에는 Qt Desginer에서 기본적으로 갖고 있던 Code
         self.main_pages_layout.addWidget(self.pages)
-
-
         self.retranslateUi(MainPages)
-
         self.pages.setCurrentIndex(0)
-
-
         QMetaObject.connectSlotsByName(MainPages)
+    
     # setupUi
-
     def retranslateUi(self, MainPages):
         MainPages.setWindowTitle(QCoreApplication.translate("MainPages", u"Form", None))
         self.label.setText(QCoreApplication.translate("MainPages", u"Welcome To PyOneDark GUI", None))

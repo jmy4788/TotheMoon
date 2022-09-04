@@ -73,6 +73,46 @@ class MainWindow(QMainWindow):
     # Run function when btn is clicked
     # Check funtion by object name / btn_id
     # ///////////////////////////////////////////////////////////////
+
+    # 테스트용 
+    def combobox_event(self, sel_text):
+        print(sel_text)
+        btn = SetupMainWindow.setup_btns(self)
+        self.ticker = "BTCUSDT"
+        self.dist = "5m"
+        # 차트 페이지 추가
+        if sel_text == "BTC":
+            self.ticker = "BTCUSDT"
+            __chart_widget  = self.ui.load_pages.chart_v_layout.itemAt(1).widget()
+            print("__chart_widget__은?", __chart_widget)
+            if __chart_widget != None:
+                self.ui.load_pages.chart_v_layout.removeWidget(__chart_widget)
+                # 파이썬에서는 memory 누수에 대해서 크게 신경쓰지 않기로 하자
+                #del __chart_widget
+                __BTC_5m = BitcoinChart(self.ticker, self.dist)
+                self.ui.load_pages.chart_v_layout.addWidget(__BTC_5m)
+    
+        if sel_text == "ETH":
+            self.ticker = "ETHUSDT"
+            __chart_widget  = self.ui.load_pages.chart_v_layout.itemAt(1).widget()
+            if __chart_widget != None:
+                self.ui.load_pages.chart_v_layout.removeWidget(__chart_widget)
+                # 파이썬에서는 memory 누수에 대해서 크게 신경쓰지 않기로 하자
+                #del __chart_widget
+                __ETH_5m = BitcoinChart(self.ticker, self.dist)
+                self.ui.load_pages.chart_v_layout.addWidget(__ETH_5m)
+
+        if sel_text == "SOL":
+            self.ticker = "SOLUSDT"
+            __chart_widget  = self.ui.load_pages.chart_v_layout.itemAt(1).widget()
+            if __chart_widget != None:
+                self.ui.load_pages.chart_v_layout.removeWidget(__chart_widget)
+                # 파이썬에서는 memory 누수에 대해서 크게 신경쓰지 않기로 하자
+                #del __chart_widget
+                __SOL__5m = BitcoinChart(self.ticker, self.dist)
+                self.ui.load_pages.chart_v_layout.addWidget(__SOL__5m)
+    
+        
     def btn_clicked(self):
         # GET BT CLICKED
         btn = SetupMainWindow.setup_btns(self)
@@ -112,13 +152,77 @@ class MainWindow(QMainWindow):
             # Load Page 3 
             MainFunctions.set_page(self, self.ui.load_pages.page_3)
         
+        '''내가 추가한 Button Start from here'''
+        #기본 ticker / dist 셋팅
+        self.ticker = "BTCUSDT"
+        self.dist = "5m"
         # 차트 페이지 추가
         if btn.objectName() == "btn_chart":
             # Select Menu
             self.ui.left_menu.select_only_one(btn.objectName())
             # Load Page 3 
-            MainFunctions.set_page(self, self.ui.load_pages.page_3)
+            MainFunctions.set_page(self, self.ui.load_pages.page_chart)
+        
+        if btn.objectName() == "BTC":
+            self.ticker = "BTCUSDT"
+            __chart_widget  = self.ui.load_pages.chart_v_layout.itemAt(1).widget()
+            print("__chart_widget__은?", __chart_widget)
+            if __chart_widget != None:
+                self.ui.load_pages.chart_v_layout.removeWidget(__chart_widget)
+                # 파이썬에서는 memory 누수에 대해서 크게 신경쓰지 않기로 하자
+                #del __chart_widget
+                __BTC_5m = BitcoinChart(self.ticker, self.dist)
+                self.ui.load_pages.chart_v_layout.addWidget(__BTC_5m)
+    
+        if btn.objectName() == "ETH":
+            self.ticker = "ETHUSDT"
+            __chart_widget  = self.ui.load_pages.chart_v_layout.itemAt(1).widget()
+            if __chart_widget != None:
+                self.ui.load_pages.chart_v_layout.removeWidget(__chart_widget)
+                # 파이썬에서는 memory 누수에 대해서 크게 신경쓰지 않기로 하자
+                #del __chart_widget
+                __ETH_5m = BitcoinChart(self.ticker, self.dist)
+                self.ui.load_pages.chart_v_layout.addWidget(__ETH_5m)
 
+        if btn.objectName() == "SOL":
+            self.ticker = "SOLUSDT"
+            __chart_widget  = self.ui.load_pages.chart_v_layout.itemAt(1).widget()
+            if __chart_widget != None:
+                self.ui.load_pages.chart_v_layout.removeWidget(__chart_widget)
+                # 파이썬에서는 memory 누수에 대해서 크게 신경쓰지 않기로 하자
+                #del __chart_widget
+                __SOL__5m = BitcoinChart(self.ticker, self.dist)
+                self.ui.load_pages.chart_v_layout.addWidget(__SOL__5m)
+    
+        if btn.objectName() == "__btn_5m":
+            self.dist = "5m"
+            #self.ui.load_pages.chart_v_layout.__btn_5m.set_active()
+            __chart_widget  = self.ui.load_pages.chart_v_layout.itemAt(1).widget()
+            if __chart_widget != None:
+                self.ui.load_pages.chart_v_layout.removeWidget(__chart_widget)
+                # 파이썬에서는 memory 누수에 대해서 크게 신경쓰지 않기로 하자
+                #del __chart_widget
+                __5m = BitcoinChart(self.ticker, self.dist)
+                self.ui.load_pages.chart_v_layout.addWidget(__5m)
+
+        if btn.objectName() == "__btn_1h":
+            self.dist = "1h"
+            #self.ui.load_pages.chart_v_layout.__btn_1h.set_active()
+            __chart_widget  = self.ui.load_pages.chart_v_layout.itemAt(1).widget()
+            if __chart_widget != None:
+                self.ui.load_pages.chart_v_layout.removeWidget(__chart_widget)
+                # 파이썬에서는 memory 누수에 대해서 크게 신경쓰지 않기로 하자
+                #del __chart_widget
+                __1h = BitcoinChart(self.ticker, self.dist)
+                print("여기 진입 하나?")
+                self.ui.load_pages.chart_v_layout.addWidget(__1h)
+
+            # 버튼이 누르면 일봉 Activate하는거 하나 필요
+            # 한 dist activate되면 나머지 dist는 de-activate하는 코드 추가
+            # Ticker명 Open하는 Box로 바꿀 필요 있음
+            # 4h봉 / 일봉 추가 필요
+            
+        '''내가 추가한 Button Ends here'''
 
         # BOTTOM INFORMATION
         if btn.objectName() == "btn_info":
@@ -226,7 +330,7 @@ class Worker(QThread):
         __last_candle_opentime = self.init_candle[-1].openTime
         request_client = RequestClient(api_key=g_api_key, secret_key=g_secret_key)
         while True:
-            new_price = request_client.get_candlestick_data(symbol='BTCUSDT', interval='1m', limit= 2)
+            new_price = request_client.get_candlestick_data(symbol='BTCUSDT', interval='5m', limit= 2)
             if __last_candle_opentime == new_price[-1].openTime:
                 print("새로운 Candlestick이 없습니다.")
                 __last_candle_opentime = new_price[-1].openTime
@@ -248,9 +352,9 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
     app.setWindowIcon(QIcon("icon.ico"))
     window = MainWindow()
-    thread1 = Worker(window.init_candlesticks)
-    thread1.price.connect(window.chart.update_chart)
-    thread1.start()
+    #thread1 = Worker(window.init_candlesticks)
+    #thread1.price.connect(window.chart.update_chart)
+    #thread1.start()
 
     # EXEC APP
     # ///////////////////////////////////////////////////////////////

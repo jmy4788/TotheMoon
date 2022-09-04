@@ -16,6 +16,7 @@
 
 # IMPORT PACKAGES AND MODULES
 # ///////////////////////////////////////////////////////////////
+from requests import delete
 from gui.widgets.py_table_widget.py_table_widget import PyTableWidget
 from . functions_main_window import *
 import sys
@@ -134,6 +135,14 @@ class SetupMainWindow:
             "show_top" : False,
             "is_active" : False
         },
+        {
+            "btn_icon" : "icon_order.svg",
+            "btn_id" : "btn_order",
+            "btn_text" : "Order",
+            "btn_tooltip" : "Open order",
+            "show_top" : True,
+            "is_active" : False
+        }
         # 왼쪽 메뉴에 차트 아이콘 추가
     ]
 
@@ -153,6 +162,29 @@ class SetupMainWindow:
             "is_active" : False
         }
     ]
+    add_coin_ticker = [
+        {
+            "btn_icon" : "icon_search.svg",
+            "btn_id" : "load_BTC_chart",
+            "btn_tooltip" : "load BTC chart",
+            "is_active" : False
+        },
+        {
+            "btn_icon" : "icon_settings.svg",
+            "btn_id" : "load_ETH_chart",
+            "btn_tooltip" : "load ETH chart",
+            "is_active" : False
+        },
+        {
+            "btn_icon" : "icon_settings.svg",
+            "btn_id" : "load_SOL_chart",
+            "btn_tooltip" : "load SOL chart",
+            "is_active" : False
+        }
+    ]
+
+
+
 
     # SETUP CUSTOM BTNs OF CUSTOM WIDGETS
     # Get sender() function when btn is clicked
@@ -164,6 +196,8 @@ class SetupMainWindow:
             return self.ui.left_menu.sender()
         elif self.ui.left_column.sender() != None:
             return self.ui.left_column.sender()
+        else:
+            return self.sender()
 
     # SETUP MAIN WINDOW WITH CUSTOM PARAMETERS
     # ///////////////////////////////////////////////////////////////
@@ -537,13 +571,6 @@ class SetupMainWindow:
             self.pass_text.setText("12345" + str(x))
             self.table_widget.setItem(row_number, 2, self.pass_text) # Add pass
             self.table_widget.setRowHeight(row_number, 22)
-        # Page 3
-        # 차트 앱
-        # get data from binance
-        request_client = RequestClient(api_key=g_api_key, secret_key=g_secret_key)
-        self.init_candlesticks = request_client.get_candlestick_data(symbol='BTCUSDT', interval='1m', limit= 20)
-        self.chart = BitcoinChart(self.init_candlesticks)
-
 
         # ADD WIDGETS
         self.ui.load_pages.row_1_layout.addWidget(self.circular_progress_1)
@@ -561,13 +588,73 @@ class SetupMainWindow:
         self.ui.load_pages.row_3_layout.addWidget(self.toggle_button)
         self.ui.load_pages.row_4_layout.addWidget(self.line_edit)
         self.ui.load_pages.row_5_layout.addWidget(self.table_widget)
+        """Combo box 추가"""
+        self.__comobo = QComboBox()
+        self.__comobo.addItem("BTC")
+        self.__comobo.addItem("ETH")
+        self.__comobo.addItem("SOL")
+        self.ui.load_pages.chart_h_layout.addWidget(self.__comobo)
+        self.__comobo.currentTextChanged.connect(self.combobox_event)
+        """Ticker Push Button 추가"""
+        self.__btn_5m = PyIconButton(
+            icon_path = Functions.set_svg_icon("icon_5m.svg"),
+            parent = self,
+            app_parent = self.ui.load_pages.page_chart,
+            tooltip_text = "BTN actived! (is_actived = True)",
+            width = 30,
+            height = 30,
+            radius = 8,
+            dark_one = self.themes["app_color"]["dark_one"],
+            icon_color = self.themes["app_color"]["icon_color"],
+            icon_color_hover = self.themes["app_color"]["icon_hover"],
+            icon_color_pressed = self.themes["app_color"]["white"],
+            icon_color_active = self.themes["app_color"]["icon_active"],
+            bg_color = self.themes["app_color"]["dark_one"],
+            bg_color_hover = self.themes["app_color"]["dark_three"],
+            bg_color_pressed = self.themes["app_color"]["context_color"],
+            is_active = False
+        )
+        self.__btn_5m.setObjectName(u"__btn_5m")
+        self.__btn_5m.clicked.connect(self.btn_clicked)
+        self.ui.load_pages.chart_h_layout.addWidget(self.__btn_5m)
+        
+        self.__btn_1h = PyIconButton(
+            icon_path = Functions.set_svg_icon("icon_5m.svg"),
+            parent = self,
+            app_parent = self.ui.load_pages.page_chart,
+            tooltip_text = "BTN actived! (is_actived = True)",
+            width = 30,
+            height = 30,
+            radius = 8,
+            dark_one = self.themes["app_color"]["dark_one"],
+            icon_color = self.themes["app_color"]["icon_color"],
+            icon_color_hover = self.themes["app_color"]["icon_hover"],
+            icon_color_pressed = self.themes["app_color"]["white"],
+            icon_color_active = self.themes["app_color"]["icon_active"],
+            bg_color = self.themes["app_color"]["dark_one"],
+            bg_color_hover = self.themes["app_color"]["dark_three"],
+            bg_color_pressed = self.themes["app_color"]["context_color"],
+            is_active = False
+        )
+        self.__btn_1h.setObjectName(u"__btn_1h")
+        self.__btn_1h.clicked.connect(self.btn_clicked)
+        self.ui.load_pages.chart_h_layout.addWidget(self.__btn_1h)
+        
+        self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+        self.ui.load_pages.chart_h_layout.addItem(self.horizontalSpacer)
 
-        # 페이지 3에 BitcoinChart 추가
-        self.ui.load_pages.page_3_layout.addWidget(self.chart)
+        __init__chart = BitcoinChart('BTCUSDT', '5m')
+        self.ui.load_pages.chart_v_layout.addWidget(__init__chart)
+        # self.chart라는 객체를 Memory에서 지우기
+        # del self.chart
+
+        #self.ui.load_pages.chrat_v_layout.removeWidget(self.chart)
+        # self.ui.load_pages.page_3_layout.addWidget(self.chart)
         # RIGHT COLUMN
         # ///////////////////////////////////////////////////////////////
 
         # BTN 1
+
         self.right_btn_1 = PyPushButton(
             text="Show Menu 2",
             radius=8,
