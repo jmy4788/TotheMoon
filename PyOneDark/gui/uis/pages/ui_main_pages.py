@@ -30,13 +30,16 @@ class Ui_MainPages(object):
         self.main_pages_layout.setContentsMargins(5, 5, 5, 5)
         self.pages = QStackedWidget(MainPages)
         self.pages.setObjectName(u"pages")
+
         self.page_1 = QWidget()
         self.page_1.setObjectName(u"page_1")
         self.page_1.setStyleSheet(u"font-size: 14pt")
+        """
         self.page_1_layout = QVBoxLayout(self.page_1)
         self.page_1_layout.setSpacing(5)
         self.page_1_layout.setObjectName(u"page_1_layout")
         self.page_1_layout.setContentsMargins(5, 5, 5, 5)
+        
         self.welcome_base = QFrame(self.page_1)
         self.welcome_base.setObjectName(u"welcome_base")
         self.welcome_base.setMinimumSize(QSize(300, 150))
@@ -47,6 +50,7 @@ class Ui_MainPages(object):
         self.center_page_layout.setSpacing(10)
         self.center_page_layout.setObjectName(u"center_page_layout")
         self.center_page_layout.setContentsMargins(0, 0, 0, 0)
+        
         self.logo = QFrame(self.welcome_base)
         self.logo.setObjectName(u"logo")
         self.logo.setMinimumSize(QSize(300, 120))
@@ -57,19 +61,16 @@ class Ui_MainPages(object):
         self.logo_layout.setSpacing(0)
         self.logo_layout.setObjectName(u"logo_layout")
         self.logo_layout.setContentsMargins(0, 0, 0, 0)
-
         self.center_page_layout.addWidget(self.logo)
 
         self.label = QLabel(self.welcome_base)
         self.label.setObjectName(u"label")
         self.label.setAlignment(Qt.AlignCenter)
-
         self.center_page_layout.addWidget(self.label)
-
-
         self.page_1_layout.addWidget(self.welcome_base, 0, Qt.AlignHCenter)
-
+        """
         self.pages.addWidget(self.page_1)
+
         self.page_2 = QWidget()
         self.page_2.setObjectName(u"page_2")
         self.page_2_layout = QVBoxLayout(self.page_2)
@@ -191,7 +192,7 @@ class Ui_MainPages(object):
     # setupUi
     def retranslateUi(self, MainPages):
         MainPages.setWindowTitle(QCoreApplication.translate("MainPages", u"Form", None))
-        self.label.setText(QCoreApplication.translate("MainPages", u"Welcome To PyOneDark GUI", None))
+        # self.label.setText(QCoreApplication.translate("MainPages", u"Welcome To PyOneDark GUI", None))
         self.title_label.setText(QCoreApplication.translate("MainPages", u"Custom Widgets Page", None))
         self.description_label.setText(QCoreApplication.translate("MainPages", u"Here will be all the custom widgets, they will be added over time on this page.\n"
 "I will try to always record a new tutorial when adding a new Widget and updating the project on Patreon before launching on GitHub and GitHub after the public release.", None))

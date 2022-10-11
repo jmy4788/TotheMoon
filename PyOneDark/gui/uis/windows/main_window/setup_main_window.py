@@ -62,7 +62,14 @@ class SetupMainWindow:
     # ADD LEFT MENUS
     # ///////////////////////////////////////////////////////////////
     add_left_menus = [
-        
+        {
+            "btn_icon" : "icon_home.svg",
+            "btn_id" : "btn_home",
+            "btn_text" : "Home",
+            "btn_tooltip" : "Home page",
+            "show_top" : True,
+            "is_active" : True
+        },
         {
             "btn_icon" : "chart-664.svg",
             "btn_id" : "btn_chart",
@@ -78,14 +85,6 @@ class SetupMainWindow:
             "btn_tooltip" : "Open order",
             "show_top" : True,
             "is_active" : False
-        },
-        {
-            "btn_icon" : "icon_home.svg",
-            "btn_id" : "btn_home",
-            "btn_text" : "Home",
-            "btn_tooltip" : "Home page",
-            "show_top" : True,
-            "is_active" : True
         },
         {
             "btn_icon" : "icon_widgets.svg",
@@ -330,7 +329,7 @@ class SetupMainWindow:
 
         # PAGE 1 - ADD LOGO TO MAIN PAGE
         self.logo_svg = QSvgWidget(Functions.set_svg_image("logo_home.svg"))
-        self.ui.load_pages.logo_layout.addWidget(self.logo_svg, Qt.AlignCenter, Qt.AlignCenter)
+        # self.ui.load_pages.logo_layout.addWidget(self.logo_svg, Qt.AlignCenter, Qt.AlignCenter)
 
         # PAGE 2
         # CIRCULAR PROGRESS 1
@@ -647,8 +646,20 @@ class SetupMainWindow:
         # self.chart라는 객체를 Memory에서 지우기
         # del self.chart
 
-        #self.ui.load_pages.chrat_v_layout.removeWidget(self.chart)
+        # self.ui.load_pages.chrat_v_layout.removeWidget(self.chart)
         # self.ui.load_pages.page_3_layout.addWidget(self.chart)
+
+
+        """Home page에 page_1 로그인 APP 추가"""
+        print("page 1의 id는? :", id(self.ui.load_pages.page_1))
+        LoginApp.display(self.ui.load_pages.page_1)
+        self.ui.load_pages.page_1.id_input.textChanged.connect(self.order_id_input_event)
+        self.ui.load_pages.page_1.id_input.returnPressed.connect(self.order_id_input_event)
+        self.ui.load_pages.page_1.pw_input.textChanged.connect(self.order_pw_input_event)
+        self.ui.load_pages.page_1.pw_input.returnPressed.connect(self.order_pw_input_event)
+        self.ui.load_pages.page_1.login_button.clicked.connect(self.order_login_btn_event)
+
+        print("page 1의 하위 객체는? :", dir(self.ui.load_pages.page_1))
         # RIGHT COLUMN
         # ///////////////////////////////////////////////////////////////
 

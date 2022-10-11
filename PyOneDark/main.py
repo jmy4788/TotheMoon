@@ -59,12 +59,11 @@ class MainWindow(QMainWindow):
         # ///////////////////////////////////////////////////////////////
         settings = Settings()
         self.settings = settings.items
-
+        self.login_flag = False
         # SETUP MAIN WINDOW
         # ///////////////////////////////////////////////////////////////
         self.hide_grips = True # Show/Hide resize grips
         SetupMainWindow.setup_gui(self)
-
         # SHOW MAIN WINDOW
         # ///////////////////////////////////////////////////////////////
         self.show()
@@ -292,6 +291,57 @@ class MainWindow(QMainWindow):
     def mousePressEvent(self, event):
         # SET DRAG POS WINDOW
         self.dragPos = event.globalPos()
+    
+    def order_id_input_event(self):
+        self.order_id = self.ui.load_pages.page_1.id_input.text()
+        print(self.order_id)
+    def order_pw_input_event(self):
+        self.order_pw = self.ui.load_pages.page_1.pw_input.text()
+        print(self.order_pw)
+    # if order_login_btn_event is clicked, then order_id and order_pw is saved
+    def order_login_btn_event(self):
+        self.order_id = self.ui.load_pages.page_1.id_input.text()
+        self.order_pw = self.ui.load_pages.page_1.pw_input.text()
+        print("self.order_id: ", self.order_id)
+        print("self.order_pw: ", self.order_pw)
+        print("Login 성공, balance를 불러오겠습니다.")
+        self.request_client = RequestClient(api_key=self.order_id, secret_key=self.order_pw)
+        result = self.request_client.get_account_information()
+        assets = result.assets
+        for asset in assets:
+            print(dir(asset))
+            print(asset)
+        print("balance 불러오기 성공")
+        self.ui.load_pages.order_login_btn.setText("로그인 성공")
+        self.ui.load_pages.order_login_btn.setStyleSheet("background-color: rgb(0, 255, 0);")
+        self.ui.load_pages.order_login_btn.setEnabled(False)
+        self.ui.load_pages.order_id_input.setEnabled(False)
+        self.ui.load_pages.order_pw_input.setEnabled(False)
+
+
+        """
+        request_client = RequestClient(api_key=g_api_key, secret_key=g_secret_key)
+        result = request_client.get_account_information()
+        print("canDeposit: ", result.canDeposit)
+        print("canWithdraw: ", result.canWithdraw)
+        print("feeTier: ", result.feeTier)
+        print("maxWithdrawAmount: ", result.maxWithdrawAmount)
+        print("totalInitialMargin: ", result.totalInitialMargin)
+        print("totalMaintMargin: ", result.totalMaintMargin)
+        print("totalMarginBalance: ", result.totalMarginBalance)
+        print("totalOpenOrderInitialMargin: ", result.totalOpenOrderInitialMargin)
+        print("totalPositionInitialMargin: ", result.totalPositionInitialMargin)
+        print("totalUnrealizedProfit: ", result.totalUnrealizedProfit)
+        print("totalWalletBalance: ", result.totalWalletBalance)
+        print("updateTime: ", result.updateTime)
+        print("=== Assets ===")
+        PrintMix.print_data(result.assets)
+        print("==============")
+        print("=== Positions ===")
+        PrintMix.print_data(result.positions)
+        print("==============")
+        """
+        
 
 # QThread 클래스
 class Worker(QThread):
