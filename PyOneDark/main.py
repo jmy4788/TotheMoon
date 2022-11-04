@@ -295,18 +295,19 @@ class MainWindow(QMainWindow):
     def order_id_input_event(self):
         self.order_id = self.ui.load_pages.page_1.id_input.text()
         print(self.order_id)
+    
     def order_pw_input_event(self):
         self.order_pw = self.ui.load_pages.page_1.pw_input.text()
         print(self.order_pw)
     # if order_login_btn_event is clicked, then order_id and order_pw is saved
+
     def order_login_btn_event(self):
-        self.order_id = self.ui.load_pages.page_1.id_input.text()
-        self.order_pw = self.ui.load_pages.page_1.pw_input.text()
         print("self.order_id: ", self.order_id)
         print("self.order_pw: ", self.order_pw)
-        print("Login 성공, balance를 불러오겠습니다.")
-        self.request_client = RequestClient(api_key=self.order_id, secret_key=self.order_pw)
+        self.request_client = binance_d.RequestClient(api_key=self.order_id, secret_key=self.order_pw)
+        print("self.request_client: ", self.request_client)
         result = self.request_client.get_account_information()
+        """
         assets = result.assets
         for asset in assets:
             print(dir(asset))
@@ -317,8 +318,8 @@ class MainWindow(QMainWindow):
         self.ui.load_pages.order_login_btn.setEnabled(False)
         self.ui.load_pages.order_id_input.setEnabled(False)
         self.ui.load_pages.order_pw_input.setEnabled(False)
-
-
+        """
+    
         """
         request_client = RequestClient(api_key=g_api_key, secret_key=g_secret_key)
         result = request_client.get_account_information()

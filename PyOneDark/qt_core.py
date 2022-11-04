@@ -27,5 +27,6 @@ from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 from PySide6.QtSvgWidgets import *
 from PySide6.QtCharts import *
-from binance_f import RequestClient
 from binance_f.constant.test import *
+import binance_f
+import binance_d
