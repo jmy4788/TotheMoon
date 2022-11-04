@@ -652,7 +652,7 @@ class SetupMainWindow:
 
         """Home page에 page_1 로그인 APP 추가"""
         print("page 1의 id는? :", id(self.ui.load_pages.page_1))
-        LoginApp.display(self.ui.load_pages.page_1)
+        LoginApp(self.ui.load_pages.page_1)
         self.ui.load_pages.page_1.id_input.textChanged.connect(self.order_id_input_event)
         self.ui.load_pages.page_1.id_input.returnPressed.connect(self.order_id_input_event)
         self.ui.load_pages.page_1.pw_input.textChanged.connect(self.order_pw_input_event)

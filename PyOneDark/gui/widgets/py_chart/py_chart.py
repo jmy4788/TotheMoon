@@ -31,11 +31,11 @@ class BitcoinChart(QChartView):
         
         # Binance candlestick obejct의 method 'close', 'closeTime', 'high', 'ignore', 'json_parse', 'low', 'numTrades', 'open', 'openTime', 'quoteAssetVolume', 'takerBuyBaseAssetVolume', 'takerBuyQuoteAssetVolume', 'volume'
         # initial OHLC feeding
-
+        
         self.elems = []
         highs = []
         lows = []
-        request_client = RequestClient(api_key=g_api_key, secret_key=g_secret_key)
+        request_client = binance_f.RequestClient(api_key=g_api_key, secret_key=g_secret_key)
         self.init_candle = request_client.get_candlestick_data(symbol=self.ticker, interval=self.dist, limit= 50)
         for ohlc in self.init_candle[:-1]:
             open = float(ohlc.open)

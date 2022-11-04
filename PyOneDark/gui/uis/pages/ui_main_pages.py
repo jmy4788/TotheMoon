@@ -33,7 +33,7 @@ class Ui_MainPages(object):
 
         self.page_1 = QWidget()
         self.page_1.setObjectName(u"page_1")
-        self.page_1.setStyleSheet(u"font-size: 14pt")
+        # self.page_1.setStyleSheet(u"font-size: 13pt; font-family: SF Pro Regular")
         """
         self.page_1_layout = QVBoxLayout(self.page_1)
         self.page_1_layout.setSpacing(5)
