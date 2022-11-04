@@ -27,6 +27,7 @@ from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 from PySide6.QtSvgWidgets import *
 from PySide6.QtCharts import *
-from binance_f.constant.test import *
-import binance_f
-import binance_d
+
+import logging
+from binance.spot import Spot as Client
+from binance.lib.utils import config_logging

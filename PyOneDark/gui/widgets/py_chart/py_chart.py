@@ -28,43 +28,48 @@ class BitcoinChart(QChartView):
         self.series.setDecreasingColor(__binance_red)
         self.series.setBodyOutlineVisible(False)
         self.series.setPen(__white)
-        
-        # Binance candlestick obejct의 method 'close', 'closeTime', 'high', 'ignore', 'json_parse', 'low', 'numTrades', 'open', 'openTime', 'quoteAssetVolume', 'takerBuyBaseAssetVolume', 'takerBuyQuoteAssetVolume', 'volume'
+        self.series.setBrush(__white)
+
         # initial OHLC feeding
-        
         self.elems = []
         highs = []
         lows = []
-        request_client = binance_f.RequestClient(api_key=g_api_key, secret_key=g_secret_key)
-        self.init_candle = request_client.get_candlestick_data(symbol=self.ticker, interval=self.dist, limit= 50)
+        request_client = Client("g_api_key", "g_secret_key")
+        self.init_candle = request_client.klines(symbol=self.ticker, interval=self.dist, limit= 50)
+
+        # klines method에서 반환되는 값
+        # [0]Kline open time [1]Open price [2]High price [3]Low price [4]Close price [5]Volume
+
         for ohlc in self.init_candle[:-1]:
-            open = float(ohlc.open)
-            high = float(ohlc.high)
-            low = float(ohlc.low)
-            close = float(ohlc.close)
+            open = float(ohlc[1])
+            high = float(ohlc[2])
+            low = float(ohlc[3])
+            close = float(ohlc[4])
             highs.append(high)
             lows.append(low)
             # 이미 내 코드에서는 opentime이 timestamp 형식으로 되어 있음
             # timestamp 형식이란?
-            ts = float(ohlc.openTime)
+            ts = float(ohlc[0])
             elem = QCandlestickSet(open, high, low, close, ts)
             print("추가되는 QCandle stick은: ", elem)
             # elems에 추가
+        
             self.elems.append(elem)
             if open > close:
                 elem.setPen(__binance_red)
             else:
                 elem.setPen(__binance_green)
             self.series.append(elem)
+
         # initial chart에서의 Y min / max
         self.ay_min = min(lows)
         self.ay_max = max(highs)
         # chart object legend : 범례
         self.chart = QChart()
         self.chart.setBackgroundVisible(False)
-        self.chart.legend().hide()
         # data feeding
         self.chart.addSeries(self.series)
+        self.chart.legend().hide()
         # axis X setting
         self.axis_x = QDateTimeAxis()
         self.axis_x.setFormat("hh:mm:ss")
@@ -79,16 +84,23 @@ class BitcoinChart(QChartView):
         self.axis_y.setLabelsFont(self.default_font)
         self.chart.addAxis(self.axis_y, Qt.AlignLeft)
         self.series.attachAxis(self.axis_y)
-        
-        
         # margin
+        self.chart.setBackgroundBrush(QColor("#2c313c"))
         self.chart.layout().setContentsMargins(0, 0, 0, 0)
+        self.chart.setMargins(QMargins(0, 0, 0, 0))
+        # Github copilot이 추가한 내용
+        self.chart.setBackgroundRoundness(0)
+        self.chart.setAnimationOptions(QChart.SeriesAnimations)
+        self.chart.setTheme(QChart.ChartThemeDark)
+        self.chart.setTitleBrush(QColor("#FFFFFF"))
+        self.chart.setTitleFont(QFont("SF Pro Medium", 12))
+        self.chart.setTitle(f"{self.ticker} {self.dist} Chart")
         # setchart
         self.setChart(self.chart)
         self.setRenderHint(QPainter.Antialiasing)
         print("Axis를 업데이트 하겠습니다.")
         self.__update_Axis()
-        
+
     @Slot(object)
     def update_chart(self, new_price):
 
@@ -133,8 +145,8 @@ class BitcoinChart(QChartView):
 
 
     def __update_Axis(self):
-        __ts_start = self.init_candle[0].openTime
-        __ts_last = self.init_candle[-1].openTime
+        __ts_start = self.init_candle[0][0]
+        __ts_last = self.init_candle[-1][0]
         __margine = 60000*5
         __dt_start = QDateTime.fromMSecsSinceEpoch(__ts_start-__margine)
         __dt_last = QDateTime.fromMSecsSinceEpoch(__ts_last+__margine)
