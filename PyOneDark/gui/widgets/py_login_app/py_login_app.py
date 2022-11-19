@@ -123,6 +123,8 @@ class LoginApp(QWidget):
         self.id_input.setObjectName(u"id_input")
         self.id_input.setPlaceholderText("ID를 입력하세요.")
         
+    
+
         self.layout.addWidget(self.id_input)
         # set id_input size policy
         self.id_input.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
@@ -130,6 +132,7 @@ class LoginApp(QWidget):
         self.id_input.setMaximumHeight(40)
         self.id_input.setMinimumWidth(400)
         self.id_input.setMaximumWidth(400)
+        self.id_input.setEchoMode(QLineEdit.Password)
 
         # pw_input to self.layout
         self.pw_input = PyLineEdit(
@@ -150,6 +153,8 @@ class LoginApp(QWidget):
         self.pw_input.setMaximumHeight(40)
         self.pw_input.setMinimumWidth(400)
         self.pw_input.setMaximumWidth(400)
+        self.pw_input.setEchoMode(QLineEdit.Password)
+
         # set font SF Pro Regular
         font = QFont()
         font.setFamily(u"SF Pro Regular")
@@ -159,7 +164,7 @@ class LoginApp(QWidget):
         self.pw_input.setFont(font)
 
         # login button to self.layout
-        self.login_button = PyPushButton(
+        self.login_btn = PyPushButton(
             text = "Login",
             radius=8,
             color=self.themes["app_color"]["text_foreground"],
@@ -168,16 +173,16 @@ class LoginApp(QWidget):
             bg_color_pressed=self.themes["app_color"]["dark_four"]
         )
         # set button size to 600
-        self.login_button.setMinimumHeight(50)
-        self.login_button.setMaximumHeight(50)
-        self.login_button.setMinimumWidth(400)
-        self.login_button.setMaximumWidth(400)
+        self.login_btn.setMinimumHeight(50)
+        self.login_btn.setMaximumHeight(50)
+        self.login_btn.setMinimumWidth(400)
+        self.login_btn.setMaximumWidth(400)
 
-        self.login_button.setObjectName(u"login_button")
+        self.login_btn.setObjectName(u"login_btn")
         font = QFont()
         font.setFamily(u"SF Pro")
         font.setPointSize(11)
-        self.login_button.setFont(font)
+        self.login_btn.setFont(font)
 
-        self.layout.addWidget(self.login_button)
+        self.layout.addWidget(self.login_btn)
         self.setLayout(self.layout)

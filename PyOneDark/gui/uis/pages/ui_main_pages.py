@@ -141,20 +141,18 @@ class Ui_MainPages(object):
 
         self.pages.addWidget(self.page_2)
         
+        # order page 는 여기서부터 시작
         self.page_order = QWidget()
         self.page_order.setObjectName(u"page_order")
-        self.page_order.setStyleSheet(u"QFrame {\n"
-"	font-size: 16pt;\n"
-"}")
         self.verticalLayout_4 = QVBoxLayout(self.page_order)
         self.verticalLayout_4.setObjectName(u"verticalLayout_4")
+        """
         self.empty_page_label = QLabel(self.page_order)
         self.empty_page_label.setObjectName(u"empty_page_label")
         self.empty_page_label.setFont(font)
         self.empty_page_label.setAlignment(Qt.AlignCenter)
-
         self.verticalLayout_4.addWidget(self.empty_page_label)
-
+        """
         self.pages.addWidget(self.page_order)
 
         
@@ -196,5 +194,5 @@ class Ui_MainPages(object):
         self.title_label.setText(QCoreApplication.translate("MainPages", u"Custom Widgets Page", None))
         self.description_label.setText(QCoreApplication.translate("MainPages", u"Here will be all the custom widgets, they will be added over time on this page.\n"
 "I will try to always record a new tutorial when adding a new Widget and updating the project on Patreon before launching on GitHub and GitHub after the public release.", None))
-        self.empty_page_label.setText(QCoreApplication.translate("MainPages", u"Empty Page", None))
+        #self.empty_page_label.setText(QCoreApplication.translate("MainPages", u"Empty Page", None))
     # retranslateUi

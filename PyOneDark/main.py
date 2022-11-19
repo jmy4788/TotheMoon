@@ -48,7 +48,11 @@ os.environ["QT_FONT_DPI"] = "96"
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-
+        # common parameter set up
+        self.ticker = "BTCUSDT"
+        self.dist = "5m"
+        self.login_flag = False
+        
         # SETUP MAIN WINDOw
         # Load widgets from "gui\uis\main_window\ui_main.py"
         # ///////////////////////////////////////////////////////////////
@@ -77,8 +81,6 @@ class MainWindow(QMainWindow):
     def combobox_event(self, sel_text):
         print(sel_text)
         btn = SetupMainWindow.setup_btns(self)
-        self.ticker = "BTCUSDT"
-        self.dist = "5m"
         # 차트 페이지 추가
         if sel_text == "BTC":
             self.ticker = "BTCUSDT"
@@ -152,9 +154,6 @@ class MainWindow(QMainWindow):
             MainFunctions.set_page(self, self.ui.load_pages.page_3)
         
         '''내가 추가한 Button Start from here'''
-        #기본 ticker / dist 셋팅
-        self.ticker = "BTCUSDT"
-        self.dist = "5m"
         # 차트 페이지 추가
         if btn.objectName() == "btn_chart":
             # Select Menu
@@ -165,9 +164,19 @@ class MainWindow(QMainWindow):
         if btn.objectName() == "btn_order":
             # Select Menu
             self.ui.left_menu.select_only_one(btn.objectName())
+            
+
+            # 2022.11.15 여기서 작업 하고 있고
+            # 여기다가 시발 btn_order를 눌렀을 때, page_order 에다가
+            # asset앱을 추가해버리자
+            if self.login_flag is True:
+                # add PyAsset in to page_order
+                self.asset = PyAsset(self.client)
+                self.ui.load_pages.page_order.layout().addWidget(self.asset)
+
+
             # Load Page 3 
             MainFunctions.set_page(self, self.ui.load_pages.page_order)
-    
         if btn.objectName() == "__btn_5m":
             self.dist = "5m"
             #self.ui.load_pages.chart_v_layout.__btn_5m.set_active()
@@ -178,7 +187,6 @@ class MainWindow(QMainWindow):
                 #del __chart_widget
                 __5m = BitcoinChart(self.ticker, self.dist)
                 self.ui.load_pages.chart_v_layout.addWidget(__5m)
-
         if btn.objectName() == "__btn_1h":
             self.dist = "1h"
             #self.ui.load_pages.chart_v_layout.__btn_1h.set_active()
@@ -302,11 +310,23 @@ class MainWindow(QMainWindow):
     # if order_login_btn_event is clicked, then order_id and order_pw is saved
 
     def order_login_btn_event(self):
-        print("self.order_id: ", self.order_id)
-        print("self.order_pw: ", self.order_pw)
-        self.request_client = binance_d.RequestClient(api_key=self.order_id, secret_key=self.order_pw)
-        print("self.request_client: ", self.request_client)
-        result = self.request_client.get_account_information()
+
+        # 당신의 API Key & Secret Key 여기에 저장되었다. self.order_id, self.order_pw
+        # print("self.order_id: ", self.order_id)
+        # print("self.order_pw: ", self.order_pw)
+
+        self.client = Client(self.order_id, self.order_pw)
+
+        # data Normal이면 login이 성공한 것임
+        if self.client.account_status()['data'] == "Normal":
+            self.ui.title_bar.binance_login_success()
+            # clear the self.order_id and self.order_pw
+            self.ui.load_pages.page_1.id_input.setText("")
+            self.ui.load_pages.page_1.pw_input.setText("")
+            self.login_flag = True
+    
+        # self.ui.title_bar 에다가 로그인 성공 표시 해야 함
+        #  
         """
         assets = result.assets
         for asset in assets:
@@ -318,9 +338,7 @@ class MainWindow(QMainWindow):
         self.ui.load_pages.order_login_btn.setEnabled(False)
         self.ui.load_pages.order_id_input.setEnabled(False)
         self.ui.load_pages.order_pw_input.setEnabled(False)
-        """
-    
-        """
+        
         request_client = RequestClient(api_key=g_api_key, secret_key=g_secret_key)
         result = request_client.get_account_information()
         print("canDeposit: ", result.canDeposit)

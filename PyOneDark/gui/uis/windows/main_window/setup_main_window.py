@@ -595,7 +595,7 @@ class SetupMainWindow:
         self.__comobo.currentTextChanged.connect(self.combobox_event)
         """Ticker Push Button 추가"""
         self.__btn_5m = PyIconButton(
-            icon_path = Functions.set_svg_icon("icon_5m.svg"),
+            icon_path = Functions.set_svg_icon("my_icon_5m.svg"),
             parent = self,
             app_parent = self.ui.load_pages.page_chart,
             tooltip_text = "BTN actived! (is_actived = True)",
@@ -617,7 +617,7 @@ class SetupMainWindow:
         self.ui.load_pages.chart_h_layout.addWidget(self.__btn_5m)
         
         self.__btn_1h = PyIconButton(
-            icon_path = Functions.set_svg_icon("icon_5m.svg"),
+            icon_path = Functions.set_svg_icon("my_icon_1h.svg"),
             parent = self,
             app_parent = self.ui.load_pages.page_chart,
             tooltip_text = "BTN actived! (is_actived = True)",
@@ -657,9 +657,27 @@ class SetupMainWindow:
         self.ui.load_pages.page_1.id_input.returnPressed.connect(self.order_id_input_event)
         self.ui.load_pages.page_1.pw_input.textChanged.connect(self.order_pw_input_event)
         self.ui.load_pages.page_1.pw_input.returnPressed.connect(self.order_pw_input_event)
-        self.ui.load_pages.page_1.login_button.clicked.connect(self.order_login_btn_event)
+        self.ui.load_pages.page_1.login_btn.clicked.connect(self.order_login_btn_event)
+        
 
-        print("page 1의 하위 객체는? :", dir(self.ui.load_pages.page_1))
+        """
+        self.ui.load_pages.page_2.order_table.setRowCount(0)
+        self.ui.load_pages.page_2.order_table.setColumnCount(6)
+        self.ui.load_pages.page_2.order_table.setHorizontalHeaderLabels(["주문번호", "종목", "주문가격", "주문수량", "주문타입", "주문상태"])
+        self.ui.load_pages.page_2.order_table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.ui.load_pages.page_2.order_table.verticalHeader().setVisible(False)
+        self.ui.load_pages.page_2.order_table.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.ui.load_pages.page_2.order_table.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.ui.load_pages.page_2.order_table.setSelectionMode(QAbstractItemView.SingleSelection)
+        self.ui.load_pages.page_2.order_table.setShowGrid(False)
+        self.ui.load_pages.page_2.order_table.setStyleSheet("QTableWidget::item {border-bottom: 1px solid #444444;}")
+        self.ui.load_pages.page_2.order_table.cellClicked.connect(self.order_table_cell_clicked)
+        self.ui.load_pages.page_2.order_table.cellDoubleClicked.connect(self.order_table_cell_double_clicked)
+        """
+
+
+
+
         # RIGHT COLUMN
         # ///////////////////////////////////////////////////////////////
 
