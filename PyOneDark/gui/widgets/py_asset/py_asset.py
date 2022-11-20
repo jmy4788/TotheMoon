@@ -19,7 +19,6 @@
 from qt_core import *
 from gui.widgets import *
 from gui.core.json_themes import Themes
-
 # my common style을 import 하는 행
 from gui.themes.my_style import style
 
@@ -45,11 +44,12 @@ class PyAsset(QWidget):
         self.setLayout(self.layout)
         # Set the style
         self.setStyleSheet(style.format(
+            # QPushbutton color
             _color=theme['app_color']['text_title'],
-            _radius=theme['app_color']['radius'],
-            _bg_color=theme['app_color']['bg'],
-            _bg_color_hover=theme['app_color']['bg_hover'],
-            _bg_color_pressed=theme['app_color']['bg_pressed']
+            _radius=theme['radius'],
+            _bg_color=theme['app_color']['bg_one'],
+            _bg_color_hover=theme['app_color']['icon_hover'],
+            _bg_color_pressed=theme['app_color']['icon_pressed']
         ))
         # Set the asset
         self.set_asset()
@@ -58,7 +58,7 @@ class PyAsset(QWidget):
     # ///////////////////////////////////////////////////////////////
     def set_asset(self):
         # Get the theme
-        theme = Themes().get_theme()
+        theme = Themes().items
         # Set the asset
         self.asset = self.client.user_asset
         # self.asset is the list of dictionary that key is "asset", "free", "locked", "withdrawing", "ipoable", "btcValuation"
@@ -75,24 +75,11 @@ class PyAsset(QWidget):
             self.asset_ipoable = asset['ipoable']
             # Set the asset btcValuation
             self.asset_btcValuation = asset['btcValuation']
-            # Set the asset widget
-            self.asset_widget = QWidget()
-            self.asset_widget.setObjectName('asset_widget')
-            self.asset_widget.setStyleSheet('''
-                #asset_widget {{
-                    background-color: {_bg};
-                    border-radius: {_radius};
-                    padding: 10px;
-                }}
-            '''.format(
-                _bg=theme['bg'],
-                _radius=theme['radius']
-            ))
             # Set the asset layout
             self.asset_layout = QHBoxLayout()
             self.asset_layout.setContentsMargins(0, 0, 0, 0)
             self.asset_layout.setSpacing(0)
-            self.asset_widget.setLayout(self.asset_layout)
+            self.setLayout(self.asset_layout)
             # Set the asset name
             self.asset_name_widget = QLabel(self.asset_name)
             self.asset_name_widget.setObjectName('asset_name_widget')

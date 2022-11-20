@@ -19,27 +19,10 @@
 from qt_core import *
 from gui.widgets import *
 from gui.core.json_themes import Themes
-# STYLE
-# ///////////////////////////////////////////////////////////////
+# my common style을 import 하는 행
+from gui.themes.my_style import style
 
-style = '''
-QPushButton {{
-    font-size: 13pt;
-    font-family: SF Pro Regular, malgun gothic, serif;
-	border: none;
-    padding-left: 10px;
-    padding-right: 5px;
-    color: {_color};
-	border-radius: {_radius};	
-	background-color: {_bg_color};
-}}
-QPushButton:hover {{
-	background-color: {_bg_color_hover};
-}}
-QPushButton:pressed {{	
-	background-color: {_bg_color_pressed};
-}}
-'''
+
 
 # Login App 자체를 QWidget으로 보고 해당 Login App의 Class를 만들어야 함
 # 예를 들어, page_1의 객체 주소를 전달받았다고 했을 때, 해당 객체 주소에 LoginApp을 마지막에 추가해야 함

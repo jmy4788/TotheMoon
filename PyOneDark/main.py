@@ -14,6 +14,9 @@
 #
 # ///////////////////////////////////////////////////////////////
 
+# Import api_key during development
+from api_key import *
+
 # IMPORT PACKAGES AND MODULES
 # ///////////////////////////////////////////////////////////////
 from gui.uis.windows.main_window.functions_main_window import *
@@ -52,6 +55,8 @@ class MainWindow(QMainWindow):
         self.ticker = "BTCUSDT"
         self.dist = "5m"
         self.login_flag = False
+        self.client = Client(home_key, home_secret)
+
         
         # SETUP MAIN WINDOw
         # Load widgets from "gui\uis\main_window\ui_main.py"
@@ -164,7 +169,8 @@ class MainWindow(QMainWindow):
         if btn.objectName() == "btn_order":
             # Select Menu
             self.ui.left_menu.select_only_one(btn.objectName())
-            
+            self.asset = self.client.user_asset
+            print(self.asset)
 
             # 2022.11.15 여기서 작업 하고 있고
             # 여기다가 시발 btn_order를 눌렀을 때, page_order 에다가
