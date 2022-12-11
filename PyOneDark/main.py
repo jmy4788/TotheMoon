@@ -49,15 +49,18 @@ os.environ["QT_FONT_DPI"] = "96"
 # MAIN WINDOW
 # ///////////////////////////////////////////////////////////////
 class MainWindow(QMainWindow):
+
+
+
     def __init__(self):
         super().__init__()
         # common parameter set up
         self.ticker = "BTCUSDT"
         self.dist = "5m"
         self.login_flag = False
+        self.order_flag = False
         self.client = Client(home_key, home_secret)
 
-        
         # SETUP MAIN WINDOw
         # Load widgets from "gui\uis\main_window\ui_main.py"
         # ///////////////////////////////////////////////////////////////
@@ -122,7 +125,7 @@ class MainWindow(QMainWindow):
     def btn_clicked(self):
         # GET BT CLICKED
         btn = SetupMainWindow.setup_btns(self)
-
+        
         # Remove Selection If Clicked By "btn_close_left_column"
         if btn.objectName() != "btn_settings":
             self.ui.left_menu.deselect_all_tab()
@@ -165,24 +168,25 @@ class MainWindow(QMainWindow):
             self.ui.left_menu.select_only_one(btn.objectName())
             # Load Page 3 
             MainFunctions.set_page(self, self.ui.load_pages.page_chart)
-        # order page 추가
+        
+        # 오더 페이지 아이콘 클릭시
         if btn.objectName() == "btn_order":
             # Select Menu
             self.ui.left_menu.select_only_one(btn.objectName())
-            self.asset = self.client.user_asset
-            print(self.asset)
-
-            # 2022.11.15 여기서 작업 하고 있고
-            # 여기다가 시발 btn_order를 눌렀을 때, page_order 에다가
-            # asset앱을 추가해버리자
-            if self.login_flag is True:
-                # add PyAsset in to page_order
-                self.asset = PyAsset(self.client)
-                self.ui.load_pages.page_order.layout().addWidget(self.asset)
-
-
+            # order_flag를 통해서 widget의 삭제 없이 문제 해결..!! (2022.11.23)
+            if self.order_flag is False:
+                if self.login_flag is True:
+                    # add PyAsset in to page_order
+                    self.asset = MyAsset(self.client)
+                    self.ui.load_pages.page_order.layout().addWidget(self.asset)
+                # 임시로 그냥 앱 추가
+                self.asset = MyAsset(self.client)
+                self.ui.load_pages.page_order.layout().addWidget(self.asset)    
+                self.order_flag = True
+            
             # Load Page 3 
             MainFunctions.set_page(self, self.ui.load_pages.page_order)
+            
         if btn.objectName() == "__btn_5m":
             self.dist = "5m"
             #self.ui.load_pages.chart_v_layout.__btn_5m.set_active()
@@ -299,13 +303,21 @@ class MainWindow(QMainWindow):
     # ///////////////////////////////////////////////////////////////
     def resizeEvent(self, event):
         SetupMainWindow.resize_grips(self)
-
+    
     # MOUSE CLICK EVENTS
     # ///////////////////////////////////////////////////////////////
     def mousePressEvent(self, event):
         # SET DRAG POS WINDOW
-        self.dragPos = event.globalPos()
-    
+        if event.button() == Qt.LeftButton:
+            self.dragPos = event.globalPosition().toPoint()
+            event.accept()
+    # MOVE WINDOW
+    def mouseMoveEvent(self, event):
+        if event.buttons() == Qt.LeftButton:
+            self.move(self.pos() + event.globalPosition().toPoint() - self.dragPos)
+            self.dragPos = event.globalPosition().toPoint()
+            event.accept()
+            
     def order_id_input_event(self):
         self.order_id = self.ui.load_pages.page_1.id_input.text()
         print(self.order_id)
