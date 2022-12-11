@@ -16,4 +16,4 @@
 
 # PY CREDITS
 # ///////////////////////////////////////////////////////////////
-from . py_chart import BitcoinChart
+from . my_login_app import LoginApp

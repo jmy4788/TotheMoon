@@ -73,14 +73,14 @@ from . py_table_widget import PyTableWidget
 # PY CHART WIDGET
 # ///////////////////////////////////////////////////////////////
 
-from . py_chart import BitcoinChart
+from . my_chart import BitcoinChart
 
 # PY LOGIN APP WIDGET
 # ///////////////////////////////////////////////////////////////
 
-from . py_login_app import LoginApp
+from . my_login_app import LoginApp
 
 # PY SEE ASSET WIDGET
 # ///////////////////////////////////////////////////////////////
 
-from . py_asset import PyAsset
+from . my_asset import MyAsset

@@ -16,4 +16,4 @@
 
 # PY CREDITS
 # ///////////////////////////////////////////////////////////////
-from . py_asset import PyAsset
+from . my_chart import BitcoinChart

@@ -16,4 +16,4 @@
 
 # PY CREDITS
 # ///////////////////////////////////////////////////////////////
-from . py_login_app import LoginApp
+from . my_asset import MyAsset
