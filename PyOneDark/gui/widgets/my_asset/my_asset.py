@@ -22,20 +22,14 @@ from gui.widgets import *
 from gui.core.json_themes import Themes
 # my common style을 import 하는 행
 from gui.themes.my_style import *
+import datetime
 
 # QLabel style
 theme = Themes().items
-label_st = '''
-QLabel {
-    color: #FFFFFF;
-    background-color: #2c313c;
-    font-size: 15pt;
-    font-family: SF Pro Heavy, malgun gothic, serif;
-}
-'''
+
 
 class MyAsset(QWidget):
-    # PyAsset get the param client
+    # MyAsset get the param client
     # ///////////////////////////////////////////////////////////////
     def __init__(self, client, parent=None):
         # super(PyAsset, self).__init__(parent)는 super().__init__(parent)와 같음 Python 2,3 버젼차이
@@ -48,11 +42,38 @@ class MyAsset(QWidget):
         self.top_layout.setSpacing(0)
         self.setLayout(self.top_layout)
         print('self.layout은?', self.layout())
+        self.set_hide_button()
+        self.set_show_button()
         self.set_asset_title()
         self.dp_user_asset(self.get_user_asset())
+        staking = Staking(client)
+        self.layout().addWidget(staking)
 
+    # QPush button을 만들고 버튼을 누르면 layout을 숨기는 함수
+    def set_hide_button(self):
+        self.hide_button = QPushButton()
+        self.hide_button.setText('Hide')
+        self.layout().addWidget(self.hide_button)
 
-        
+    # QPush button을 만들고 버튼을 누르면 layout을 보이게 하는 함수
+    def set_show_button(self):
+        self.show_button = QPushButton()
+        self.show_button.setText('Show')
+        self.layout().addWidget(self.show_button)
+
+    def set_asset_title(self):
+        # add 5 Qlabel to the QHboxLayout
+        self.asset_title = QHBoxLayout()
+        self.asset_title.setContentsMargins(0, 0, 0, 0)
+        self.asset_title.setSpacing(0)        
+        # tags안에 있는 내용들을 모두 label로 추가시키고 labe_st를 적용 했음
+        tags = ['Asset', 'free', 'locked', 'withdrawing', 'ipoable', 'btcValuation', 'USDValuation']
+        for tag in tags:
+            label = QLabel(tag)
+            label.setStyleSheet(label_st)
+            self.asset_title.addWidget(label)
+        # Add the QHboxLayout to the QVboxLayout
+        self.layout().addLayout(self.asset_title)
     # API 파트
     # Get user asset data from server
     def get_user_asset(self):
@@ -61,6 +82,66 @@ class MyAsset(QWidget):
         # Return the user asset
         return user_asset
     
+    def get_staking_pos(self):
+        # Get the user staking
+        user_staking = self.client.staking_product_position("STAKING")
+        return user_staking
+    
+    def dp_staking_pos(self, user_staking):
+        header = ['asset(period)', 'Amount', 'APY(%)', 'PurchaseTime', 'DeliverDate', 'USD Conversion']
+        for staking in user_staking:
+            # Unpack the data
+            asset = staking['asset']
+            amount = staking['amount']
+            apy = str(float(staking['apy']) * 100)
+            purchaseTime = staking['purchaseTime']
+            deliverDate = staking['deliverDate']
+
+            # Convert the time format
+            purchasTime = datetime.datetime.fromtimestamp(purchaseTime/1000)
+            deliverDate = datetime.datetime.fromtimestamp(deliverDate/1000)
+            # Covnert time format to str type
+            purchaseTime = purchasTime.strftime('%Y-%m-%d %H:%M:%S')
+            deliverDate = deliverDate.strftime('%Y-%m-%d %H:%M:%S')
+
+            staking_pos_asset = QLabel(asset)
+            staking_pos_asset.setObjectName('asset')
+            staking_pos_asset.setStyleSheet(label_st)
+
+            staking_pos_amount = QLabel(amount)
+            staking_pos_amount.setObjectName('amount')
+            staking_pos_amount.setStyleSheet(label_st)
+
+            staking_pos_apy = QLabel(apy)
+            staking_pos_apy.setObjectName('apy')
+            staking_pos_apy.setStyleSheet(label_st)
+
+            staking_pos_purchaseTime = QLabel(purchaseTime)
+            staking_pos_purchaseTime.setObjectName('purchaseTime')
+            staking_pos_purchaseTime.setStyleSheet(label_st)
+
+            staking_pos_deliverDate = QLabel(deliverDate)
+            staking_pos_deliverDate.setObjectName('deliverDate')
+            staking_pos_deliverDate.setStyleSheet(label_st)
+
+            staking_pos_usd_conversion = QLabel('0')
+            staking_pos_usd_conversion.setObjectName('usd_conversion')
+            staking_pos_usd_conversion.setStyleSheet(label_st)
+
+            staking_pos_layout = QHBoxLayout()
+            staking_pos_layout.setContentsMargins(0, 0, 0, 0)
+            staking_pos_layout.setSpacing(0)
+            staking_pos_layout.addWidget(staking_pos_asset)
+            staking_pos_layout.addWidget(staking_pos_amount)
+            staking_pos_layout.addWidget(staking_pos_apy)
+            staking_pos_layout.addWidget(staking_pos_purchaseTime)
+            staking_pos_layout.addWidget(staking_pos_deliverDate)
+            staking_pos_layout.addWidget(staking_pos_usd_conversion)
+            self.layout().addLayout(staking_pos_layout)
+            
+
+
+
     # dp_user_asset에 있는 내용을 모두 label로 추가시키고 labe_st를 적용 했음
     def dp_user_asset(self, user_asset):
         header = ['asset', 'free', 'locked', 'withdrawing', 'ipoable', 'btcValuation']
@@ -119,17 +200,75 @@ class MyAsset(QWidget):
             asset_layout.addWidget(asset_btcValuation_widget)
             self.layout().addLayout(asset_layout)
 
+        
 
-    def set_asset_title(self):
-        # add 5 Qlabel to the QHboxLayout
-        self.asset_title = QHBoxLayout()
-        self.asset_title.setContentsMargins(0, 0, 0, 0)
-        self.asset_title.setSpacing(0)        
-        # tags안에 있는 내용들을 모두 label로 추가시키고 labe_st를 적용 했음
-        tags = ['Asset', 'free', 'locked', 'withdrawing', 'ipoable', 'btcValuation']
-        for tag in tags:
-            label = QLabel(tag)
-            label.setStyleSheet(label_st)
-            self.asset_title.addWidget(label)
-        # Add the QHboxLayout to the QVboxLayout
-        self.layout().addLayout(self.asset_title)
+class Staking(QWidget):
+    def __init__(self, client, parent=None):
+        # super(PyAsset, self).__init__(parent)는 super().__init__(parent)와 같음 Python 2,3 버젼차이
+        super(Staking, self).__init__(parent)
+        self.client = client
+        #layout 추가
+        self.layout = QVBoxLayout()
+        self.layout.setContentsMargins(0, 0, 0, 0)
+        self.layout.setSpacing(0)
+        self.setLayout(self.layout)
+        # Set the staking position
+        self.dp_staking_pos(self.get_staking_pos())
+
+
+    def get_staking_pos(self):
+        # Get the user staking
+        user_staking = self.client.staking_product_position("STAKING")
+        return user_staking
+    
+    def dp_staking_pos(self, user_staking):
+        header = ['asset(period)', 'Amount', 'APY(%)', 'PurchaseTime', 'DeliverDate', 'USD Conversion']
+        for staking in user_staking:
+            # Unpack the data
+            asset = staking['asset']
+            amount = staking['amount']
+            apy = str(float(staking['apy']) * 100)
+            purchaseTime = staking['purchaseTime']
+            deliverDate = staking['deliverDate']
+
+            # Convert the time format
+            purchasTime = datetime.datetime.fromtimestamp(purchaseTime/1000)
+            deliverDate = datetime.datetime.fromtimestamp(deliverDate/1000)
+            # Covnert time format to str type
+            purchaseTime = purchasTime.strftime('%Y-%m-%d %H:%M:%S')
+            deliverDate = deliverDate.strftime('%Y-%m-%d %H:%M:%S')
+
+            staking_pos_asset = QLabel(asset)
+            staking_pos_asset.setObjectName('asset')
+            staking_pos_asset.setStyleSheet(label_st)
+
+            staking_pos_amount = QLabel(amount)
+            staking_pos_amount.setObjectName('amount')
+            staking_pos_amount.setStyleSheet(label_st)
+
+            staking_pos_apy = QLabel(apy)
+            staking_pos_apy.setObjectName('apy')
+            staking_pos_apy.setStyleSheet(label_st)
+
+            staking_pos_purchaseTime = QLabel(purchaseTime)
+            staking_pos_purchaseTime.setObjectName('purchaseTime')
+            staking_pos_purchaseTime.setStyleSheet(label_st)
+
+            staking_pos_deliverDate = QLabel(deliverDate)
+            staking_pos_deliverDate.setObjectName('deliverDate')
+            staking_pos_deliverDate.setStyleSheet(label_st)
+
+            staking_pos_usd_conversion = QLabel('0')
+            staking_pos_usd_conversion.setObjectName('usd_conversion')
+            staking_pos_usd_conversion.setStyleSheet(label_st)
+
+            staking_pos_layout = QHBoxLayout()
+            staking_pos_layout.setContentsMargins(0, 0, 0, 0)
+            staking_pos_layout.setSpacing(0)
+            staking_pos_layout.addWidget(staking_pos_asset)
+            staking_pos_layout.addWidget(staking_pos_amount)
+            staking_pos_layout.addWidget(staking_pos_apy)
+            staking_pos_layout.addWidget(staking_pos_purchaseTime)
+            staking_pos_layout.addWidget(staking_pos_deliverDate)
+            staking_pos_layout.addWidget(staking_pos_usd_conversion)
+            self.layout.addLayout(staking_pos_layout)

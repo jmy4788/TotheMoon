@@ -16,3 +16,12 @@ QPushButton:pressed {{
 	background-color: {_bg_color_pressed};
 }}
 '''
+
+label_st = '''
+QLabel {
+    color: #FFFFFF;
+    background-color: #2c313c;
+    font-size: 15pt;
+    font-family: SF Pro Heavy, malgun gothic, serif;
+}
+'''

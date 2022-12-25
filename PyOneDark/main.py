@@ -23,6 +23,7 @@ from gui.uis.windows.main_window.functions_main_window import *
 import sys
 import os
 import time
+import logging
 
 # IMPORT QT CORE
 # ///////////////////////////////////////////////////////////////
@@ -183,7 +184,6 @@ class MainWindow(QMainWindow):
                 self.asset = MyAsset(self.client)
                 self.ui.load_pages.page_order.layout().addWidget(self.asset)    
                 self.order_flag = True
-            
             # Load Page 3 
             MainFunctions.set_page(self, self.ui.load_pages.page_order)
             
@@ -413,10 +413,34 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
     app.setWindowIcon(QIcon("icon.ico"))
     window = MainWindow()
+    
+    # 로그 메시지를 다른 로그 수집 시스템에 전송합니다.
+    logging.basicConfig(format="%(asctime)s %(levelname)s %(message)s",
+                        datefmt="%Y-%m-%d %H:%M:%S",
+                        level=logging.DEBUG,
+                        filename="myapp.log")
+    
+    logging.warning("This is a warning message.")
+    logging.error("This is an error message.")
+    logging.info("This is an info message.")
+    logging.debug("This is a debug message.")
+
+
     #thread1 = Worker(window.init_candlesticks)
     #thread1.price.connect(window.chart.update_chart)
     #thread1.start()
+    
+    
+    def new_window_opened():
+    # 새 창을 생성합니다.
+        new_window = QWidget()
+        new_window.setWindowTitle("New Window")
 
+        # 새 창을 표시합니다.
+        new_window.show()
+    
     # EXEC APP
     # ///////////////////////////////////////////////////////////////
     sys.exit(app.exec_())
+
+    

@@ -29,7 +29,6 @@ from PySide6.QtSvgWidgets import *
 from PySide6.QtCharts import *
 from binance.spot import Spot as Client
 from binance.lib.utils import config_logging
-
 style = '''
 QPushButton {{
     font-size: 13pt;
