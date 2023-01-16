@@ -1,8 +1,8 @@
 {
     "app_name": "PyOneDark - Modern GUI",
     "version" : "v1.0.0",
-    "copyright" : "By: Wanderson M. Pimenta",
-    "year" : 2022,
+    "copyright" : "By: Wanderson M. Pimenta, MinYeong",
+    "year" : 2023,
     "theme_name" : "default",
     "custom_title_bar": true,
     "startup_size": [

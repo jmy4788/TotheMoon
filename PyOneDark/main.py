@@ -60,7 +60,14 @@ class MainWindow(QMainWindow):
         self.dist = "5m"
         self.login_flag = False
         self.order_flag = False
-        self.client = Client(home_key, home_secret)
+        
+        self.login_key = None
+        self.login_secret = None
+        
+        self.api_key = home_key
+        self.api_secret = home_secret
+        
+        self.asset = None
 
         # SETUP MAIN WINDOw
         # Load widgets from "gui\uis\main_window\ui_main.py"
@@ -171,18 +178,18 @@ class MainWindow(QMainWindow):
             MainFunctions.set_page(self, self.ui.load_pages.page_chart)
         
         # 오더 페이지 아이콘 클릭시
-        if btn.objectName() == "btn_order":
+        if btn.objectName() == "btn_wallet":
             # Select Menu
             self.ui.left_menu.select_only_one(btn.objectName())
             # order_flag를 통해서 widget의 삭제 없이 문제 해결..!! (2022.11.23)
             if self.order_flag is False:
                 if self.login_flag is True:
+                    self.asset = MyWallet(key = self.api_key, secret = self.api_secret)
                     # add PyAsset in to page_order
-                    self.asset = MyAsset(self.client)
                     self.ui.load_pages.page_order.layout().addWidget(self.asset)
                 # 임시로 그냥 앱 추가
-                self.asset = MyAsset(self.client)
-                self.ui.load_pages.page_order.layout().addWidget(self.asset)    
+                self.asset = MyWallet(key = self.api_key, secret = self.api_secret)
+                self.ui.load_pages.page_order.layout().addWidget(self.asset)
                 self.order_flag = True
             # Load Page 3 
             MainFunctions.set_page(self, self.ui.load_pages.page_order)
@@ -319,12 +326,12 @@ class MainWindow(QMainWindow):
             event.accept()
             
     def order_id_input_event(self):
-        self.order_id = self.ui.load_pages.page_1.id_input.text()
-        print(self.order_id)
+        self.login_key = self.ui.load_pages.page_1.id_input.text()
+        print(self.login_key)
     
     def order_pw_input_event(self):
-        self.order_pw = self.ui.load_pages.page_1.pw_input.text()
-        print(self.order_pw)
+        self.login_secret = self.ui.load_pages.page_1.pw_input.text()
+        print(self.login_secret)
     # if order_login_btn_event is clicked, then order_id and order_pw is saved
 
     def order_login_btn_event(self):
@@ -333,7 +340,7 @@ class MainWindow(QMainWindow):
         # print("self.order_id: ", self.order_id)
         # print("self.order_pw: ", self.order_pw)
 
-        self.client = Client(self.order_id, self.order_pw)
+        self.client = Spot(self.login_key, self.login_secret)
 
         # data Normal이면 login이 성공한 것임
         if self.client.account_status()['data'] == "Normal":
@@ -342,43 +349,11 @@ class MainWindow(QMainWindow):
             self.ui.load_pages.page_1.id_input.setText("")
             self.ui.load_pages.page_1.pw_input.setText("")
             self.login_flag = True
-    
-        # self.ui.title_bar 에다가 로그인 성공 표시 해야 함
-        #  
-        """
-        assets = result.assets
-        for asset in assets:
-            print(dir(asset))
-            print(asset)
-        print("balance 불러오기 성공")
-        self.ui.load_pages.order_login_btn.setText("로그인 성공")
-        self.ui.load_pages.order_login_btn.setStyleSheet("background-color: rgb(0, 255, 0);")
-        self.ui.load_pages.order_login_btn.setEnabled(False)
-        self.ui.load_pages.order_id_input.setEnabled(False)
-        self.ui.load_pages.order_pw_input.setEnabled(False)
-        
-        request_client = RequestClient(api_key=g_api_key, secret_key=g_secret_key)
-        result = request_client.get_account_information()
-        print("canDeposit: ", result.canDeposit)
-        print("canWithdraw: ", result.canWithdraw)
-        print("feeTier: ", result.feeTier)
-        print("maxWithdrawAmount: ", result.maxWithdrawAmount)
-        print("totalInitialMargin: ", result.totalInitialMargin)
-        print("totalMaintMargin: ", result.totalMaintMargin)
-        print("totalMarginBalance: ", result.totalMarginBalance)
-        print("totalOpenOrderInitialMargin: ", result.totalOpenOrderInitialMargin)
-        print("totalPositionInitialMargin: ", result.totalPositionInitialMargin)
-        print("totalUnrealizedProfit: ", result.totalUnrealizedProfit)
-        print("totalWalletBalance: ", result.totalWalletBalance)
-        print("updateTime: ", result.updateTime)
-        print("=== Assets ===")
-        PrintMix.print_data(result.assets)
-        print("==============")
-        print("=== Positions ===")
-        PrintMix.print_data(result.positions)
-        print("==============")
-        """
-        
+            
+            # 로그인이 성공했으면 key를 새걸로 바꿈
+            self.api_key = self.login_key
+            self.api_secret = self.login_secret
+
 
 # QThread 클래스
 class Worker(QThread):
@@ -402,6 +377,23 @@ class Worker(QThread):
                 __last_candle_opentime = new_price[-1].openTime
                 time.sleep(3)
 
+
+class TimerThread(QThread):
+    # 빈 시그널 만들기
+    
+    timeout = Signal()
+
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.timer = QTimer(self)
+        self.timer.timeout.connect(self.timeout)
+
+    def __del__(self):
+        del self.timer
+
+    def run(self):
+        self.timer.start(2000)
+        self.exec_()
 # SETTINGS WHEN TO START
 # Set the initial class and also additional parameters of the "QApplication" class
 # ///////////////////////////////////////////////////////////////
@@ -414,6 +406,7 @@ if __name__ == "__main__":
     app.setWindowIcon(QIcon("icon.ico"))
     window = MainWindow()
     
+
     # 로그 메시지를 다른 로그 수집 시스템에 전송합니다.
     logging.basicConfig(format="%(asctime)s %(levelname)s %(message)s",
                         datefmt="%Y-%m-%d %H:%M:%S",
@@ -425,19 +418,9 @@ if __name__ == "__main__":
     logging.info("This is an info message.")
     logging.debug("This is a debug message.")
 
-
-    #thread1 = Worker(window.init_candlesticks)
-    #thread1.price.connect(window.chart.update_chart)
-    #thread1.start()
-    
-    
-    def new_window_opened():
-    # 새 창을 생성합니다.
-        new_window = QWidget()
-        new_window.setWindowTitle("New Window")
-
-        # 새 창을 표시합니다.
-        new_window.show()
+    # thread1 = Worker(window.init_candlesticks)
+    # thread1.price.connect(window.chart.update_chart)
+    # thread1.start()
     
     # EXEC APP
     # ///////////////////////////////////////////////////////////////

@@ -83,4 +83,4 @@ from . my_login_app import LoginApp
 # PY SEE ASSET WIDGET
 # ///////////////////////////////////////////////////////////////
 
-from . my_asset import MyAsset
+from . my_wallet import MyWallet

@@ -34,7 +34,7 @@ class BitcoinChart(QChartView):
         self.elems = []
         highs = []
         lows = []
-        request_client = Client("g_api_key", "g_secret_key")
+        request_client = Spot("g_api_key", "g_secret_key")
         self.init_candle = request_client.klines(symbol=self.ticker, interval=self.dist, limit= 50)
 
         # klines method에서 반환되는 값

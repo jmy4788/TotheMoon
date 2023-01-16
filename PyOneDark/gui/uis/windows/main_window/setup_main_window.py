@@ -79,10 +79,18 @@ class SetupMainWindow:
             "is_active" : False
         },
         {
-            "btn_icon" : "icon_order.svg",
-            "btn_id" : "btn_order",
-            "btn_text" : "Order",
-            "btn_tooltip" : "Open order",
+            "btn_icon" : "icon_wallet.svg",
+            "btn_id" : "btn_wallet",
+            "btn_text" : "Wallet",
+            "btn_tooltip" : "My Wallet",
+            "show_top" : True,
+            "is_active" : False
+        },
+        {
+            "btn_icon" : "bot.svg",
+            "btn_id" : "AI trading",
+            "btn_text" : "AI trading",
+            "btn_tooltip" : "AI trading",
             "show_top" : True,
             "is_active" : False
         },
@@ -658,22 +666,6 @@ class SetupMainWindow:
         self.ui.load_pages.page_1.pw_input.textChanged.connect(self.order_pw_input_event)
         self.ui.load_pages.page_1.pw_input.returnPressed.connect(self.order_pw_input_event)
         self.ui.load_pages.page_1.login_btn.clicked.connect(self.order_login_btn_event)
-        
-
-        """
-        self.ui.load_pages.page_2.order_table.setRowCount(0)
-        self.ui.load_pages.page_2.order_table.setColumnCount(6)
-        self.ui.load_pages.page_2.order_table.setHorizontalHeaderLabels(["주문번호", "종목", "주문가격", "주문수량", "주문타입", "주문상태"])
-        self.ui.load_pages.page_2.order_table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
-        self.ui.load_pages.page_2.order_table.verticalHeader().setVisible(False)
-        self.ui.load_pages.page_2.order_table.setEditTriggers(QAbstractItemView.NoEditTriggers)
-        self.ui.load_pages.page_2.order_table.setSelectionBehavior(QAbstractItemView.SelectRows)
-        self.ui.load_pages.page_2.order_table.setSelectionMode(QAbstractItemView.SingleSelection)
-        self.ui.load_pages.page_2.order_table.setShowGrid(False)
-        self.ui.load_pages.page_2.order_table.setStyleSheet("QTableWidget::item {border-bottom: 1px solid #444444;}")
-        self.ui.load_pages.page_2.order_table.cellClicked.connect(self.order_table_cell_clicked)
-        self.ui.load_pages.page_2.order_table.cellDoubleClicked.connect(self.order_table_cell_double_clicked)
-        """
 
 
 

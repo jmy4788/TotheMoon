@@ -20,7 +20,6 @@ from qt_core import *
 from gui.widgets import *
 from gui.core.json_themes import Themes
 # my common style을 import 하는 행
-from gui.themes.my_style import style
 
 
 
@@ -72,7 +71,7 @@ class LoginApp(QWidget):
             _bg_color_pressed=self.themes["app_color"]['dark_four'],
         ))
         self.layout2.addWidget(self.upbit_button)
-        
+
         # add "Binance" button to self.layout2
         self.binance_button = QPushButton(self)
         self.binance_button.setObjectName(u"binance_button")
