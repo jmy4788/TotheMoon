@@ -181,6 +181,22 @@ class Ui_MainPages(object):
         self.pages.addWidget(self.page_chart)
 
 
+        # 여기서 새로운 페이지 추가 Predict Page
+        self.page_predict = QWidget()
+        self.page_predict.setObjectName(u"page_predict")
+        self.verticalLayout_8 = QVBoxLayout(self.page_predict)
+        self.verticalLayout_8.setObjectName(u"verticalLayout_8")
+        self.predict_v_layout = QVBoxLayout()
+        self.predict_v_layout.setObjectName(u"predict_v_layout")
+        self.predict_h_layout = QHBoxLayout()
+        self.predict_h_layout.setObjectName(u"predict_h_layout")
+
+        self.predict_v_layout.addLayout(self.predict_h_layout)
+
+        self.verticalLayout_8.addLayout(self.predict_v_layout)
+
+        self.pages.addWidget(self.page_predict)
+
         #이 아래에는 Qt Desginer에서 기본적으로 갖고 있던 Code
         self.main_pages_layout.addWidget(self.pages)
         self.retranslateUi(MainPages)

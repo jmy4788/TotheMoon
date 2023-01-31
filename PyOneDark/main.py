@@ -169,15 +169,14 @@ class MainWindow(QMainWindow):
             # Load Page 3 
             MainFunctions.set_page(self, self.ui.load_pages.page_3)
         
-        '''내가 추가한 Button Start from here'''
-        # 차트 페이지 추가
+        # 차트 아이콘 클릭 할 때 동작
         if btn.objectName() == "btn_chart":
             # Select Menu
             self.ui.left_menu.select_only_one(btn.objectName())
-            # Load Page 3 
+            # 차트 페이지 로드
             MainFunctions.set_page(self, self.ui.load_pages.page_chart)
-        
-        # 오더 페이지 아이콘 클릭시
+
+        # 지갑 아이콘 클릭 할 때 동작
         if btn.objectName() == "btn_wallet":
             # Select Menu
             self.ui.left_menu.select_only_one(btn.objectName())
@@ -191,9 +190,16 @@ class MainWindow(QMainWindow):
                 self.asset = MyWallet(key = self.api_key, secret = self.api_secret)
                 self.ui.load_pages.page_order.layout().addWidget(self.asset)
                 self.order_flag = True
-            # Load Page 3 
+            # 오더 페이지 로드
             MainFunctions.set_page(self, self.ui.load_pages.page_order)
-            
+
+        # 로봇 아이콘 클릭 할 때 동작
+        if btn.objectName() == "AI_Prediction":
+            # Select Menu
+            self.ui.left_menu.select_only_one(btn.objectName())
+            # Load Page 3 
+            MainFunctions.set_page(self, self.ui.load_pages.page_predict)
+        
         if btn.objectName() == "__btn_5m":
             self.dist = "5m"
             #self.ui.load_pages.chart_v_layout.__btn_5m.set_active()

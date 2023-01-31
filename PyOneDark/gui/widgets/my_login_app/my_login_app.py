@@ -19,7 +19,8 @@
 from qt_core import *
 from gui.widgets import *
 from gui.core.json_themes import Themes
-# my common style을 import 하는 행
+# my style을 import 하는 행
+from gui.themes import my_style
 
 
 
@@ -63,7 +64,7 @@ class LoginApp(QWidget):
         self.upbit_button.setObjectName(u"upbit_button")
         self.upbit_button.setText("Upbit")
         self.upbit_button.setCursor(QCursor(Qt.PointingHandCursor))
-        self.upbit_button.setStyleSheet(style.format(
+        self.upbit_button.setStyleSheet(my_style.PushBtn2.format(
             _radius=8,
             _color='#FFFFFF', 
             _bg_color='#093687',
@@ -77,7 +78,7 @@ class LoginApp(QWidget):
         self.binance_button.setObjectName(u"binance_button")
         self.binance_button.setText("Binance")
         self.binance_button.setCursor(QCursor(Qt.PointingHandCursor))
-        self.binance_button.setStyleSheet(style.format(
+        self.binance_button.setStyleSheet(my_style.PushBtn2.format(
             _color='#000000',
             _radius=8,
             _bg_color='#FCD535',

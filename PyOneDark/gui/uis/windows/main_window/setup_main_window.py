@@ -88,9 +88,9 @@ class SetupMainWindow:
         },
         {
             "btn_icon" : "bot.svg",
-            "btn_id" : "AI trading",
-            "btn_text" : "AI trading",
-            "btn_tooltip" : "AI trading",
+            "btn_id" : "AI_Prediction",
+            "btn_text" : "AI_Prediction",
+            "btn_tooltip" : "AI_Prediction",
             "show_top" : True,
             "is_active" : False
         },
@@ -594,14 +594,16 @@ class SetupMainWindow:
         self.ui.load_pages.row_3_layout.addWidget(self.toggle_button)
         self.ui.load_pages.row_4_layout.addWidget(self.line_edit)
         self.ui.load_pages.row_5_layout.addWidget(self.table_widget)
-        """Combo box 추가"""
+
+        # 차트 페이지에 콤보 박스 추가
         self.__comobo = QComboBox()
         self.__comobo.addItem("BTC")
         self.__comobo.addItem("ETH")
         self.__comobo.addItem("SOL")
         self.ui.load_pages.chart_h_layout.addWidget(self.__comobo)
         self.__comobo.currentTextChanged.connect(self.combobox_event)
-        """Ticker Push Button 추가"""
+        
+        # 티커 버튼 추가
         self.__btn_5m = PyIconButton(
             icon_path = Functions.set_svg_icon("my_icon_5m.svg"),
             parent = self,
@@ -651,23 +653,16 @@ class SetupMainWindow:
 
         __init__chart = BitcoinChart('BTCUSDT', '5m')
         self.ui.load_pages.chart_v_layout.addWidget(__init__chart)
-        # self.chart라는 객체를 Memory에서 지우기
-        # del self.chart
 
-        # self.ui.load_pages.chrat_v_layout.removeWidget(self.chart)
-        # self.ui.load_pages.page_3_layout.addWidget(self.chart)
+        # Deel learning Predict 페이지 채우기
 
-
-        """Home page에 page_1 로그인 APP 추가"""
-        print("page 1의 id는? :", id(self.ui.load_pages.page_1))
+        # 메인 페이지에 로그인 앱 추가
         LoginApp(self.ui.load_pages.page_1)
         self.ui.load_pages.page_1.id_input.textChanged.connect(self.order_id_input_event)
         self.ui.load_pages.page_1.id_input.returnPressed.connect(self.order_id_input_event)
         self.ui.load_pages.page_1.pw_input.textChanged.connect(self.order_pw_input_event)
         self.ui.load_pages.page_1.pw_input.returnPressed.connect(self.order_pw_input_event)
         self.ui.load_pages.page_1.login_btn.clicked.connect(self.order_login_btn_event)
-
-
 
 
         # RIGHT COLUMN
