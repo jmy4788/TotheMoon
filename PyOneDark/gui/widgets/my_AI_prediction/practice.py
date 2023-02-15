@@ -1,13 +1,15 @@
+from qt_core import *
+from api_key import *
+
+# 시간 관련 모듈 임포트
+import datetime
+import time
+
+# 판다스
 import pandas as pd
-import numpy as np
 
-input = pd.read_csv(r'C:\Programming\python\TotheMoon\PyOneDark\BTC데이터\Input_df.csv')
-output = pd.read_csv(r'C:\Programming\python\TotheMoon\PyOneDark\BTC데이터\output_df.csv')
-
-input = input.values.tolist()
-output = output.values.tolist()
-
-
-
-print(input[0])
-print(output[0])
+# 선물 client 생성
+futures_client = UMFutures(home_key, home_secret)
+exchange_info = futures_client.exchange_info()
+print(exchange_info.rateLimits)
+# 서버 타임은 현재 이 시간
