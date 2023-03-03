@@ -650,6 +650,8 @@ class SetupMainWindow:
         
         self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
         self.ui.load_pages.chart_h_layout.addItem(self.horizontalSpacer)
+        
+        # Chart page에서 Chart 추가 from Here
 
         __init__chart = BitcoinChart('BTCUSDT', '5m')
         self.ui.load_pages.chart_v_layout.addWidget(__init__chart)
@@ -663,6 +665,11 @@ class SetupMainWindow:
         self.ui.load_pages.page_1.pw_input.textChanged.connect(self.order_pw_input_event)
         self.ui.load_pages.page_1.pw_input.returnPressed.connect(self.order_pw_input_event)
         self.ui.load_pages.page_1.login_btn.clicked.connect(self.order_login_btn_event)
+
+        # AI Prediction page의 Chart 추가 from here
+        
+        __test_chart = Prediction_Chart('BTCUSDT', '5m')
+        self.ui.load_pages.predict_h_layout.addWidget(__test_chart)
 
 
         # RIGHT COLUMN
