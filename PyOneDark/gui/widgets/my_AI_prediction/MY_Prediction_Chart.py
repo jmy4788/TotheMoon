@@ -23,7 +23,7 @@ class Prediction_Chart(QChartView):
 
     def init_chart(self, data : pd.DataFrame = None) -> None:
         if data is None:
-            self.data = pd.read_csv(r'C:\Programming\python\TotheMoon\PyOneDark\Data_Storage\1h\test_for_chart_drawing.csv').tail(self.limit)
+            self.data = pd.read_csv(r'C:\Programming\python\TotheMoon\PyOneDark\Storage\Data\1h\test_for_chart_drawing.csv').tail(self.limit)
         else:
             self.data = data.tail(self.limit)
 

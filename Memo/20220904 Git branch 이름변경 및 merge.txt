@@ -1,2 +1,0 @@
-git branch [<options>] (-m | -M) [<old-branch>] <new-branch>
-remote 저장소의 이름을 바꿔야 되는데?
