@@ -15,7 +15,7 @@ futures_client = UMFutures(home_key, home_secret)
 
 class GetDatafromServer():
     def __init__(self, 
-    start_time: str = "2021-01-19 12:00:00", 
+    start_time: str = "2020-01-19 12:00:00", 
     end_time: str = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'), 
     dist: str= "", 
     path: str = r"C:\Programming\Python\TotheMoon\PyOneDark\Storage\Data"
@@ -41,7 +41,7 @@ class GetDatafromServer():
         df = pd.DataFrame()
         while self.start_time_ts < self.end_time_ts:
 
-            data = futures_client.klines(symbol='BTCUSDT', interval=self.dist, startTime = self.start_time_ts, limit = 500)
+            data = futures_client.klines(symbol='ETHUSDT', interval=self.dist, startTime = self.start_time_ts, limit = 500)
             data = pd.DataFrame(data)
 
             if self.dist == "15m":
@@ -110,6 +110,6 @@ class GetDatafromServer():
 
 if __name__ == "__main__":
     test_data = GetDatafromServer(dist="1d")
-    test_data.set_start_time("2010-01-01 12:00:00")
+    test_data.set_start_time("2017-01-01 12:00:00")
     data = test_data.get_data()
     LTSF = test_data.prepare_data_for_LTSF_input(data)

@@ -54,7 +54,6 @@ class MyWallet(QWidget):
         self.layout.addStretch(1)
         self.layout.setAlignment(Qt.AlignTop)
         self.setLayout(self.layout)
-
     # ----------Spot 버튼 / 위젯 추가----------------
         self.add_spot_btn()
         self.spot = Spot_widget(self.spot_client)

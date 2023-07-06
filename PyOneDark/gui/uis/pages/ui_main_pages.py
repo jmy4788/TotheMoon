@@ -190,12 +190,22 @@ class Ui_MainPages(object):
         self.predict_v_layout.setObjectName(u"predict_v_layout")
         self.predict_h_layout = QHBoxLayout()
         self.predict_h_layout.setObjectName(u"predict_h_layout")
-
         self.predict_v_layout.addLayout(self.predict_h_layout)
-
         self.verticalLayout_8.addLayout(self.predict_v_layout)
-
         self.pages.addWidget(self.page_predict)
+
+        # 트레이딩 Page here
+        self.page_trading = QWidget()
+        self.page_trading.setObjectName(u"page_trading")
+        self.verticalLayout_trading = QVBoxLayout(self.page_trading)
+        self.verticalLayout_trading.setObjectName(u"verticalLayout_trading")
+        self.trading_v_layout = QVBoxLayout()
+        self.trading_v_layout.setObjectName(u"trading_v_layout")
+        self.trading_h_layout = QHBoxLayout()
+        self.trading_h_layout.setObjectName(u"trading_h_layout")
+        self.trading_v_layout.addLayout(self.trading_h_layout)
+        self.verticalLayout_trading.addLayout(self.trading_v_layout)
+        self.pages.addWidget(self.page_trading)
 
         #이 아래에는 Qt Desginer에서 기본적으로 갖고 있던 Code
         self.main_pages_layout.addWidget(self.pages)
