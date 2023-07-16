@@ -142,43 +142,29 @@ class Ui_MainPages(object):
 
         self.pages.addWidget(self.page_2)
         
-        # order page 는 여기서부터 시작
+        # page_order 생성 및 pages에 추가
         self.page_order = QWidget()
         self.page_order.setObjectName(u"page_order")
-        self.verticalLayout_4 = QVBoxLayout(self.page_order)
-        self.verticalLayout_4.setObjectName(u"verticalLayout_4")
-        """
-        self.empty_page_label = QLabel(self.page_order)
-        self.empty_page_label.setObjectName(u"empty_page_label")
-        self.empty_page_label.setFont(font)
-        self.empty_page_label.setAlignment(Qt.AlignCenter)
-        self.verticalLayout_4.addWidget(self.empty_page_label)
-        """
+        self.vlayout_order = QVBoxLayout(self.page_order)
+        self.vlayout_order.setObjectName(u"vlayout_order")
         self.pages.addWidget(self.page_order)
 
-        
-
-        # 여기서 부터 내가 Designer로 추가한 Page Code
-
-
+        # page_chart 생성 및 pages에 추가
         self.page_chart = QWidget()
         self.page_chart.setObjectName(u"page_chart")
-        self.verticalLayout_7 = QVBoxLayout(self.page_chart)
-        self.verticalLayout_7.setObjectName(u"verticalLayout_7")
-        self.chart_v_layout = QVBoxLayout()
-        self.chart_v_layout.setObjectName(u"chart_v_layout")
-        self.chart_h_layout = QHBoxLayout()
-        self.chart_h_layout.setObjectName(u"chart_h_layout")
+
+        # 일단 vertical layout 생성
+        self.vlayout_chart = QVBoxLayout(self.page_chart)
+        self.vlayout_chart.setObjectName(u"vlayout_chart")
         
-        #self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        #self.chart_h_layout.addItem(self.horizontalSpacer)
-
+        # 하위 Layer에 vertical layout 및 horitzontal layout 생성
+        self.vlayout_chart_l2 = QVBoxLayout()
+        self.vlayout_chart_l2.setObjectName(u"vlayout_chart_l2")
+        self.hlayout_chart_l2 = QHBoxLayout()
+        self.hlayout_chart_l2.setObjectName(u"hlayout_chart_l2")
 
         self.chart_v_layout.addLayout(self.chart_h_layout)
-
         self.verticalLayout_7.addLayout(self.chart_v_layout)
-
         self.pages.addWidget(self.page_chart)
 
 
