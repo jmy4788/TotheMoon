@@ -13,7 +13,6 @@
 # https://doc.qt.io/qtforpython/licenses.html
 #
 # ///////////////////////////////////////////////////////////////
-
 # IMPORT QT CORE
 # ///////////////////////////////////////////////////////////////
 from qt_core import *
@@ -30,11 +29,16 @@ class Ui_MainPages(object):
         self.main_pages_layout.setContentsMargins(5, 5, 5, 5)
         self.pages = QStackedWidget(MainPages)
         self.pages.setObjectName(u"pages")
-
+        
+        # Page_1은 Welcome page
         self.page_1 = QWidget()
         self.page_1.setObjectName(u"page_1")
-        # self.page_1.setStyleSheet(u"font-size: 13pt; font-family: SF Pro Regular")
+        self.pages.addWidget(self.page_1)
+        
         """
+        기존 내용
+        self.page_1 = QWidget()
+        self.page_1.setObjectName(u"page_1")
         self.page_1_layout = QVBoxLayout(self.page_1)
         self.page_1_layout.setSpacing(5)
         self.page_1_layout.setObjectName(u"page_1_layout")
@@ -50,7 +54,6 @@ class Ui_MainPages(object):
         self.center_page_layout.setSpacing(10)
         self.center_page_layout.setObjectName(u"center_page_layout")
         self.center_page_layout.setContentsMargins(0, 0, 0, 0)
-        
         self.logo = QFrame(self.welcome_base)
         self.logo.setObjectName(u"logo")
         self.logo.setMinimumSize(QSize(300, 120))
@@ -62,14 +65,12 @@ class Ui_MainPages(object):
         self.logo_layout.setObjectName(u"logo_layout")
         self.logo_layout.setContentsMargins(0, 0, 0, 0)
         self.center_page_layout.addWidget(self.logo)
-
         self.label = QLabel(self.welcome_base)
         self.label.setObjectName(u"label")
         self.label.setAlignment(Qt.AlignCenter)
         self.center_page_layout.addWidget(self.label)
         self.page_1_layout.addWidget(self.welcome_base, 0, Qt.AlignHCenter)
         """
-        self.pages.addWidget(self.page_1)
 
         self.page_2 = QWidget()
         self.page_2.setObjectName(u"page_2")
@@ -197,14 +198,9 @@ class Ui_MainPages(object):
         # 트레이딩 Page here
         self.page_trading = QWidget()
         self.page_trading.setObjectName(u"page_trading")
-        self.verticalLayout_trading = QVBoxLayout(self.page_trading)
-        self.verticalLayout_trading.setObjectName(u"verticalLayout_trading")
-        self.trading_v_layout = QVBoxLayout()
+        self.trading_v_layout = QVBoxLayout(self.page_trading)
         self.trading_v_layout.setObjectName(u"trading_v_layout")
-        self.trading_h_layout = QHBoxLayout()
-        self.trading_h_layout.setObjectName(u"trading_h_layout")
-        self.trading_v_layout.addLayout(self.trading_h_layout)
-        self.verticalLayout_trading.addLayout(self.trading_v_layout)
+        
         self.pages.addWidget(self.page_trading)
 
         #이 아래에는 Qt Desginer에서 기본적으로 갖고 있던 Code

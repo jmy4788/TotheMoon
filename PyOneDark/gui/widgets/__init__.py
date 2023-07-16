@@ -88,3 +88,7 @@ from . my_wallet import MyWallet
 # PY AI PREDICTION WIDGET
 # ///////////////////////////////////////////////////////////////
 from . my_AI_prediction import Prediction_Chart
+
+# PY TradingWidget
+# ///////////////////////////////////////////////////////////////
+from . my_trading import TradingWidget

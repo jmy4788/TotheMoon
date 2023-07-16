@@ -193,6 +193,12 @@ class MainWindow(QMainWindow):
             # 오더 페이지 로드
             MainFunctions.set_page(self, self.ui.load_pages.page_order)
 
+        if btn.objectName() == "btn_trading":
+                    # Select Menu
+                    self.ui.left_menu.select_only_one(btn.objectName())
+                    # Load Page 3 
+                    MainFunctions.set_page(self, self.ui.load_pages.page_trading)
+
         # 로봇 아이콘 클릭 할 때 동작
         if btn.objectName() == "AI_Prediction":
             # Select Menu

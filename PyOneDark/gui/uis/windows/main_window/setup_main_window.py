@@ -18,7 +18,7 @@
 # ///////////////////////////////////////////////////////////////
 from requests import delete
 from gui.widgets.py_table_widget.py_table_widget import PyTableWidget
-from . functions_main_window import *
+from . functions_main_window import MainFunctions
 import sys
 import os
 import time
@@ -83,6 +83,14 @@ class SetupMainWindow:
             "btn_id" : "btn_wallet",
             "btn_text" : "Wallet",
             "btn_tooltip" : "My Wallet",
+            "show_top" : True,
+            "is_active" : False
+        },
+        {
+            "btn_icon" : "icon_trading.svg",
+            "btn_id" : "btn_trading",
+            "btn_text" : "Trading",
+            "btn_tooltip" : "Do Trading",
             "show_top" : True,
             "is_active" : False
         },
@@ -658,6 +666,8 @@ class SetupMainWindow:
 
         # Deel learning Predict 페이지 채우기
 
+
+
         # 메인 페이지에 로그인 앱 추가
         LoginApp(self.ui.load_pages.page_1)
         self.ui.load_pages.page_1.id_input.textChanged.connect(self.order_id_input_event)
@@ -670,6 +680,10 @@ class SetupMainWindow:
         
         __test_chart = Prediction_Chart('BTCUSDT', '5m')
         self.ui.load_pages.predict_h_layout.addWidget(__test_chart)
+
+
+        # trading page에 trading widget 넣기
+        self.ui.load_pages.page_trading.addWidget(TradingWidget())
 
 
         # RIGHT COLUMN

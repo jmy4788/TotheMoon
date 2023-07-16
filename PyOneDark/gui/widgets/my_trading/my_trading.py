@@ -28,52 +28,36 @@ import datetime
 # QLabel style
 theme = Themes().items
 
-import sys
-from PySide6.QtWidgets import QApplication, QVBoxLayout, QWidget, QSlider, QLabel
-from PySide6.QtCore import Qt
-from binance.client import Client
-
 # Please replace these with your Binance API credentials
-API_KEY = "YOUR_BINANCE_API_KEY"
-API_SECRET = "YOUR_BINANCE_API_SECRET"
 
 class TradingWidget(QWidget):
     def __init__(self):
         super().__init__()
 
-        self.binance_client = Client(API_KEY, API_SECRET)
+        self.layout = QGridLayout()
 
-        self.layout = QVBoxLayout(self)
+        # The ComboBox for asset selection.
+        self.asset_selection = QComboBox()
+        self.asset_selection.addItems(["Bitcoin", "Ethereum", "Solana"])  # Add your assets here
+        self.layout.addWidget(QLabel("Select asset:"), 0, 0)
+        self.layout.addWidget(self.asset_selection, 0, 1)
 
-        self.slider = QSlider(Qt.Horizontal)
-        self.slider.setMinimum(-1)
-        self.slider.setMaximum(1)
-        self.slider.setValue(0)
-        self.slider.valueChanged.connect(self.slider_value_changed)
+        # Label to display current position
+        self.position_label = QLabel("Current position: Not fetched yet")
+        self.layout.addWidget(self.position_label, 1, 0, 1, 2)
 
-        self.status_label = QLabel("Neutral")
+        # The Slider for position adjustment within a range.
+        self.position_slider = QSlider(Qt.Horizontal)
+        self.position_slider.setRange(0, 100)  # Set the range according to your needs
+        self.layout.addWidget(QLabel("Set new position (0-100):"), 2, 0)
+        self.layout.addWidget(self.position_slider, 2, 1)
 
-        self.layout.addWidget(self.slider)
-        self.layout.addWidget(self.status_label)
+        # The LineEdit for precise position adjustment.
+        self.position_input = QLineEdit()
+        self.layout.addWidget(self.position_input, 3, 0, 1, 2)
 
-    def slider_value_changed(self, value):
-        if value == 1:
-            # Place spot order with 100% of current asset
-            self.status_label.setText("Placed spot order")
-            # self.binance_client.order_market_buy(...)
-        elif value == -1:
-            # Place short futures position with 100% of current asset
-            self.status_label.setText("Placed short futures position")
-            # self.binance_client.futures_create_order(...)
-        else:
-            # Neutral state: 50% spot order and 50% short futures position
-            self.status_label.setText("Placed 50% spot order and 50% short futures position")
-            # self.binance_client.order_market_buy(...)
-            # self.binance_client.futures_create_order(...)
+        # Button to execute trade
+        self.trade_button = QPushButton("Execute trade")
+        self.layout.addWidget(self.trade_button, 4, 0, 1, 2)
 
-app = QApplication(sys.argv)
-
-window = TradingWidget()
-window.show()
-
-sys.exit(app.exec())
+        self.setLayout(self.layout)
