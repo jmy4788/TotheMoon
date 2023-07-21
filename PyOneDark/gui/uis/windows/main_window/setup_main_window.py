@@ -608,7 +608,7 @@ class SetupMainWindow:
         self.__comobo.addItem("BTC")
         self.__comobo.addItem("ETH")
         self.__comobo.addItem("SOL")
-        self.ui.load_pages.chart_h_layout.addWidget(self.__comobo)
+        self.ui.load_pages.hlayout_chart_l2.addWidget(self.__comobo)
         self.__comobo.currentTextChanged.connect(self.combobox_event)
         
         # 티커 버튼 추가
@@ -632,7 +632,7 @@ class SetupMainWindow:
         )
         self.__btn_5m.setObjectName(u"__btn_5m")
         self.__btn_5m.clicked.connect(self.btn_clicked)
-        self.ui.load_pages.chart_h_layout.addWidget(self.__btn_5m)
+        self.ui.load_pages.hlayout_chart_l2.addWidget(self.__btn_5m)
         
         self.__btn_1h = PyIconButton(
             icon_path = Functions.set_svg_icon("my_icon_1h.svg"),
@@ -654,15 +654,15 @@ class SetupMainWindow:
         )
         self.__btn_1h.setObjectName(u"__btn_1h")
         self.__btn_1h.clicked.connect(self.btn_clicked)
-        self.ui.load_pages.chart_h_layout.addWidget(self.__btn_1h)
+        self.ui.load_pages.hlayout_chart_l2.addWidget(self.__btn_1h)
         
         self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-        self.ui.load_pages.chart_h_layout.addItem(self.horizontalSpacer)
+        self.ui.load_pages.hlayout_chart_l2.addItem(self.horizontalSpacer)
         
         # Chart page에서 Chart 추가 from Here
 
         __init__chart = BitcoinChart('BTCUSDT', '5m')
-        self.ui.load_pages.chart_v_layout.addWidget(__init__chart)
+        self.ui.load_pages.vlayout_chart_l2.addWidget(__init__chart)
 
         # Deel learning Predict 페이지 채우기
 
@@ -683,7 +683,7 @@ class SetupMainWindow:
 
 
         # trading page에 trading widget 넣기
-        self.ui.load_pages.page_trading.addWidget(TradingWidget())
+        # self.ui.load_pages.page_trading.addWidget(TradingWidget())
 
 
         # RIGHT COLUMN
