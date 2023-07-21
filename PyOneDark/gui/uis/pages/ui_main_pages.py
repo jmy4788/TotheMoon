@@ -170,7 +170,7 @@ class Ui_MainPages(object):
         # layer2에 있는 hlayout을 layer1에 있는 vlayout에 추가
         self.vlayout_chart_l1.addLayout(self.vlayout_chart_l2)
         
-=======
+
         # page_order 생성 및 pages에 추가
         self.page_order = QWidget()
         self.page_order.setObjectName(u"page_order")
