@@ -678,12 +678,12 @@ class SetupMainWindow:
 
         # AI Prediction page의 Chart 추가 from here
         
-        __test_chart = Prediction_Chart('BTCUSDT', '5m')
-        self.ui.load_pages.predict_h_layout.addWidget(__test_chart)
+        # __test_chart = Prediction_Chart('BTCUSDT', '5m')
+        # self.ui.load_pages.predict_h_layout.addWidget(__test_chart)
 
 
         # trading page에 trading widget 넣기
-        # self.ui.load_pages.page_trading.addWidget(TradingWidget())
+        self.ui.load_pages.trading_v_layout.addWidget(TradingWidget())
 
 
         # RIGHT COLUMN
