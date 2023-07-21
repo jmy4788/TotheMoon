@@ -142,6 +142,7 @@ class Ui_MainPages(object):
 
         self.pages.addWidget(self.page_2)
         
+<<<<<<< HEAD
 
         #### Order page ####
         self.page_order = QWidget()
@@ -169,6 +170,31 @@ class Ui_MainPages(object):
         # layer2에 있는 hlayout을 layer1에 있는 vlayout에 추가
         self.vlayout_chart_l1.addLayout(self.vlayout_chart_l2)
         
+=======
+        # page_order 생성 및 pages에 추가
+        self.page_order = QWidget()
+        self.page_order.setObjectName(u"page_order")
+        self.vlayout_order = QVBoxLayout(self.page_order)
+        self.vlayout_order.setObjectName(u"vlayout_order")
+        self.pages.addWidget(self.page_order)
+
+        # page_chart 생성 및 pages에 추가
+        self.page_chart = QWidget()
+        self.page_chart.setObjectName(u"page_chart")
+
+        # 일단 vertical layout 생성
+        self.vlayout_chart = QVBoxLayout(self.page_chart)
+        self.vlayout_chart.setObjectName(u"vlayout_chart")
+        
+        # 하위 Layer에 vertical layout 및 horitzontal layout 생성
+        self.vlayout_chart_l2 = QVBoxLayout()
+        self.vlayout_chart_l2.setObjectName(u"vlayout_chart_l2")
+        self.hlayout_chart_l2 = QHBoxLayout()
+        self.hlayout_chart_l2.setObjectName(u"hlayout_chart_l2")
+
+        self.chart_v_layout.addLayout(self.chart_h_layout)
+        self.verticalLayout_7.addLayout(self.chart_v_layout)
+>>>>>>> 5e6d830ffda79f4b0366631b6930fc8998f181b2
         self.pages.addWidget(self.page_chart)
 
 
