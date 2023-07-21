@@ -34,6 +34,7 @@ class TradingWidget(QWidget):
     def __init__(self):
         super().__init__()
 
+        
         self.layout = QGridLayout()
 
         # The ComboBox for asset selection.
