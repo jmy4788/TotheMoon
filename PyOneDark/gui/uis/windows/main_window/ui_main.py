@@ -190,13 +190,14 @@ class UI_MainWindow(object):
         self.title_bar_frame.setMaximumHeight(40)
         self.title_bar_layout = QVBoxLayout(self.title_bar_frame)
         self.title_bar_layout.setContentsMargins(0,0,0,0)
-        
+
+
         # ADD CUSTOM TITLE BAR TO LAYOUT
         self.title_bar = PyTitleBar(
             parent,
-            logo_width = 100,
+            logo_width = 30,
             app_parent = self.central_widget,
-            logo_image = "logo_top_100x22.svg",
+            logo_image = "logo_To_the_Moon.svg",
             bg_color = self.themes["app_color"]["bg_two"],
             div_color = self.themes["app_color"]["bg_three"],
             btn_bg_color = self.themes["app_color"]["bg_two"],
@@ -280,7 +281,8 @@ class UI_MainWindow(object):
             copyright = self.settings["copyright"],
             version = self.settings["version"],
             font_family = self.settings["font"]["family"],
-            text_size = self.settings["font"]["text_size"],
+            #text_size = self.settings["font"]["text_size"],
+            text_size = 10,
             text_description_color = self.themes["app_color"]["text_description"]
         )
 
