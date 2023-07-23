@@ -604,7 +604,7 @@ class SetupMainWindow:
         self.ui.load_pages.row_5_layout.addWidget(self.table_widget)
 
         # 차트 페이지에 콤보 박스 추가
-        self.__comobo = QComboBox()
+        self.__comobo = MYCombobox()
         self.__comobo.addItem("BTC")
         self.__comobo.addItem("ETH")
         self.__comobo.addItem("SOL")
