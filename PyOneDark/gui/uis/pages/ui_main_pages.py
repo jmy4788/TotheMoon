@@ -150,7 +150,15 @@ class Ui_MainPages(object):
         
         self.pages.addWidget(self.page_order)
 
+    
 
+        #### Chart Page ####
+        self.page_chart = QWidget()
+        self.vlayout_chart_l1 = QVBoxLayout(self.page_chart)
+        self.vlayout_chart_l1.setObjectName(u"vlayout_chart_l1")
+        self.pages.addWidget(self.page_chart)
+ 
+        """
         #### Chart Page ####
         self.page_chart = QWidget()
         self.vlayout_chart_l1 = QVBoxLayout(self.page_chart)
@@ -169,7 +177,7 @@ class Ui_MainPages(object):
         self.vlayout_chart_l1.addLayout(self.vlayout_chart_l2)
 
         self.pages.addWidget(self.page_chart)
-
+        """
 
         #### Predict page ####
         self.page_predict = QWidget()

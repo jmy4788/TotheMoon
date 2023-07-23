@@ -56,8 +56,6 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         # common parameter set up
-        self.ticker = "BTCUSDT"
-        self.dist = "5m"
         self.login_flag = False
         self.order_flag = False
         
@@ -93,42 +91,6 @@ class MainWindow(QMainWindow):
     # Check funtion by object name / btn_id
     # ///////////////////////////////////////////////////////////////
 
-    # 테스트용 
-    def combobox_event(self, sel_text):
-        print(sel_text)
-        btn = SetupMainWindow.setup_btns(self)
-        # 차트 페이지 추가
-        if sel_text == "BTC":
-            self.ticker = "BTCUSDT"
-            __chart_widget  = self.ui.load_pages.vlayout_chart_l2.itemAt(1).widget()
-            print("__chart_widget__은?", __chart_widget)
-            if __chart_widget != None:
-                self.ui.load_pages.vlayout_chart_l2.removeWidget(__chart_widget)
-                # 파이썬에서는 memory 누수에 대해서 크게 신경쓰지 않기로 하자
-                #del __chart_widget
-                __BTC_5m = BitcoinChart(self.ticker, self.dist)
-                self.ui.load_pages.vlayout_chart_l2.addWidget(__BTC_5m)
-    
-        if sel_text == "ETH":
-            self.ticker = "ETHUSDT"
-            __chart_widget  = self.ui.load_pages.vlayout_chart_l2.itemAt(1).widget()
-            if __chart_widget != None:
-                self.ui.load_pages.vlayout_chart_l2.removeWidget(__chart_widget)
-                # 파이썬에서는 memory 누수에 대해서 크게 신경쓰지 않기로 하자
-                #del __chart_widget
-                __ETH_5m = BitcoinChart(self.ticker, self.dist)
-                self.ui.load_pages.vlayout_chart_l2.addWidget(__ETH_5m)
-
-        if sel_text == "SOL":
-            self.ticker = "SOLUSDT"
-            __chart_widget  = self.ui.load_pages.vlayout_chart_l2.itemAt(1).widget()
-            if __chart_widget != None:
-                self.ui.load_pages.vlayout_chart_l2.removeWidget(__chart_widget)
-                # 파이썬에서는 memory 누수에 대해서 크게 신경쓰지 않기로 하자
-                #del __chart_widget
-                __SOL__5m = BitcoinChart(self.ticker, self.dist)
-                self.ui.load_pages.vlayout_chart_l2.addWidget(__SOL__5m)
-    
         
     def btn_clicked(self):
         # GET BT CLICKED
@@ -205,34 +167,6 @@ class MainWindow(QMainWindow):
             self.ui.left_menu.select_only_one(btn.objectName())
             # Load Page 3 
             MainFunctions.set_page(self, self.ui.load_pages.page_predict)
-        
-        if btn.objectName() == "__btn_5m":
-            self.dist = "5m"
-            #self.ui.load_pages.vlayout_chart_l2.__btn_5m.set_active()
-            __chart_widget  = self.ui.load_pages.vlayout_chart_l2.itemAt(1).widget()
-            if __chart_widget != None:
-                self.ui.load_pages.vlayout_chart_l2.removeWidget(__chart_widget)
-                # 파이썬에서는 memory 누수에 대해서 크게 신경쓰지 않기로 하자
-                #del __chart_widget
-                __5m = BitcoinChart(self.ticker, self.dist)
-                self.ui.load_pages.vlayout_chart_l2.addWidget(__5m)
-        if btn.objectName() == "__btn_1h":
-            self.dist = "1h"
-            #self.ui.load_pages.vlayout_chart_l2.__btn_1h.set_active()
-            __chart_widget  = self.ui.load_pages.vlayout_chart_l2.itemAt(1).widget()
-            if __chart_widget != None:
-                self.ui.load_pages.vlayout_chart_l2.removeWidget(__chart_widget)
-                # 파이썬에서는 memory 누수에 대해서 크게 신경쓰지 않기로 하자
-                #del __chart_widget
-                __1h = BitcoinChart(self.ticker, self.dist)
-                self.ui.load_pages.vlayout_chart_l2.addWidget(__1h)
-
-            # 버튼이 누르면 일봉 Activate하는거 하나 필요
-            # 한 dist activate되면 나머지 dist는 de-activate하는 코드 추가
-            # Ticker명 Open하는 Box로 바꿀 필요 있음
-            # 4h봉 / 일봉 추가 필요
-            
-        '''내가 추가한 Button Ends here'''
 
         # BOTTOM INFORMATION
         if btn.objectName() == "btn_info":
@@ -367,45 +301,6 @@ class MainWindow(QMainWindow):
             self.api_secret = self.login_secret
 
 
-# QThread 클래스
-class Worker(QThread):
-    price = Signal(object)
-    def __init__(self, df):
-        super().__init__()
-        self.init_candle = df
-
-    def run(self):
-        __last_candle_opentime = self.init_candle[-1].openTime
-        request_client = RequestClient(api_key=g_api_key, secret_key=g_secret_key)
-        while True:
-            new_price = request_client.get_candlestick_data(symbol='BTCUSDT', interval='5m', limit= 2)
-            if __last_candle_opentime == new_price[-1].openTime:
-                print("새로운 Candlestick이 없습니다.")
-                __last_candle_opentime = new_price[-1].openTime
-                time.sleep(3)
-            else:
-                print("새로운 Candlestick이 생성되었습니다.")
-                self.price.emit(new_price[0])
-                __last_candle_opentime = new_price[-1].openTime
-                time.sleep(3)
-
-
-class TimerThread(QThread):
-    # 빈 시그널 만들기
-    
-    timeout = Signal()
-
-    def __init__(self, parent=None):
-        super().__init__(parent)
-        self.timer = QTimer(self)
-        self.timer.timeout.connect(self.timeout)
-
-    def __del__(self):
-        del self.timer
-
-    def run(self):
-        self.timer.start(2000)
-        self.exec_()
 # SETTINGS WHEN TO START
 # Set the initial class and also additional parameters of the "QApplication" class
 # ///////////////////////////////////////////////////////////////
@@ -430,10 +325,6 @@ if __name__ == "__main__":
     logging.info("This is an info message.")
     logging.debug("This is a debug message.")
 
-    # thread1 = Worker(window.init_candlesticks)
-    # thread1.price.connect(window.chart.update_chart)
-    # thread1.start()
-    
     # EXEC APP
     # ///////////////////////////////////////////////////////////////
     sys.exit(app.exec_())

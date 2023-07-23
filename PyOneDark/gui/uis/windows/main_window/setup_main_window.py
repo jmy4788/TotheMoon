@@ -603,6 +603,12 @@ class SetupMainWindow:
         self.ui.load_pages.row_4_layout.addWidget(self.line_edit)
         self.ui.load_pages.row_5_layout.addWidget(self.table_widget)
 
+
+        # Chart 페이지 추가
+        self.chart = ChartPage()
+        self.ui.load_pages.vlayout_chart_l1.addWidget(self.chart)
+        """
+        self.ui.load_pages.vlayout_chart_l1.addWidget()
         # 차트 페이지에 콤보 박스 추가
         self.__comobo = MYCombobox()
         self.__comobo.addItem("BTC")
@@ -610,7 +616,8 @@ class SetupMainWindow:
         self.__comobo.addItem("SOL")
         self.ui.load_pages.hlayout_chart_l2.addWidget(self.__comobo)
         self.__comobo.currentTextChanged.connect(self.combobox_event)
-        
+        """
+        """
         # 티커 버튼 추가
         self.__btn_5m = PyIconButton(
             icon_path = Functions.set_svg_icon("my_icon_5m.svg"),
@@ -663,7 +670,7 @@ class SetupMainWindow:
 
         __init__chart = BitcoinChart('BTCUSDT', '5m')
         self.ui.load_pages.vlayout_chart_l2.addWidget(__init__chart)
-
+        """
         # Deel learning Predict 페이지 채우기
 
 

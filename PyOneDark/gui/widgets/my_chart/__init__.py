@@ -17,3 +17,4 @@
 # PY CREDITS
 # ///////////////////////////////////////////////////////////////
 from . my_chart import BitcoinChart
+from .my_chart_main import ChartPage

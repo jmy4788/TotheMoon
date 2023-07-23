@@ -7,13 +7,8 @@ from qt_core import *
 class MYCombobox(QComboBox):
     def __init__(self, parent=None):
         super(MYCombobox, self).__init__(parent)
-
-        # Sample items
-        for i in range(5):
-            self.addItem(f"Item {i}")
-
         # Set the fixed width and height
-        self.setFixedWidth(80)
+        self.setFixedWidth(100)
         self.setFixedHeight(40)
         self.setStyleSheet("""
             QComboBox {
@@ -23,7 +18,7 @@ class MYCombobox(QComboBox):
                 border-radius: 8px;
                 padding: 5px;
                 font : Arial;
-                font-size : 13px;
+                font-size : 14px;
                 font-weight: bold;
                 text-align: center;
             }
