@@ -18,7 +18,7 @@
 # ///////////////////////////////////////////////////////////////
 from requests import delete
 from gui.widgets.py_table_widget.py_table_widget import PyTableWidget
-from . functions_main_window import *
+from . functions_main_window import MainFunctions
 import sys
 import os
 import time
@@ -62,7 +62,14 @@ class SetupMainWindow:
     # ADD LEFT MENUS
     # ///////////////////////////////////////////////////////////////
     add_left_menus = [
-        
+        {
+            "btn_icon" : "icon_home.svg",
+            "btn_id" : "btn_home",
+            "btn_text" : "Home",
+            "btn_tooltip" : "Home page",
+            "show_top" : True,
+            "is_active" : True
+        },
         {
             "btn_icon" : "chart-664.svg",
             "btn_id" : "btn_chart",
@@ -72,12 +79,28 @@ class SetupMainWindow:
             "is_active" : False
         },
         {
-            "btn_icon" : "icon_home.svg",
-            "btn_id" : "btn_home",
-            "btn_text" : "Home",
-            "btn_tooltip" : "Home page",
+            "btn_icon" : "icon_wallet.svg",
+            "btn_id" : "btn_wallet",
+            "btn_text" : "Wallet",
+            "btn_tooltip" : "My Wallet",
             "show_top" : True,
-            "is_active" : True
+            "is_active" : False
+        },
+        {
+            "btn_icon" : "icon_trading.svg",
+            "btn_id" : "btn_trading",
+            "btn_text" : "Trading",
+            "btn_tooltip" : "Do Trading",
+            "show_top" : True,
+            "is_active" : False
+        },
+        {
+            "btn_icon" : "bot.svg",
+            "btn_id" : "AI_Prediction",
+            "btn_text" : "AI_Prediction",
+            "btn_tooltip" : "AI_Prediction",
+            "show_top" : True,
+            "is_active" : False
         },
         {
             "btn_icon" : "icon_widgets.svg",
@@ -135,15 +158,6 @@ class SetupMainWindow:
             "show_top" : False,
             "is_active" : False
         },
-        {
-            "btn_icon" : "icon_order.svg",
-            "btn_id" : "btn_order",
-            "btn_text" : "Order",
-            "btn_tooltip" : "Open order",
-            "show_top" : True,
-            "is_active" : False
-        }
-        # 왼쪽 메뉴에 차트 아이콘 추가
     ]
 
      # ADD TITLE BAR MENUS
@@ -331,7 +345,7 @@ class SetupMainWindow:
 
         # PAGE 1 - ADD LOGO TO MAIN PAGE
         self.logo_svg = QSvgWidget(Functions.set_svg_image("logo_home.svg"))
-        self.ui.load_pages.logo_layout.addWidget(self.logo_svg, Qt.AlignCenter, Qt.AlignCenter)
+        # self.ui.load_pages.logo_layout.addWidget(self.logo_svg, Qt.AlignCenter, Qt.AlignCenter)
 
         # PAGE 2
         # CIRCULAR PROGRESS 1
@@ -588,16 +602,25 @@ class SetupMainWindow:
         self.ui.load_pages.row_3_layout.addWidget(self.toggle_button)
         self.ui.load_pages.row_4_layout.addWidget(self.line_edit)
         self.ui.load_pages.row_5_layout.addWidget(self.table_widget)
-        """Combo box 추가"""
-        self.__comobo = QComboBox()
+
+
+        # Chart 페이지 추가
+        self.chart = ChartPage()
+        self.ui.load_pages.vlayout_chart_l1.addWidget(self.chart)
+        """
+        self.ui.load_pages.vlayout_chart_l1.addWidget()
+        # 차트 페이지에 콤보 박스 추가
+        self.__comobo = MYCombobox()
         self.__comobo.addItem("BTC")
         self.__comobo.addItem("ETH")
         self.__comobo.addItem("SOL")
-        self.ui.load_pages.chart_h_layout.addWidget(self.__comobo)
+        self.ui.load_pages.hlayout_chart_l2.addWidget(self.__comobo)
         self.__comobo.currentTextChanged.connect(self.combobox_event)
-        """Ticker Push Button 추가"""
+        """
+        """
+        # 티커 버튼 추가
         self.__btn_5m = PyIconButton(
-            icon_path = Functions.set_svg_icon("icon_5m.svg"),
+            icon_path = Functions.set_svg_icon("my_icon_5m.svg"),
             parent = self,
             app_parent = self.ui.load_pages.page_chart,
             tooltip_text = "BTN actived! (is_actived = True)",
@@ -616,10 +639,10 @@ class SetupMainWindow:
         )
         self.__btn_5m.setObjectName(u"__btn_5m")
         self.__btn_5m.clicked.connect(self.btn_clicked)
-        self.ui.load_pages.chart_h_layout.addWidget(self.__btn_5m)
+        self.ui.load_pages.hlayout_chart_l2.addWidget(self.__btn_5m)
         
         self.__btn_1h = PyIconButton(
-            icon_path = Functions.set_svg_icon("icon_5m.svg"),
+            icon_path = Functions.set_svg_icon("my_icon_1h.svg"),
             parent = self,
             app_parent = self.ui.load_pages.page_chart,
             tooltip_text = "BTN actived! (is_actived = True)",
@@ -638,18 +661,38 @@ class SetupMainWindow:
         )
         self.__btn_1h.setObjectName(u"__btn_1h")
         self.__btn_1h.clicked.connect(self.btn_clicked)
-        self.ui.load_pages.chart_h_layout.addWidget(self.__btn_1h)
+        self.ui.load_pages.hlayout_chart_l2.addWidget(self.__btn_1h)
         
         self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-        self.ui.load_pages.chart_h_layout.addItem(self.horizontalSpacer)
+        self.ui.load_pages.hlayout_chart_l2.addItem(self.horizontalSpacer)
+        
+        # Chart page에서 Chart 추가 from Here
 
         __init__chart = BitcoinChart('BTCUSDT', '5m')
-        self.ui.load_pages.chart_v_layout.addWidget(__init__chart)
-        # self.chart라는 객체를 Memory에서 지우기
-        # del self.chart
+        self.ui.load_pages.vlayout_chart_l2.addWidget(__init__chart)
+        """
+        # Deel learning Predict 페이지 채우기
 
-        #self.ui.load_pages.chrat_v_layout.removeWidget(self.chart)
-        # self.ui.load_pages.page_3_layout.addWidget(self.chart)
+
+
+        # 메인 페이지에 로그인 앱 추가
+        LoginApp(self.ui.load_pages.page_1)
+        self.ui.load_pages.page_1.id_input.textChanged.connect(self.order_id_input_event)
+        self.ui.load_pages.page_1.id_input.returnPressed.connect(self.order_id_input_event)
+        self.ui.load_pages.page_1.pw_input.textChanged.connect(self.order_pw_input_event)
+        self.ui.load_pages.page_1.pw_input.returnPressed.connect(self.order_pw_input_event)
+        self.ui.load_pages.page_1.login_btn.clicked.connect(self.order_login_btn_event)
+
+        # AI Prediction page의 Chart 추가 from here
+        
+        # __test_chart = Prediction_Chart('BTCUSDT', '5m')
+        # self.ui.load_pages.predict_h_layout.addWidget(__test_chart)
+
+
+        # trading page에 trading widget 넣기
+        self.ui.load_pages.trading_v_layout.addWidget(OrderCreationWidget())
+
+
         # RIGHT COLUMN
         # ///////////////////////////////////////////////////////////////
 

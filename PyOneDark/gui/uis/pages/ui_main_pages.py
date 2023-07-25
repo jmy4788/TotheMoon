@@ -13,7 +13,6 @@
 # https://doc.qt.io/qtforpython/licenses.html
 #
 # ///////////////////////////////////////////////////////////////
-
 # IMPORT QT CORE
 # ///////////////////////////////////////////////////////////////
 from qt_core import *
@@ -30,13 +29,21 @@ class Ui_MainPages(object):
         self.main_pages_layout.setContentsMargins(5, 5, 5, 5)
         self.pages = QStackedWidget(MainPages)
         self.pages.setObjectName(u"pages")
+        
+        # Page_1은 Welcome page
         self.page_1 = QWidget()
         self.page_1.setObjectName(u"page_1")
-        self.page_1.setStyleSheet(u"font-size: 14pt")
+        self.pages.addWidget(self.page_1)
+        
+        """
+        기존 내용
+        self.page_1 = QWidget()
+        self.page_1.setObjectName(u"page_1")
         self.page_1_layout = QVBoxLayout(self.page_1)
         self.page_1_layout.setSpacing(5)
         self.page_1_layout.setObjectName(u"page_1_layout")
         self.page_1_layout.setContentsMargins(5, 5, 5, 5)
+        
         self.welcome_base = QFrame(self.page_1)
         self.welcome_base.setObjectName(u"welcome_base")
         self.welcome_base.setMinimumSize(QSize(300, 150))
@@ -57,19 +64,14 @@ class Ui_MainPages(object):
         self.logo_layout.setSpacing(0)
         self.logo_layout.setObjectName(u"logo_layout")
         self.logo_layout.setContentsMargins(0, 0, 0, 0)
-
         self.center_page_layout.addWidget(self.logo)
-
         self.label = QLabel(self.welcome_base)
         self.label.setObjectName(u"label")
         self.label.setAlignment(Qt.AlignCenter)
-
         self.center_page_layout.addWidget(self.label)
-
-
         self.page_1_layout.addWidget(self.welcome_base, 0, Qt.AlignHCenter)
+        """
 
-        self.pages.addWidget(self.page_1)
         self.page_2 = QWidget()
         self.page_2.setObjectName(u"page_2")
         self.page_2_layout = QVBoxLayout(self.page_2)
@@ -139,46 +141,42 @@ class Ui_MainPages(object):
         self.page_2_layout.addWidget(self.scroll_area)
 
         self.pages.addWidget(self.page_2)
-        self.page_3 = QWidget()
-        self.page_3.setObjectName(u"page_3")
-        self.page_3.setStyleSheet(u"QFrame {\n"
-"	font-size: 16pt;\n"
-"}")
-        self.page_3_layout = QVBoxLayout(self.page_3)
-        self.page_3_layout.setObjectName(u"page_3_layout")
-        self.empty_page_label = QLabel(self.page_3)
-        self.empty_page_label.setObjectName(u"empty_page_label")
-        self.empty_page_label.setFont(font)
-        self.empty_page_label.setAlignment(Qt.AlignCenter)
 
-        self.page_3_layout.addWidget(self.empty_page_label)
+        #### Order page ####
+        self.page_order = QWidget()
+        self.page_order.setObjectName(u"page_order")
+        self.vlayout_order= QVBoxLayout(self.page_order)
+        self.vlayout_order.setObjectName(u"vlayout_order")
+        self.pages.addWidget(self.page_order)
 
-        self.pages.addWidget(self.page_3)
-
-        
-
-        # 여기서 부터 내가 Designer로 추가한 Page Code
-
-
+    
+        #### Chart Page ####
         self.page_chart = QWidget()
-        self.page_chart.setObjectName(u"page_chart")
-        self.verticalLayout_7 = QVBoxLayout(self.page_chart)
-        self.verticalLayout_7.setObjectName(u"verticalLayout_7")
-        self.chart_v_layout = QVBoxLayout()
-        self.chart_v_layout.setObjectName(u"chart_v_layout")
-        self.chart_h_layout = QHBoxLayout()
-        self.chart_h_layout.setObjectName(u"chart_h_layout")
-        
-        #self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-
-        #self.chart_h_layout.addItem(self.horizontalSpacer)
-
-
-        self.chart_v_layout.addLayout(self.chart_h_layout)
-
-        self.verticalLayout_7.addLayout(self.chart_v_layout)
-
+        self.vlayout_chart_l1 = QVBoxLayout(self.page_chart)
+        self.vlayout_chart_l1.setObjectName(u"vlayout_chart_l1")
         self.pages.addWidget(self.page_chart)
+ 
+
+        #### Predict page ####
+        self.page_predict = QWidget()
+        self.page_predict.setObjectName(u"page_predict")
+        self.verticalLayout_8 = QVBoxLayout(self.page_predict)
+        self.verticalLayout_8.setObjectName(u"verticalLayout_8")
+        self.predict_v_layout = QVBoxLayout()
+        self.predict_v_layout.setObjectName(u"predict_v_layout")
+        self.predict_h_layout = QHBoxLayout()
+        self.predict_h_layout.setObjectName(u"predict_h_layout")
+        self.predict_v_layout.addLayout(self.predict_h_layout)
+        self.verticalLayout_8.addLayout(self.predict_v_layout)
+
+        self.pages.addWidget(self.page_predict)
+
+        #### Trading page ####
+        self.page_trading = QWidget()
+        self.page_trading.setObjectName(u"page_trading")
+        self.trading_v_layout = QVBoxLayout(self.page_trading)
+        self.trading_v_layout.setObjectName(u"trading_v_layout")
+        self.pages.addWidget(self.page_trading)
 
 
         #이 아래에는 Qt Desginer에서 기본적으로 갖고 있던 Code
@@ -190,9 +188,9 @@ class Ui_MainPages(object):
     # setupUi
     def retranslateUi(self, MainPages):
         MainPages.setWindowTitle(QCoreApplication.translate("MainPages", u"Form", None))
-        self.label.setText(QCoreApplication.translate("MainPages", u"Welcome To PyOneDark GUI", None))
+        # self.label.setText(QCoreApplication.translate("MainPages", u"Welcome To PyOneDark GUI", None))
         self.title_label.setText(QCoreApplication.translate("MainPages", u"Custom Widgets Page", None))
         self.description_label.setText(QCoreApplication.translate("MainPages", u"Here will be all the custom widgets, they will be added over time on this page.\n"
 "I will try to always record a new tutorial when adding a new Widget and updating the project on Patreon before launching on GitHub and GitHub after the public release.", None))
-        self.empty_page_label.setText(QCoreApplication.translate("MainPages", u"Empty Page", None))
+        #self.empty_page_label.setText(QCoreApplication.translate("MainPages", u"Empty Page", None))
     # retranslateUi

@@ -68,7 +68,7 @@ class PyTitleBar(QWidget):
         context_color = "#6c99f4",
         text_foreground = "#8a95aa",
         radius = 8,
-        font_family = "Segoe UI",
+        font_family = "SF Pro Regular",
         title_size = 10,
         is_custom_title_bar = True,
     ):
@@ -284,12 +284,42 @@ class PyTitleBar(QWidget):
         self.custom_buttons_layout = QHBoxLayout()
         self.custom_buttons_layout.setContentsMargins(0,0,0,0)
         self.custom_buttons_layout.setSpacing(3)
+        
+        # LOGIN STATUS LAYOUT
+        self.login_status_layout = QHBoxLayout()
+        self.login_status_layout.setContentsMargins(0,0,0,0)
+        self.login_status_layout.setSpacing(5)
 
+        #add upbit label to login_status_Layout
+        self.upbit_label = QLabel()
+        # self.upbit_label set align center
+        self.upbit_label.setAlignment(Qt.AlignCenter)
+        # back ground color of upbit label dark one
+        self.upbit_label.setStyleSheet(f'background-color: {self._dark_one}; font: {11}pt "{"SF Pro semibold"}"')
+        self.upbit_label.setFixedWidth(150)
+        self.upbit_label.setFixedHeight(30)
+        #self.upbit_label.setStyleSheet(f'font: {self._title_size}pt "{self._font_family}"')
+        self.upbit_label.setText("Upbit(로그인 필요)")
+        self.login_status_layout.addWidget(self.upbit_label)
+
+        # add binance label to custom_buttons_layout
+        self.binance_label = QLabel()
+        self.binance_label.setAlignment(Qt.AlignCenter)
+        self.binance_label.setStyleSheet(f'background-color: {self._dark_one}; font: {11}pt "{"SF Pro semibold"}"')
+        self.binance_label.setFixedWidth(150)
+        self.binance_label.setFixedHeight(30)
+        self.binance_label.setText("Binance(로그인 필요)")
+        self.login_status_layout.addWidget(self.binance_label)
+        # add spacer to login_status_layout
+        self.login_status_layout.addSpacerItem(QSpacerItem(0,0,QSizePolicy.Expanding,QSizePolicy.Minimum))
+        # add login status layout to self.bg_layout
+        self.bg_layout.addLayout(self.login_status_layout)
+        
         # MINIMIZE BUTTON
         self.minimize_button = PyTitleButton(
             self._parent,
             self._app_parent,
-            tooltip_text = "Close app",
+            tooltip_text = "Minimize app",
             dark_one = self._dark_one,
             bg_color = self._btn_bg_color,
             bg_color_hover = self._btn_bg_color_hover,
@@ -344,3 +374,13 @@ class PyTitleBar(QWidget):
 
         # ADD TO LAYOUT
         self.title_bar_layout.addWidget(self.bg)
+    
+    # Login 성공하면 이 함수가 실행 됨
+    def binance_login_success(self):
+        # self.binance_lable setStyleSheet background color green
+        self.binance_label.setStyleSheet(f'background-color: #FCD535; color:#000000; font: {11}pt "{"SF Pro semibold"}"')
+        # self.binance_label setText "Binance(로그인 성공)"
+        self.binance_label.setText("Binance(로그인 성공)")
+        
+
+

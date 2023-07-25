@@ -1,5 +1,6 @@
 {
     "theme_name" : "Default",
+    "radius" : 8,
     "app_color" : {
         "dark_one" : "#1b1e23",
         "dark_two" : "#1e2229",

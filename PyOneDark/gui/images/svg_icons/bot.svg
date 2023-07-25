@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 30 30"
+   version="1.1"
+   id="svg1153"
+   sodipodi:docname="bot.svg"
+   width="25"
+   height="25"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1157" />
+  <sodipodi:namedview
+     id="namedview1155"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="9.0390625"
+     inkscape:cx="97.189283"
+     inkscape:cy="56.089888"
+     inkscape:window-width="3440"
+     inkscape:window-height="1351"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg1153" />
+  <path
+     d="m 2.5,15 v 6.25 c 0,0.864257 0.5585938,1.5625 1.25,1.5625 H 5 v -9.375 H 3.75 C 3.0585938,13.4375 2.5,14.135743 2.5,15 Z M 20.625,7.1875 H 16.25 V 4.0625 C 16.25,3.1982422 15.691406,2.5 15,2.5 c -0.691406,0 -1.25,0.6982422 -1.25,1.5625 v 3.125 H 9.375 c -1.7265625,0 -3.125,1.7480469 -3.125,3.90625 V 24.375 c 0,1.723632 1.1210938,3.125 2.5,3.125 h 12.5 c 1.378906,0 2.5,-1.401368 2.5,-3.125 V 11.09375 C 23.75,8.9355469 22.351562,7.1875 20.625,7.1875 Z M 12.5,22.8125 H 10 V 21.25 h 2.5 z m -1.25,-5.859375 c -0.863281,0 -1.5625,-0.874023 -1.5625,-1.953125 0,-1.079102 0.699219,-1.953125 1.5625,-1.953125 0.863281,0 1.5625,0.874023 1.5625,1.953125 0,1.079102 -0.699219,1.953125 -1.5625,1.953125 z m 5,5.859375 h -2.5 V 21.25 h 2.5 z m 3.75,0 H 17.5 V 21.25 H 20 Z m -1.25,-5.859375 c -0.863282,0 -1.5625,-0.874023 -1.5625,-1.953125 0,-1.079102 0.699218,-1.953125 1.5625,-1.953125 0.863282,0 1.5625,0.874023 1.5625,1.953125 0,1.079102 -0.699218,1.953125 -1.5625,1.953125 z M 26.25,13.4375 H 25 v 9.375 h 1.25 c 0.691407,0 1.25,-0.698243 1.25,-1.5625 V 15 c 0,-0.864258 -0.558593,-1.5625 -1.25,-1.5625 z"
+     id="path1151"
+     style="stroke-width:0.0436732" />
+</svg>
+<!--
+Font Awesome Free 5.2.0 by @fontawesome - https://fontawesome.com
+License - https://fontawesome.com/license (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+-->
+
