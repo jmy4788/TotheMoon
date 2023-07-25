@@ -147,37 +147,15 @@ class Ui_MainPages(object):
         self.page_order.setObjectName(u"page_order")
         self.vlayout_order= QVBoxLayout(self.page_order)
         self.vlayout_order.setObjectName(u"vlayout_order")
-        
         self.pages.addWidget(self.page_order)
 
     
-
         #### Chart Page ####
         self.page_chart = QWidget()
         self.vlayout_chart_l1 = QVBoxLayout(self.page_chart)
         self.vlayout_chart_l1.setObjectName(u"vlayout_chart_l1")
         self.pages.addWidget(self.page_chart)
  
-        """
-        #### Chart Page ####
-        self.page_chart = QWidget()
-        self.vlayout_chart_l1 = QVBoxLayout(self.page_chart)
-        self.vlayout_chart_l1.setObjectName(u"vlayout_chart_l1")
-        self.vlayout_chart_l2 = QVBoxLayout()
-        self.vlayout_chart_l2.setObjectName(u"vlayout_chart_l2")
-        self.hlayout_chart_l2 = QHBoxLayout()
-        self.hlayout_chart_l2.setObjectName(u"hlayout_chart_l2")
-        
-        #self.horizontalSpacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-        #self.chart_h_layout.addItem(self.horizontalSpacer)
-
-        # layer2에 있는 hlayout을 layer2에 있는 vlayout에 추가
-        self.vlayout_chart_l2.addLayout(self.hlayout_chart_l2)
-        # layer2에 있는 hlayout을 layer1에 있는 vlayout에 추가
-        self.vlayout_chart_l1.addLayout(self.vlayout_chart_l2)
-
-        self.pages.addWidget(self.page_chart)
-        """
 
         #### Predict page ####
         self.page_predict = QWidget()
@@ -193,12 +171,13 @@ class Ui_MainPages(object):
 
         self.pages.addWidget(self.page_predict)
 
-        # 트레이딩 Page here
+        #### Trading page ####
         self.page_trading = QWidget()
         self.page_trading.setObjectName(u"page_trading")
         self.trading_v_layout = QVBoxLayout(self.page_trading)
         self.trading_v_layout.setObjectName(u"trading_v_layout")
         self.pages.addWidget(self.page_trading)
+
 
         #이 아래에는 Qt Desginer에서 기본적으로 갖고 있던 Code
         self.main_pages_layout.addWidget(self.pages)

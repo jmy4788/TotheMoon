@@ -27,10 +27,10 @@ from PySide6.QtGui import *
 from PySide6.QtWidgets import *
 from PySide6.QtSvgWidgets import *
 from PySide6.QtCharts import *
-# 로깅 모듈
-from binance.lib.utils import config_logging
 
 # Binance API (Spot & Futures)
 from binance.spot import Spot
 from binance.um_futures import UMFutures
+from binance.lib.utils import config_logging
+from binance.error import ClientError
 

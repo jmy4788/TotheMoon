@@ -16,4 +16,4 @@
 
 # PY CREDITS
 # ///////////////////////////////////////////////////////////////
-from . my_trading import TradingWidget
+from . my_trading import OrderCreationWidget

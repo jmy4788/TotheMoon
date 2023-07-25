@@ -690,7 +690,7 @@ class SetupMainWindow:
 
 
         # trading page에 trading widget 넣기
-        self.ui.load_pages.trading_v_layout.addWidget(TradingWidget())
+        self.ui.load_pages.trading_v_layout.addWidget(OrderCreationWidget())
 
 
         # RIGHT COLUMN

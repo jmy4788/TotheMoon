@@ -91,7 +91,7 @@ from . my_AI_prediction import Prediction_Chart
 
 # PY TradingWidget
 # ///////////////////////////////////////////////////////////////
-from . my_trading import TradingWidget
+from . my_trading import OrderCreationWidget
 
 # My Combobox
 # ///////////////////////////////////////////////////////////////
