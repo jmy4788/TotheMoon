@@ -38,7 +38,7 @@ class MyWallet(QWidget):
         self.key = key
         self.secret = secret
         
-        self.spot_client = Spot(key=self.key, secret=self.secret)
+        self.spot_client = Spot(api_key=self.key, api_secret=self.secret)
         self.future_client = UMFutures(key=self.key, secret=self.secret)
         
         # Hiding value 선언
