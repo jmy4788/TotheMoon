@@ -45,13 +45,13 @@ from gui.widgets import *
 # ADJUST QT FONT DPI FOR HIGHT SCALE AN 4K MONITOR
 # ///////////////////////////////////////////////////////////////
 os.environ["QT_FONT_DPI"] = "96"
-# os.environ["QT_SCALE_FACTOR"] = "1.25"
+# 노트북에서 킬 때는 아래 주석 없애줘야 함 (배율 때문)
+# os.environ["QT_SCALE_FACTOR"] = "1.5"
 # IF IS 4K MONITOR ENABLE 'os.environ["QT_SCALE_FACTOR"] = "2"'
 
 # MAIN WINDOW
 # ///////////////////////////////////////////////////////////////
 class MainWindow(QMainWindow):
-
 
 
     def __init__(self):
@@ -159,7 +159,7 @@ class MainWindow(QMainWindow):
         if btn.objectName() == "btn_trading":
                     # Select Menu
                     self.ui.left_menu.select_only_one(btn.objectName())
-                    # Load Page 3 
+                    # Load Page 3
                     MainFunctions.set_page(self, self.ui.load_pages.page_trading)
 
         # 로봇 아이콘 클릭 할 때 동작
@@ -318,7 +318,7 @@ if __name__ == "__main__":
     # 로그 메시지를 다른 로그 수집 시스템에 전송합니다.
     logging.basicConfig(format="%(asctime)s %(levelname)s %(message)s",
                         datefmt="%Y-%m-%d %H:%M:%S",
-                        level=logging.DEBUG,
+                        level=logging.INFO,
                         filename="myapp.log")
     
     logging.warning("This is a warning message.")

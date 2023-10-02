@@ -3,87 +3,181 @@ from qt_core import *
 from ..my_combobox import MYCombobox
 config_logging(logging, logging.DEBUG)
 
+
 class OrderCreationWidget(QWidget):
     def __init__(self):
         super().__init__()
         self.init_ui()
+    
+    def create_order_type_widget(self):
+        widget = QWidget(self)
+        layout = QVBoxLayout(widget)
+        
+        btn_grp_buy_sell = QButtonGroup(self)
+
+        radio_buy = QRadioButton("Buy")
+        radio_buy.setStyleSheet("QRadioButton { color: #55AA69; }")
+        radio_sell = QRadioButton("Sell")
+        radio_sell.setStyleSheet("QRadioButton { color: #B93446; }")
+
+        # Add buttons to button group
+        btn_grp_buy_sell.addButton(radio_buy)
+        btn_grp_buy_sell.addButton(radio_sell)
+
+        radio_buy.setChecked(True)
+
+        # Radio buttons for order type: Limit, Market, Stop
+        radio_limit = QRadioButton("Limit")
+        radio_market = QRadioButton("Market")
+        radio_stop = QRadioButton("Stop")
+        # setup radio buttons... (omitted for brevity)
+        
+        layout.addWidget(btn_buy)
+        layout.addWidget(btn_sell)
+        layout.addWidget(radio_limit)
+        layout.addWidget(radio_market)
+        layout.addWidget(radio_stop)
+        
+        combo = MYCombobox()
+        combo.addItem("BTCUSDT")
+        combo.addItem("ETHUSDT")
+        layout.addWidget(combo)
+
+        return widget, layout
         
     def init_ui(self):
         # Layout
         layout = QVBoxLayout()
 
-        # Configure font for radio buttons
+        # 폰트 설정
         font = QFont()
         font.setPointSize(13)
         font.setBold(True)
 
-        self.radio_spot = QRadioButton("Spot")
-        self.radio_spot.setFont(font)
-        self.radio_futures = QRadioButton("Futures")
-        self.radio_futures.setFont(font)
-        self.radio_spot.setChecked(True)
-        self.btn_grp_type = QButtonGroup(self)
-        self.btn_grp_type.addButton(self.radio_spot)
-        self.btn_grp_type.addButton(self.radio_futures)
+        self.stacked_widget = QStackedWidget(self)
+        # Create a Spot widget
+        self.spot_widget = QWidget(self)
+        self.spot_layout = QVBoxLayout(self.spot_widget)
+        # Add additional Spot-specific UI elements to self.spot_layout if needed
+
+        # Create a Futures widget
+        self.futures_widget = QWidget(self)
+        self.futures_layout = QVBoxLayout(self.futures_widget)
+        # Add additional Futures-specific UI elements to self.futures_layout if needed
+
+        # Add widgets to the stacked widget
+        self.stacked_widget.addWidget(self.spot_widget)
+        self.stacked_widget.addWidget(self.futures_widget)
+
+        # Tab widget to switch between Spot and Futures
+        self.tab_widget = QTabWidget(self)
+        self.tab_widget.addTab(self.spot_widget, "Spot")
+        self.tab_widget.addTab(self.futures_widget, "Futures")
+        self.tab_widget.setStyleSheet("""
+            QWidget {
+            background-color: #343b48;
+            color: #8a95aa;
+            }
+            QTabWidget::pane {
+                background-color: #343b48;
+            }
+            QTabBar::tab {
+                background-color: #4a5360;
+                color: #8a95aa;
+                width: 80px; /* Tab width */
+                height: 30px; /* Tab height */
+                font-size: 13px; /* Font size */
+            }
+            QTabBar::tab:selected {
+                background-color: #343b48;
+                color: #8a95aa;
+            }
+        """)
+
+
+
 
         # Combobox for choosing Ticker
-        self.combo_ticker = MYCombobox()
-        self.combo_ticker.addItem("BTCUSDT")
-        self.combo_ticker.addItem("ETHUSDT")
+        self.spot_combo = MYCombobox()
+        self.futures_combo = MYCombobox()
+        self.spot_combo.addItem("BTCUSDT")
+        self.spot_combo.addItem("ETHUSDT")
+        self.futures_combo.addItem("BTCUSDT")
+        self.futures_combo.addItem("ETHUSDT")
 
+        # Add comboboxes to the respective layouts
+        self.spot_layout.addWidget(self.spot_combo)
+        self.futures_layout.addWidget(self.futures_combo)
+        
         # Horizontal layout for Spot radio button and combobox
-        hlayout = QHBoxLayout()
-        hlayout.addWidget(self.radio_spot)
-        hlayout.addWidget(self.combo_ticker)
+        layout.addWidget(self.tab_widget)
 
         # Buy/Sell buttons with color toggle on press
-        self.btn_buy = QPushButton("Buy", self)
-        self.btn_buy.setCheckable(True)
-        self.btn_buy.pressed.connect(lambda: self.btn_buy.setStyleSheet("background-color: rgb(85, 170, 105); color: white;"))
-        self.btn_buy.released.connect(lambda: self.btn_buy.setStyleSheet("background-color: rgb(95, 189, 123); color: white;"))
         
-        self.btn_sell = QPushButton("Sell", self)
-        self.btn_sell.setCheckable(True)
-        self.btn_sell.pressed.connect(lambda: self.btn_sell.setStyleSheet("background-color: rgb(185, 52, 70); color: white;"))
-        self.btn_sell.released.connect(lambda: self.btn_sell.setStyleSheet("background-color: rgb(195, 62, 80); color: white;"))
-        
-        self.btn_buy.toggled.connect(self.on_buy_sell_toggle)
-        self.btn_sell.toggled.connect(self.on_buy_sell_toggle)
+        style_sheet_radio = """
+        QRadioButton {
+            font: bold 15px;
+            color: #ffffff;
+            padding: 10px;
+        }
+        QRadioButton::indicator {
+            width: 20px;
+            height: 20px;
+            border-radius: 7px;
+            background: #c3ccdf;
+        }
+        QRadioButton::indicator:checked {
+            background-color: #0075FF;
+        }
+        """
+        # 4.1.1 Buy 및 Sell 버튼 Here
+        self.btn_grp_buy_sell = QButtonGroup(self)
+        self.radio_buy = QRadioButton("Buy")
+        self.radio_buy.setStyleSheet(style_sheet_radio)
+        self.radio_sell = QRadioButton("Sell")
+        self.radio_sell.setStyleSheet(style_sheet_radio)
+        self.btn_grp_buy_sell.addButton(self.radio_buy)
+        self.btn_grp_buy_sell.addButton(self.radio_sell)
+        self.radio_buy.setChecked(True)
+        # 4.1.2 Buy 및 Sell 버튼 Layout 추가
+        self.hlayout_buy_sell = QHBoxLayout()
+        self.hlayout_buy_sell.addWidget(self.radio_buy)
+        self.hlayout_buy_sell.addWidget(self.radio_sell)
+        self.futures_layout.addLayout(self.hlayout_buy_sell)
 
-        # Radio buttons for order type: Limit, Market, Stop
-        self.radio_limit = QRadioButton("Limit")
-        self.radio_market = QRadioButton("Market")
-        self.radio_stop = QRadioButton("Stop")
-        self.radio_limit.setChecked(True)
+        # 4.2.1 Limit, Market, Stop 버튼 Here
         self.btn_grp_order = QButtonGroup(self)
+        self.radio_limit = QRadioButton("Limit")
+        self.radio_limit.setStyleSheet(style_sheet_radio)
+        self.radio_market = QRadioButton("Market")
+        self.radio_market.setStyleSheet(style_sheet_radio)
+        self.radio_stop = QRadioButton("Stop")
+        self.radio_stop.setStyleSheet(style_sheet_radio)
         self.btn_grp_order.addButton(self.radio_limit)
         self.btn_grp_order.addButton(self.radio_market)
         self.btn_grp_order.addButton(self.radio_stop)
+        self.radio_limit.setChecked(True)
+        # 4.2.2 Limit, Market, Stop 버튼 Layout 추가
+        self.hlayout_limit_market_stop = QHBoxLayout()
+        self.hlayout_limit_market_stop.addWidget(self.radio_limit)
+        self.hlayout_limit_market_stop.addWidget(self.radio_market)
+        self.hlayout_limit_market_stop.addWidget(self.radio_stop)
+        self.futures_layout.addLayout(self.hlayout_limit_market_stop)
 
-        # Input fields
+        # 4.3.1 입력필드 Here
         self.lbl_price = QLabel("Price:")
         self.input_price = QLineEdit(self)
         self.lbl_qty = QLabel("Quantity:")
         self.input_qty = QLineEdit(self)
         self.lbl_stop_price = QLabel("Stop Price:")
         self.input_stop_price = QLineEdit(self)
-
-        # Slider
+        # 4.3.2 슬라이더 입력 Here
         self.slider = QSlider(Qt.Horizontal)
         self.lbl_slider_value = QLabel("0%")
         self.slider.valueChanged.connect(lambda: self.lbl_slider_value.setText(f"{self.slider.value()}%"))
-
+        # 4.3.3 Excute Order 버튼 Here
         self.btn_execute_order = QPushButton("Execute Order", self)
         self.btn_execute_order.clicked.connect(self.place_order)
-
-        # Setup layout
-        layout.addLayout(hlayout)
-        layout.addWidget(self.radio_futures)
-        layout.addWidget(self.btn_buy)
-        layout.addWidget(self.btn_sell)
-        layout.addWidget(self.radio_limit)
-        layout.addWidget(self.radio_market)
-        layout.addWidget(self.radio_stop)
         
         grid = QGridLayout()
         grid.addWidget(self.lbl_price, 0, 0)
@@ -93,10 +187,10 @@ class OrderCreationWidget(QWidget):
         grid.addWidget(self.lbl_stop_price, 2, 0)
         grid.addWidget(self.input_stop_price, 2, 1)
         
-        layout.addLayout(grid)
-        layout.addWidget(self.slider)
-        layout.addWidget(self.lbl_slider_value)
-        layout.addWidget(self.btn_execute_order)
+        self.futures_layout.addLayout(grid)
+        self.futures_layout.addWidget(self.slider)
+        self.futures_layout.addWidget(self.lbl_slider_value)
+        self.futures_layout.addWidget(self.btn_execute_order)
         
         # Frame for grouping
         frame = QFrame()
@@ -110,6 +204,33 @@ class OrderCreationWidget(QWidget):
         self.radio_stop.toggled.connect(self.update_input_fields_visibility)
         self.update_input_fields_visibility()
 
+        self.lbl_binance_input = QLabel("Binance Input Parameters:\n")
+        
+        self.futures_layout.addWidget(self.lbl_binance_input)
+        
+        # Connect signals to update lbl_binance_input
+        self.radio_buy.toggled.connect(self.update_binance_input)
+        self.radio_sell.toggled.connect(self.update_binance_input)
+        self.radio_limit.toggled.connect(self.update_binance_input)
+        self.radio_market.toggled.connect(self.update_binance_input)
+        self.radio_stop.toggled.connect(self.update_binance_input)
+        self.input_price.textChanged.connect(self.update_binance_input)
+        self.input_qty.textChanged.connect(self.update_binance_input)
+        self.input_stop_price.textChanged.connect(self.update_binance_input)
+        
+        # If you had some initial default values, you might want to call update_binance_input once at the end of your init to populate lbl_binance_input
+        self.update_binance_input()
+
+
+    def update_binance_input(self):
+        symbol = "YOUR_SYMBOL_HERE"  # Replace this with your actual symbol
+        side = "BUY" if self.radio_buy.isChecked() else "SELL"
+        order_type = "LIMIT" if self.radio_limit.isChecked() else ("MARKET" if self.radio_market.isChecked() else "STOP")
+        price = self.input_price.text()
+        quantity = self.input_qty.text()
+        stop_price = self.input_stop_price.text()
+        binance_input = f"Symbol: {symbol}\nSide: {side}\nType: {order_type}\nPrice: {price}\nQuantity: {quantity}\nStop Price: {stop_price}"
+        self.lbl_binance_input.setText(binance_input)
 
     def update_input_fields_visibility(self):
         """Hide/show input fields based on order type"""
@@ -117,13 +238,6 @@ class OrderCreationWidget(QWidget):
         self.lbl_price.setVisible(self.radio_limit.isChecked() or self.radio_stop.isChecked())
         self.input_stop_price.setVisible(self.radio_stop.isChecked())
         self.lbl_stop_price.setVisible(self.radio_stop.isChecked())
-
-    def on_buy_sell_toggle(self, checked):
-        """Deselect the opposite button when one of the buy/sell buttons is selected."""
-        if self.sender() == self.btn_buy and checked:
-            self.btn_sell.setChecked(False)
-        elif self.sender() == self.btn_sell and checked:
-            self.btn_buy.setChecked(False)
 
     def place_order(self):
         if self.btn_buy.isChecked():
@@ -160,13 +274,13 @@ class OrderCreationWidget(QWidget):
             order_params["price"] = float(self.input_price.text())
 
         try:
-            if self.radio_futures.isChecked():
+            if self.tab_widget.currentIndex() == 1:  # If Futures tab is active
                 # Place a futures order
                 response = UMFutures.new_order(**order_params)
-            elif self.radio_spot.isChecked():
+            else:  # Default to Spot if no tab or the first tab is active
                 # Place a spot order
                 response = Spot.new_order(**order_params)
-            
+
             logging.info(response)
 
         except ClientError as error:
