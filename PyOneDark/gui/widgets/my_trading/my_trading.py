@@ -1,51 +1,58 @@
 import logging
 from qt_core import *
 from ..my_combobox import MYCombobox
-config_logging(logging, logging.DEBUG)
+from ..py_slider import PySlider
+from ..py_push_button import PyPushButton
 
+from gui.core.json_themes import Themes
+
+themes = Themes()
+themes = themes.items
+
+style_sheet_trading = """
+QRadioButton {
+    font: bold 15px;
+    color: #ffffff;
+    padding: 10px;
+}
+QRadioButton::indicator {
+    width: 20px;
+    height: 20px;
+    border-radius: 7px;
+    background: #c3ccdf;
+}
+QRadioButton::indicator:checked {
+    background-color: #0075FF;
+}
+QLabel {
+    color: #ffffff;  /* Text color */
+    font-size: 15px;  /* Font size */
+    font-weight: bold;  /* Font weight */
+}
+QLineEdit {
+        font-size: 13px;
+        font-weight: bold;
+        color: #dce1ec;
+        background-color: #2c313c;
+        border: 1px solid #6c99f4;
+        border-radius: 5px;
+        padding: 3px;
+    }
+QLineEdit:focus {
+        border: 2px solid #00ff7f;
+    }
+QLineEdit:disabled {
+        background-color: #cccccc;
+    }
+"""
 
 class OrderCreationWidget(QWidget):
     def __init__(self):
         super().__init__()
         self.init_ui()
-    
-    def create_order_type_widget(self):
-        widget = QWidget(self)
-        layout = QVBoxLayout(widget)
-        
-        btn_grp_buy_sell = QButtonGroup(self)
 
-        radio_buy = QRadioButton("Buy")
-        radio_buy.setStyleSheet("QRadioButton { color: #55AA69; }")
-        radio_sell = QRadioButton("Sell")
-        radio_sell.setStyleSheet("QRadioButton { color: #B93446; }")
-
-        # Add buttons to button group
-        btn_grp_buy_sell.addButton(radio_buy)
-        btn_grp_buy_sell.addButton(radio_sell)
-
-        radio_buy.setChecked(True)
-
-        # Radio buttons for order type: Limit, Market, Stop
-        radio_limit = QRadioButton("Limit")
-        radio_market = QRadioButton("Market")
-        radio_stop = QRadioButton("Stop")
-        # setup radio buttons... (omitted for brevity)
-        
-        layout.addWidget(btn_buy)
-        layout.addWidget(btn_sell)
-        layout.addWidget(radio_limit)
-        layout.addWidget(radio_market)
-        layout.addWidget(radio_stop)
-        
-        combo = MYCombobox()
-        combo.addItem("BTCUSDT")
-        combo.addItem("ETHUSDT")
-        layout.addWidget(combo)
-
-        return widget, layout
-        
     def init_ui(self):
+
         # Layout
         layout = QVBoxLayout()
 
@@ -54,22 +61,18 @@ class OrderCreationWidget(QWidget):
         font.setPointSize(13)
         font.setBold(True)
 
+        # 1.1.1 Stacked widget 생성
         self.stacked_widget = QStackedWidget(self)
-        # Create a Spot widget
+        # 1.1.2 Spot 위젯 및 레이아웃 생성
         self.spot_widget = QWidget(self)
         self.spot_layout = QVBoxLayout(self.spot_widget)
-        # Add additional Spot-specific UI elements to self.spot_layout if needed
-
-        # Create a Futures widget
+        # 1.1.3 Futures 위젯 및 레이아웃 생성
         self.futures_widget = QWidget(self)
         self.futures_layout = QVBoxLayout(self.futures_widget)
-        # Add additional Futures-specific UI elements to self.futures_layout if needed
-
-        # Add widgets to the stacked widget
+        # 1.1.4 Stacked 위젯 안에 Spot 및 Futures 위젯 추가
         self.stacked_widget.addWidget(self.spot_widget)
         self.stacked_widget.addWidget(self.futures_widget)
-
-        # Tab widget to switch between Spot and Futures
+        # 1.1.5 Tab widget 추가 to switch between Spot and Futures
         self.tab_widget = QTabWidget(self)
         self.tab_widget.addTab(self.spot_widget, "Spot")
         self.tab_widget.addTab(self.futures_widget, "Futures")
@@ -93,92 +96,74 @@ class OrderCreationWidget(QWidget):
                 color: #8a95aa;
             }
         """)
+        # 1.1.6 layout에 tab widget 추가
+        layout.addWidget(self.tab_widget)
 
 
 
-
-        # Combobox for choosing Ticker
+        # 2.1.1 Comobo box 추가
         self.spot_combo = MYCombobox()
         self.futures_combo = MYCombobox()
         self.spot_combo.addItem("BTCUSDT")
         self.spot_combo.addItem("ETHUSDT")
         self.futures_combo.addItem("BTCUSDT")
         self.futures_combo.addItem("ETHUSDT")
-
-        # Add comboboxes to the respective layouts
+        # 2.1.2 Comobo box를 layout에 추가
         self.spot_layout.addWidget(self.spot_combo)
         self.futures_layout.addWidget(self.futures_combo)
         
-        # Horizontal layout for Spot radio button and combobox
-        layout.addWidget(self.tab_widget)
+        # road text from self.futures_combo
 
-        # Buy/Sell buttons with color toggle on press
-        
-        style_sheet_radio = """
-        QRadioButton {
-            font: bold 15px;
-            color: #ffffff;
-            padding: 10px;
-        }
-        QRadioButton::indicator {
-            width: 20px;
-            height: 20px;
-            border-radius: 7px;
-            background: #c3ccdf;
-        }
-        QRadioButton::indicator:checked {
-            background-color: #0075FF;
-        }
-        """
-        # 4.1.1 Buy 및 Sell 버튼 Here
+        # 2.2.1 Buy 및 Sell 버튼 Here
         self.btn_grp_buy_sell = QButtonGroup(self)
         self.radio_buy = QRadioButton("Buy")
-        self.radio_buy.setStyleSheet(style_sheet_radio)
+        self.radio_buy.setStyleSheet(style_sheet_trading)
         self.radio_sell = QRadioButton("Sell")
-        self.radio_sell.setStyleSheet(style_sheet_radio)
+        self.radio_sell.setStyleSheet(style_sheet_trading)
         self.btn_grp_buy_sell.addButton(self.radio_buy)
         self.btn_grp_buy_sell.addButton(self.radio_sell)
         self.radio_buy.setChecked(True)
-        # 4.1.2 Buy 및 Sell 버튼 Layout 추가
+        # 2.2.2 Buy 및 Sell 버튼 Layout 추가
         self.hlayout_buy_sell = QHBoxLayout()
         self.hlayout_buy_sell.addWidget(self.radio_buy)
         self.hlayout_buy_sell.addWidget(self.radio_sell)
         self.futures_layout.addLayout(self.hlayout_buy_sell)
 
-        # 4.2.1 Limit, Market, Stop 버튼 Here
+        # 2.3.1 Limit, Market, Stop 버튼 Here
         self.btn_grp_order = QButtonGroup(self)
         self.radio_limit = QRadioButton("Limit")
-        self.radio_limit.setStyleSheet(style_sheet_radio)
+        self.radio_limit.setStyleSheet(style_sheet_trading)
         self.radio_market = QRadioButton("Market")
-        self.radio_market.setStyleSheet(style_sheet_radio)
+        self.radio_market.setStyleSheet(style_sheet_trading)
         self.radio_stop = QRadioButton("Stop")
-        self.radio_stop.setStyleSheet(style_sheet_radio)
+        self.radio_stop.setStyleSheet(style_sheet_trading)
         self.btn_grp_order.addButton(self.radio_limit)
         self.btn_grp_order.addButton(self.radio_market)
         self.btn_grp_order.addButton(self.radio_stop)
         self.radio_limit.setChecked(True)
-        # 4.2.2 Limit, Market, Stop 버튼 Layout 추가
+        # 2.3.2 Limit, Market, Stop 버튼 Layout 추가
         self.hlayout_limit_market_stop = QHBoxLayout()
         self.hlayout_limit_market_stop.addWidget(self.radio_limit)
         self.hlayout_limit_market_stop.addWidget(self.radio_market)
         self.hlayout_limit_market_stop.addWidget(self.radio_stop)
         self.futures_layout.addLayout(self.hlayout_limit_market_stop)
 
-        # 4.3.1 입력필드 Here
-        self.lbl_price = QLabel("Price:")
-        self.input_price = QLineEdit(self)
-        self.lbl_qty = QLabel("Quantity:")
-        self.input_qty = QLineEdit(self)
+        # 2.4.1 입력용 - QLabel 및 QLineEdit
+        self.lbl_price = QLabel("Price :")
+        self.lbl_qty = QLabel("Quantity :")
         self.lbl_stop_price = QLabel("Stop Price:")
+        self.lbl_price.setStyleSheet(style_sheet_trading)
+        self.lbl_qty.setStyleSheet(style_sheet_trading)
+        self.lbl_stop_price.setStyleSheet(style_sheet_trading)
+
+        self.input_price = QLineEdit(self)
+        self.input_price.setStyleSheet(style_sheet_trading)
+        self.input_qty = QLineEdit(self)
+        self.input_qty.setStyleSheet(style_sheet_trading)
         self.input_stop_price = QLineEdit(self)
-        # 4.3.2 슬라이더 입력 Here
-        self.slider = QSlider(Qt.Horizontal)
-        self.lbl_slider_value = QLabel("0%")
-        self.slider.valueChanged.connect(lambda: self.lbl_slider_value.setText(f"{self.slider.value()}%"))
-        # 4.3.3 Excute Order 버튼 Here
-        self.btn_execute_order = QPushButton("Execute Order", self)
-        self.btn_execute_order.clicked.connect(self.place_order)
+        self.input_stop_price.setStyleSheet(style_sheet_trading)
         
+        # 2.4.2 Grid layout 생성 (QLabel, QLineEdit 입력을 위한)
         grid = QGridLayout()
         grid.addWidget(self.lbl_price, 0, 0)
         grid.addWidget(self.input_price, 0, 1)
@@ -186,17 +171,75 @@ class OrderCreationWidget(QWidget):
         grid.addWidget(self.input_qty, 1, 1)
         grid.addWidget(self.lbl_stop_price, 2, 0)
         grid.addWidget(self.input_stop_price, 2, 1)
-        
         self.futures_layout.addLayout(grid)
-        self.futures_layout.addWidget(self.slider)
-        self.futures_layout.addWidget(self.lbl_slider_value)
-        self.futures_layout.addWidget(self.btn_execute_order)
+
+        # 2.5.1 슬라이더 입력 Here
+        self.price_slider = PySlider(
+            margin=8,
+            bg_size=10,
+            bg_radius=5,
+            handle_margin=-3,
+            handle_size=16,
+            handle_radius=8,
+            bg_color = themes["app_color"]["dark_three"],
+            bg_color_hover = themes["app_color"]["dark_four"],
+            handle_color = themes["app_color"]["context_color"],
+            handle_color_hover = themes["app_color"]["context_hover"],
+            handle_color_pressed = themes["app_color"]["context_pressed"]
+        )
+        self.price_slider.setOrientation(Qt.Horizontal)
+        # 2.5.2 슬라이더 기능 추가
+        self.lbl_slider_value = QLabel("0%")
+        self.lbl_slider_value.setStyleSheet(style_sheet_trading)
+        self.price_slider.valueChanged.connect(lambda: self.lbl_slider_value.setText(f"{self.price_slider.value()} %"))
+        # self.price_slider.setMaximumWidth(400)
         
-        # Frame for grouping
+        # 2.5.3 슬라이더와 슬라이더 값 표시를 위한 레이아웃 추가
+        self.hlayout_slider = QHBoxLayout()
+        # 23.10.03 여기에 Available value 추가 해야 함
+        self.hlayout_slider.addWidget(self.lbl_slider_value)
+        self.hlayout_slider.addWidget(self.price_slider)
+        self.futures_layout.addLayout(self.hlayout_slider)
+
+        # 2.6.1 Binance 주문 생성에 입력하는 파라미터 Display label
+        self.lbl_intro = QLabel("Your order will be created with below params")
+        self.lbl_intro.setStyleSheet("color: #dce1ec; font-size: 17px; font-weight: bold;")
+        self.lbl_binance_input = QLabel("Binance Input Parameters:\n")
+        self.lbl_binance_input.setStyleSheet("color: #dce1ec; font-size: 15px; font-weight: bold;")
+        self.futures_layout.addWidget(self.lbl_intro)
+        self.futures_layout.addWidget(self.lbl_binance_input)
+        
+        # 2.7.1 주문 생성 버튼 (Excute Order) 추가
+        self.btn_execute_order = QPushButton("Execute order", self)
+        self.btn_execute_order.setStyleSheet("""
+            QPushButton {
+                font-weight: bold;  
+                background-color: #2c313c;
+                border: 1px solid #6c99f4;
+                color: #dce1ec;
+                padding: 3px 3px;
+                text-align: center;
+                font-size: 16px;
+                border-radius: 5px;
+            }
+            QPushButton:hover {
+                background-color: #6c99f4;
+            }
+            QPushButton:pressed {
+                background-color: #568af2;
+            }
+        """)
+
+        self.btn_execute_order.clicked.connect(self.place_order)
+        self.futures_layout.addWidget(self.btn_execute_order)
+        self.futures_layout.addStretch(1)
+        
+        # 3.1.1 프레임 및 Main layout 설정
         frame = QFrame()
         frame.setLayout(layout)
         main_layout = QVBoxLayout(self)
         main_layout.addWidget(frame)
+        
 
         # Events
         self.radio_limit.toggled.connect(self.update_input_fields_visibility)
@@ -204,11 +247,9 @@ class OrderCreationWidget(QWidget):
         self.radio_stop.toggled.connect(self.update_input_fields_visibility)
         self.update_input_fields_visibility()
 
-        self.lbl_binance_input = QLabel("Binance Input Parameters:\n")
-        
-        self.futures_layout.addWidget(self.lbl_binance_input)
-        
         # Connect signals to update lbl_binance_input
+        
+        self.futures_combo.currentTextChanged.connect(self.update_binance_input)
         self.radio_buy.toggled.connect(self.update_binance_input)
         self.radio_sell.toggled.connect(self.update_binance_input)
         self.radio_limit.toggled.connect(self.update_binance_input)
@@ -223,7 +264,7 @@ class OrderCreationWidget(QWidget):
 
 
     def update_binance_input(self):
-        symbol = "YOUR_SYMBOL_HERE"  # Replace this with your actual symbol
+        symbol = self.futures_combo.currentText()  # Replace this with your actual symbol
         side = "BUY" if self.radio_buy.isChecked() else "SELL"
         order_type = "LIMIT" if self.radio_limit.isChecked() else ("MARKET" if self.radio_market.isChecked() else "STOP")
         price = self.input_price.text()
@@ -240,52 +281,5 @@ class OrderCreationWidget(QWidget):
         self.lbl_stop_price.setVisible(self.radio_stop.isChecked())
 
     def place_order(self):
-        if self.btn_buy.isChecked():
-            order_type = "BUY"
-        elif self.btn_sell.isChecked():
-            order_type = "SELL"
-        else:
-            # Neither button selected, show an error or return without doing anything
-            QMessageBox.warning(self, "Warning", "Please select either Buy or Sell!")
-            return
-        if self.sender() == self.btn_buy:
-            order_type = "BUY"
-        else:
-            order_type = "SELL"
+        pass
 
-        if self.radio_limit.isChecked():
-            order_method = "LIMIT"
-        elif self.radio_market.isChecked():
-            order_method = "MARKET"
-        else:
-            order_method = "STOP"
-
-        # Collect common order parameters
-        order_params = {
-            "symbol": self.combo_ticker.currentText(),
-            "side": order_type,
-            "type": order_method,
-            "quantity": float(self.input_qty.text()),
-            "timeInForce": "GTC",
-        }
-
-        # Add price if relevant based on order method
-        if self.input_price.isVisible():
-            order_params["price"] = float(self.input_price.text())
-
-        try:
-            if self.tab_widget.currentIndex() == 1:  # If Futures tab is active
-                # Place a futures order
-                response = UMFutures.new_order(**order_params)
-            else:  # Default to Spot if no tab or the first tab is active
-                # Place a spot order
-                response = Spot.new_order(**order_params)
-
-            logging.info(response)
-
-        except ClientError as error:
-            logging.error(
-                "Found error. status: {}, error code: {}, error message: {}".format(
-                    error.status_code, error.error_code, error.error_message
-                )
-            )
